@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.group.bbs.BBSMapper">
+	<delete id="deleteBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS">
+		delete from erp_bbs	where b_no=#{b_no}
+	</delete>
+	<delete id="deleteBBSReply" parameterType="com.kyle.erp.group.bbs.BBSReply">
+		delete from	erp_bbs_reply where br_no=#{br_no}
+	</delete>
+	<select id="getAllBBSMsgsCount" resultType="java.lang.Integer">
+		select count(*)	from erp_bbs, erp_member where b_owner=m_id
+	</select>
+	<select id="getBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS" resultType="com.kyle.erp.group.bbs.BBS">
+		select *from erp_bbs where b_no=#{b_no}
+	</select>
+	<select id="getBBSMsgs" parameterType="com.kyle.erp.group.bbs.BBSNo" resultType="com.kyle.erp.group.bbs.BBS">
+		select * from (select rownum as rn, b_no, b_owner, b_type,b_title,b_txt, b_date, b_img, m_name, m_photo from (	select * from
+		erp_bbs, erp_member where b_owner=m_id order by	b_date)) where rn &lt;= #{start} and rn &gt;= #{end}
+		order by rn desc
+	</select>
+	<select id="getBBSReplys" parameterType="com.kyle.erp.group.bbs.BBS" resultType="com.kyle.erp.group.bbs.BBSReply">
+		select * from erp_bbs_reply where br_b_no = #{b_no} order by br_date
+	</select>
+	<select id="searchBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS" resultType="com.kyle.erp.group.bbs.BBS">
+		select * from erp_bbs, erp_member where b_owner=m_id and b_owner like '%'||#{b_owner}||'%'
+		order by b_date
+	</select>
+	<update id="updateBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS">
+		update erp_bbs set	b_txt=#{b_txt} where b_no=#{b_no}
+	</update>
+	<insert id="writeBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS">
+		insert into erp_bbs	values(erp_bbs_seq.nextval, #{b_owner},#{b_type},#{b_title},#{b_txt}, sysdate, #{b_img})
+	</insert>
+	<insert id="writeBBSReply" parameterType="com.kyle.erp.group.bbs.BBSReply">
+		insert into	erp_bbs_reply values(erp_bbs_reply_seq.nextval, #{br_b_no},	#{br_owner}, #{br_txt}, sysdate)
+	</insert>
+</mapper>

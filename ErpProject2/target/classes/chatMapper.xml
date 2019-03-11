@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.group.chat.ChatMapper">
+	<select id="getChatListByID" parameterType="com.kyle.erp.group.chat.Chat" resultType="com.kyle.erp.group.chat.Chat">
+		select * from erp_chat where ((fromID=#{fromID} and toID =#{toID}) or (fromID=#{fromID}and toID=#{toID}))and chatID >#{chatID} order by chatTime
+	</select>
+	<select id="getChatListByRecent" parameterType="com.kyle.erp.group.chat.Chat" resultType="com.kyle.erp.group.chat.Chat">
+		select * from erp_chat where ((fromID=#{fromID} and toID =#{toID}) or (fromID=#{fromID}and toID=#{toID}))and chatID > (select Max(chatID) - #{chatID} from erp_chat) order by chatTime
+	</select>
+	<insert id="regChat" parameterType="com.kyle.erp.group.chat.Chat">
+		insert into erp_chat values (erp_chat_seq.nextval,#{fromID},#{toID},#{chatContent},sysdate)
+	</insert>
+</mapper>

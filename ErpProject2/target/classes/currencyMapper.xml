@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.inven.currency.CurrencyMapper">
+	<insert id="regCurrency" parameterType="com.kyle.erp.inven.currency.Currency">
+		insert into erp_currency values(#{cur_no},#{cur_name},#{cur_money},#{cur_note})
+	</insert>
+	<select id="getCurrencyCount" resultType="java.lang.Integer">
+		select count(*) from erp_currency
+	</select>
+	<select id="getCurrency" parameterType="com.kyle.erp.inven.currency.CurrencyNo" resultType="com.kyle.erp.inven.currency.Currency">
+		select * from(select rownum as currencyno,cur_no,cur_name,cur_money,cur_note from (select * from erp_currency order by cur_no))where currencyno &lt;=#{start} and currencyno &gt;= #{end} order by currencyno desc
+	</select>
+	<select id="searchCurrency" parameterType="com.kyle.erp.inven.currency.SearchCurrency" resultType="com.kyle.erp.inven.currency.Currency">
+		select * from erp_currency where ${searchCurrency} like '%'||#{search}||'%'
+	</select>
+	<update id="updateCurrency" parameterType="com.kyle.erp.inven.currency.Currency">
+		update erp_currency set
+		cur_name=#{cur_name},cur_note=#{cur_note},cur_money=#{cur_money}
+		where cur_no=#{cur_no}
+	</update>
+	<delete id="deleteCurrency" parameterType="com.kyle.erp.inven.currency.Currency">
+		delete from erp_currency where cur_no =#{cur_no}
+	</delete>
+</mapper>

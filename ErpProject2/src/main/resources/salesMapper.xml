@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.inven.sales.SalesMapper">
+	<insert id="regSales" parameterType="com.kyle.erp.inven.sales.Sales">
+		insert into erp_sales values(erp_sales_seq.nextval,#{s_date},#{s_cus},#{s_m_id},#{s_con},#{s_cur},#{s_type},#{s_pro_no},#{s_qty},#{s_pro_price},#{s_price},#{s_tax},#{s_sum})
+	</insert>
+	<select id="getSalesCount" resultType="java.lang.Integer">
+		select count(*) from erp_sales
+	</select>
+	<select id="getSales" parameterType="com.kyle.erp.inven.sales.SalesNo" resultType="com.kyle.erp.inven.sales.Sales">
+		select * from(select rownum as salesno,s_no,s_date,s_cus,s_m_id,s_cur,s_type,s_pro_no,s_qty,s_pro_price,s_price,s_tax,s_sum from (select * from erp_sales order by s_no))where salesno &lt;=#{start} and salesno &gt;= #{end} order by salesno desc
+	</select>
+	<select id="searchSales" parameterType="com.kyle.erp.inven.sales.SearchSales" resultType="com.kyle.erp.inven.sales.Sales">
+		select * from erp_sales where ${searchSales} like '%'||#{search}||'%'
+	</select>
+	<update id="updateSales" parameterType="com.kyle.erp.inven.sales.Sales">
+		update erp_sales set
+		s_date=#{s_date},s_cus=#{s_cus},s_m_id=#{s_m_id},s_cur=#{s_cur},s_type=#{s_type},s_pro_no=#{s_pro_no},s_qty=#{s_qty},s_pro_price=#{s_pro_price},s_price=#{s_price},s_tax=#{s_tax},s_sum=#{s_sum}
+		where s_no=#{s_no}
+	</update>
+	<delete id="deleteSales" parameterType="com.kyle.erp.inven.sales.Sales">
+		delete from erp_sales where s_no =#{s_no}
+	</delete>
+</mapper>

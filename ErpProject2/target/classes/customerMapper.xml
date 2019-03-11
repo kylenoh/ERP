@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.inven.customer.CustomerMapper">
+	<insert id="regCustomer" parameterType="com.kyle.erp.inven.customer.Customer">
+		insert into erp_customer values(erp_customer_seq.nextval,#{cus_no},#{cus_name},#{cus_regno},#{cus_owner},#{cus_addr},#{cus_division},#{cus_note})
+	</insert>
+	<select id="getCustomerCount" resultType="java.lang.Integer">
+		select count(*) from erp_customer
+	</select>
+	<select id="getCustomer" parameterType="com.kyle.erp.inven.customer.CustomerNo" resultType="com.kyle.erp.inven.customer.Customer">
+		select * from(select rownum as customerno,cus_no,cus_name,cus_regno,cus_owner,cus_addr,cus_division,cus_note from (select * from erp_customer order by cus_no))where customerno &lt;=#{start} and customerno &gt;= #{end} order by customerno desc
+	</select>
+	<select id="searchCustomer" parameterType="com.kyle.erp.inven.customer.SearchType" resultType="com.kyle.erp.inven.customer.Customer">
+		select * from erp_customer where ${searchType} like '%'||#{search}||'%'
+	</select>
+	<update id="updateCustomer" parameterType="com.kyle.erp.inven.customer.Customer">
+		update erp_customer set
+		cus_name=#{cus_name},cus_regno=#{cus_regno},cus_owner=#{cus_owner},cus_addr=#{cus_addr},cus_division=#{cus_division},cus_note=#{cus_note}
+		where cus_no=#{cus_no}
+	</update>
+	<delete id="deleteCustomer" parameterType="com.kyle.erp.inven.customer.Customer">
+		delete from erp_customer where cus_no =#{cus_no}
+	</delete>
+</mapper>

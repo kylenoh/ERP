@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.inven.container.ContainerMapper">
+	<insert id="regContainer" parameterType="com.kyle.erp.inven.customer.Customer">
+		insert into erp_container values(#{con_no},#{con_name},#{con_note})
+	</insert>
+	<select id="getContainerCount" resultType="java.lang.Integer">
+		select count(*) from erp_container
+	</select>
+	<select id="getContainer" parameterType="com.kyle.erp.inven.container.ContainerNo" resultType="com.kyle.erp.inven.container.Container">
+		select * from(select rownum as containerno,con_no,con_name,con_note from (select * from erp_container order by con_no))where containerno &lt;=#{start} and containerno &gt;= #{end} order by containerno desc
+	</select>
+	<select id="searchContainer" parameterType="com.kyle.erp.inven.container.SearchContainer" resultType="com.kyle.erp.inven.container.Container">
+		select * from erp_container where ${searchContainer} like '%'||#{search}||'%'
+	</select>
+	<update id="updateContainer" parameterType="com.kyle.erp.inven.container.Container">
+		update erp_container set
+		con_name=#{con_name},con_note=#{con_note}
+		where con_no=#{con_no}
+	</update>
+	<delete id="deleteContainer" parameterType="com.kyle.erp.inven.container.Container">
+		delete from erp_container where con_no =#{con_no}
+	</delete>
+</mapper>
