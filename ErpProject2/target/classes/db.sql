@@ -50,16 +50,30 @@ create table erp_sales(
 	s_con varchar2(120 char),
 	s_cur varchar2(120 char),
 	s_type varchar2(100 char),
-	s_pro_no varchar2(120 char),
-	s_qty number(10),
-	s_pro_price number(10,2),
-	s_price number(10,2),
-	s_tax number(10),
-	s_sum number(10,2)
+	s_note varchar2(2048 char)
 );
 create sequence erp_sales_seq;
 select * from erp_sales;
 drop table erp_sales cascade constraint;
+-- --------------------------------------
+create table erp_sub_sales(
+	sb_no number(5)primary key,
+	sb_s_no number(5)not null,
+	sb_pro_no varchar2(120 char),
+	sb_qty number(10),
+	sb_pro_price number(10,2),
+	sb_price number(10,2),
+	sb_tax number(10),
+	sb_sum number(10,2)
+);
+alter table erp_sub_sales add constraint erp_sub_sales_const foreign key(sb_s_no) references erp_sales(s_no) on delete cascade;
+create sequence erp_sub_sales_seq;
+drop table erp_sub_sales cascade constraint;
+insert into erp_sals values(#{s_no},#{s_date},#{s_cus},#{s_m_id},#{s_con},#{s_cur},#{s_type},#{s_pro_no},#{s_qty},#{s_pro_price},#{s_price},#{s_tax},#{s_sum})
+select max(s_no) from erp_sales 
+select * from erp_sub_sales;
+
+
 -- --------------------------------------
 create table erp_division(
 	d_no number(5)not null,
@@ -112,4 +126,7 @@ create sequence erp_bbs_reply_seq;
 select * from erp_bbs_reply;
 
 alter table erp_bbs_reply add constraint erp_bbs_reply_const foreign key(br_b_no) references erp_bbs(b_no) on delete cascade;
+
+
+select * from(select rownum as salesno,s_no,s_date,s_cus,s_m_id,s_cur,s_type,sb_pro_no,sb_qty,sb_pro_price,sb_price,sb_tax,sb_sum from (select * from erp_sales,erp_sub_sales where s_no = sb_s_no order by s_no))where salesno >=1 and salesno <= 2 order by salesno desc
 

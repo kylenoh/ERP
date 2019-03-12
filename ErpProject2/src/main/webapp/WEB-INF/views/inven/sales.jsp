@@ -8,6 +8,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<script type="text/javascript">
+function salesSubmit(){
+	var sq_date = $('#salesDate').val();
+	var sq_cus = $('#customer').val();
+	var sq_m_id = $('#member').val();
+	var sq_con = $('#container').val();
+	var sq_cur = $('#currency').val();
+	var sq_type = $('#division').val();
+	var sq_note = $('#note').val();
+		   var data = {
+				s_date: sq_date,
+				s_cus: sq_cus,
+				s_m_id:sq_m_id,
+				s_con:sq_con,
+				s_cur:sq_cur,
+				s_type:sq_type,
+				s_note:sq_note
+		     };
+		   $.ajax({
+			    url : "sales.regJSON",
+			    type : "GET",
+			    data : data,
+			    success : function(){
+			     alert("성공");
+			    },
+			    error : function(){
+			     alert("실패");
+			    }
+			});
+}
+</script>
 </head>
 <body>
 <section class="container mt-3">
@@ -27,7 +58,7 @@
 		<p>상세설명합니다.</p>
 		<table class="table">
 			<thead>
-				<tr>
+				<tr onclick="getSalesDetail('${i.s_date }','${i.s_cus }','${i.s_m_id }','${i.s_con }','${i.s_cur }','${i.s_type }','${i.sb_pro_no }','${i.sb_qty }','${i.sb_pro_price }','${i.sb_price }','${i.sb_tax }','${i.sb_sum }')">
 					<th></th>
 					<th>전표코드</th>
 					<th>전표일자</th>
@@ -38,17 +69,20 @@
 				</tr>
 			</thead>
 			<c:forEach var="i" items="${sales2 }">
-				<tbody>
-					<tr onclick="getSalesDetail('${i.s_date }','${i.s_cus }','${i.s_m_id }','${i.s_con }','${i.s_cur }','${i.s_type }','${i.s_pro_no }','${i.s_qty }','${i.s_pro_price }','${i.s_price }','${i.s_tax }','${i.s_sum }')">
-						<td><input type="checkbox" class="checked"></td>
-						<td>${i.s_no }</td>
-						<td>${i.s_date }</td>
-						<td>${i.s_cus }</td>
-						<td>${i.s_pro_no }</td>
-						<td>${i.s_sum }</td>
-						<td>${i.s_pro_no }</td>
-					</tr>
-				</tbody>
+				<c:forEach var="j" items="${i.s_subSales }">
+					<tbody>
+						<tr onclick="getSalesDetail('${i.s_date }','${i.s_cus }','${i.s_m_id }','${i.s_con }','${i.s_cur }','${i.s_type }','${j.sb_pro_no }','${j.sb_qty }','${j.sb_pro_price }','${j.sb_price }','${j.sb_tax }','${j.sb_sum }')">
+							<td><input type="checkbox" class="checked"></td>
+							<td>${i.s_no }</td>
+							<td>${i.s_date }</td>
+							<td>${i.s_cus }</td>
+							<td>${j.sb_pro_no }</td>
+							<td>${j.sb_sum }</td>
+							<td>${i.s_note }</td>
+							
+						</tr>
+					</tbody>
+				</c:forEach>
 			</c:forEach>
 		</table>
 		
@@ -194,7 +228,7 @@
 		        </button>
 		      </div>
 		      
-      	<form action="reg.sales" method="post" class="form-horizontal">
+      	<form action="reg.sales" method="post" class="form-horizontal" name="regSaleForm">
 		      <div class="modal-body">
 					<div class="form-group row">
 					    	<label for="salesDate" class="col-sm-1 col-form-label">전표일자</label>
@@ -251,7 +285,14 @@
 									</select>
 					    	</div>
 					</div>
+					<div class="form-row">
+						<label for="note" class="col-sm-1 col-form-label">비고</label>
+						<div class="col-sm-11">
+							<textarea class="form-control" name="s_note" maxlength="1024" style="height:80px;" id="note"></textarea>
+						</div>
+					</div>
 					
+					<div class="container mt-2">
 					<div class="form-group row">
 						<table class="table">
 							<thead>
@@ -268,25 +309,27 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:forEach var="i" begin="1" end="4">
 									<tr>
-										<td><input class="form-control" value="1"></td>
-										<td><input class="form-control s_pro_no " id ="s_pro_no" name="s_pro_no" ></td>
-										<td><input class="form-control s_pro_name" id ="s_pro_name" readonly="readonly"></td>
-										<td><input class="form-control s_pro_unit" id ="s_pro_unit" readonly="readonly"></td>
-										<td><input class="form-control s_qty QtyJS" id ="s_qty" name="s_qty"></td>
-										<td><input class="form-control s_pro_price" id ="s_pro_price" name="s_pro_price"></td>
-										<td><input class="form-control s_price" id ="s_price" name="s_price"></td>
-										<td><input class="form-control s_tax" id ="s_tax" name="s_tax"></td>
-										<td><input class="form-control s_sum" id ="s_sum" name="s_sum"></td>
+										<td><input class="form-control" value="${i }"></td>
+										<td><input class="form-control s_pro_no ConnectJS" id ="s_pro_no${i }" name="sb_pro_no" ></td>
+										<td><input class="form-control s_pro_name" id ="s_pro_name${i }" readonly="readonly"></td>
+										<td><input class="form-control s_pro_unit" id ="s_pro_unit${i }" readonly="readonly"></td>
+										<td><input class="form-control s_qty QtyJS" id ="s_qty${i }" name="sb_qty"></td>
+										<td><input class="form-control s_pro_price" id ="s_pro_price${i }" name="sb_pro_price"></td>
+										<td><input class="form-control s_price" id ="s_price${i }" name="sb_price"></td>
+										<td><input class="form-control s_tax" id ="s_tax${i }" name="sb_tax"></td>
+										<td><input class="form-control s_sum" id ="s_sum${i }" name="sb_sum"></td>
 									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 		       </div>
-
+			</div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" id="salesReg" class="btn btn-primary">Save</button>
+		        <button type="button" id="salesReg" class="btn btn-primary" onclick="salesSubmit();">Save</button>
 		      </div>
 			</form>
         

@@ -91,10 +91,13 @@ public class BBSDAO {
 			}
 			req.setAttribute("msgs", msgs);
 		} else if (allBBSCount > 0) {
+			
 			int pageCount = (int) Math.ceil(allBBSCount / count);
 			req.setAttribute("pageCount", pageCount);
+			
 			int start = (allBBSCount - ((pageNo - 1) * (int) count));
 			int end = (pageNo == pageCount) ? 1 : (start - ((int) count - 1));
+			
 			BBSNo bmn = new BBSNo(new BigDecimal(start), new BigDecimal(end));
 			List<BBS> msgs = ss.getMapper(BBSMapper.class).getBBSMsgs(bmn);
 			for (BBS bm : msgs) {

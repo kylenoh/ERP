@@ -18,11 +18,19 @@ public class SalesDAO {
 	
 	@Autowired SqlSession ss;
 	
-	public void regSales(Sales sales,HttpServletRequest req,HttpServletResponse res){
+	public void regSales(Sales sales,SubSales subsales,HttpServletRequest req,HttpServletResponse res){
 		try {
 			if (ss.getMapper(SalesMapper.class).regSales(sales)==1) {
+				regSubSales(subsales, req, res);
 				SalesCount++;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void regSubSales(SubSales subsales,HttpServletRequest req,HttpServletResponse res){
+		try {
+				ss.getMapper(SalesMapper.class).regSubSales(subsales);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,6 +79,9 @@ public class SalesDAO {
 			SalesNo salesno = new SalesNo(new BigDecimal(start),new BigDecimal(end));
 
 			List<Sales>Saleses = ss.getMapper(SalesMapper.class).getSales(salesno);
+			for (Sales sales : Saleses) {
+				sales.setS_subSales(ss.getMapper(SalesMapper.class).getSubSales(sales));
+			}
 			req.setAttribute("sales2", Saleses);
 		}
 	}
@@ -103,6 +114,16 @@ public class SalesDAO {
 		List<Sales>c1 = ss.getMapper(SalesMapper.class).getSales(salesno);
 		Saleses c2 = new Saleses(c1);
 		return c2;
-}
-	
+	}
+	public String regJSON(Sales sales) {
+		try {
+			if (ss.getMapper(SalesMapper.class).regSales(sales)==1) {
+				return "{\"result\":1}";
+			}
+			return "{\"result\":0}";
+			
+		} catch (Exception e) {
+			return "{\"result\":0}";
+		}
+	}
 }
