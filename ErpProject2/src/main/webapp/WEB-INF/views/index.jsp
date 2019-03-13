@@ -37,7 +37,7 @@ $(function(){
 			    <c:choose>
 			        <c:when test="${loginMember!=null}">
 			            <div class="col-3 d-flex justify-content-end align-items-center">
-			            	<img src="resources/file/${loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
+			            	<img src="resources/file/${loginMember.m_photo }" class="rounded" style="max-width: 40px;">
         						<a class="btn btn-sm btn-outline-secondary mx-1" href="member.update.go">My Page</a>
         					<a class="btn btn-sm btn-outline-secondary" href="member.logout">Log Out</a>
 						</div>
@@ -71,7 +71,13 @@ $(function(){
 					<a class="nav-link" href="go.product">품목관리</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="go.chat">재무관리</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="go.bbs">게시판</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="go.chat">그룹웨어</a>
 				</li>
 			</ul>
 		</div>
@@ -80,13 +86,10 @@ $(function(){
 
 	<jsp:include page="${contentPage }"></jsp:include>
 
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-	    <div class="container text-center">
-	      <small>Copyright &copy; 2019 Kyle All Rights Reserved.</small>
-	      <br>
-	      <small><a href="#">Back to top</a></small>
-	    </div>
-  	</footer>
+	<footer class="footer">
+		<p class="text-muted">Copyright &copy; 2019 Kyle All Rights Reserved.</p>
+		<p><a href="#">Back to top</a></p>
+	</footer>
 	
 	
 </body>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kyle.erp.group.bbs.BBSDAO;
 import com.kyle.erp.inven.container.ContainerDAO;
 import com.kyle.erp.inven.currency.CurrencyDAO;
 import com.kyle.erp.inven.customer.CustomerDAO;
@@ -25,7 +24,6 @@ public class HomeController {
 	@Autowired CurrencyDAO CURDAO;
 	@Autowired SalesDAO SDAO;
 	@Autowired MemberDAO MDAO;
-	@Autowired BBSDAO BDAO;
 	
 	private boolean firstReq;
 	
@@ -41,7 +39,6 @@ public class HomeController {
 			CONDAO.getContainerCount(req, res);
 			CURDAO.getCurrencyCount(req, res);
 			SDAO.getSalesCount(req, res);
-			BDAO.getAllMsgsCount(req, res);
 			firstReq = false;
 		}
 		

@@ -81,7 +81,7 @@
 				</p>
 			</div>
 		</div>
-		
+
 		<aside class="col-md-4 sidebar">
 			<div class="p-4 mb-3 bg-light rounded">
 				<h4 class="font-italic">About</h4>
