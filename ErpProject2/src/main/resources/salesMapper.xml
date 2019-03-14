@@ -2,23 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.inven.sales.SalesMapper">
 	<insert id="regSales" parameterType="com.kyle.erp.inven.sales.Sales">
-		insert into erp_sales values(erp_sales_seq.nextval,#{s_date},#{s_cus},#{s_m_id},#{s_con},#{s_cur},#{s_type},#{s_note})
+		insert into erp_sales values(erp_sales_seq.nextval,#{s_date},#{s_cus},#{s_m_id},#{s_con},#{s_cur},#{s_type},#{s_pro_no},#{s_qty},#{s_pro_price},#{s_price},#{s_tax},#{s_sum})
 	</insert>
-	<insert id="regSubSales" parameterType="com.kyle.erp.inven.sales.SubSales">
-		insert into erp_sub_sales values(erp_sub_sales_seq.nextval,erp_sales_seq.currval,#{sb_pro_no},#{sb_qty},#{sb_pro_price},#{sb_price},#{sb_tax},#{sb_sum})
-	</insert>
-	
 	<select id="getSalesCount" resultType="java.lang.Integer">
 		select count(*) from erp_sales
 	</select>
 	<select id="getSales" parameterType="com.kyle.erp.inven.sales.SalesNo" resultType="com.kyle.erp.inven.sales.Sales">
-		select * from(select rownum as salesno,s_no,s_date,s_cus,s_m_id,s_cur,s_type,s_note from (select * from erp_sales order by s_no))where salesno &lt;=#{start} and salesno &gt;= #{end} order by salesno desc
+		select * from(select rownum as salesno,s_no,s_date,s_cus,s_m_id,s_cur,s_type,s_pro_no,s_qty,s_pro_price,s_price,s_tax,s_sum from (select * from erp_sales order by s_no))where salesno &lt;=#{start} and salesno &gt;= #{end} order by salesno desc
 	</select>
-	<select id="getSubSales" parameterType="com.kyle.erp.inven.sales.Sales" resultType="com.kyle.erp.inven.sales.SubSales">
-		select sb_pro_no,mino as sb_no,pCount as sb_pro_count ,pSum as sb_sum from erp_sub_sales ,
-(select sb_s_no,min(sb_no) as mino,count(sb_pro_no)-1 as pCount,sum(sb_sum) as pSum from erp_sub_sales where sb_s_no = #{s_no} group by sb_s_no ) where mino = sb_no
-	</select>
-	
 	<select id="searchSales" parameterType="com.kyle.erp.inven.sales.SearchSales" resultType="com.kyle.erp.inven.sales.Sales">
 		select * from erp_sales where ${searchSales} like '%'||#{search}||'%'
 	</select>
