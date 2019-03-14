@@ -24,13 +24,9 @@ public class SalesController {
 		DateManager.getToday(req, res);
 		return "index";
 	}
-	@RequestMapping(value = "/reg.sales", method = RequestMethod.POST)
-	public String regSales(Sales sales,HttpServletRequest req,HttpServletResponse res) {
-		//파라미터 개수를 세서 count 변수를 만들어서 if문에서 값이 있을 때 1씩 증가 시켜서
-		//객체 생성
-		//포문이나 와일문으로 반복을
-		//아래에 잇는 함수들들 그 개수 실행
-		SDAO.regSales(sales, req, res);
+	@RequestMapping(value = "/reg.sales", method = RequestMethod.GET)
+	public String regSales(HttpServletRequest req,HttpServletResponse res) {
+		SDAO.clearSearch(req, res);
 		SDAO.paging(1, req, res);
 		req.setAttribute("contentPage", "inven/sales.jsp");
 		return "index";
@@ -78,5 +74,13 @@ public class SalesController {
 	public @ResponseBody Saleses pageChangeSales(Sales sales,HttpServletRequest req) {
 		int pageNo = Integer.parseInt(req.getParameter("c"));
 		return SDAO.pagingSalesJSON(pageNo, sales);
+	}
+	@RequestMapping(value = "/sales.regJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody String salesRegJSON(Sales sales) {
+		return SDAO.regJSON(sales);  
+	}
+	@RequestMapping(value = "/sales.regSubJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody String salesRegSubJSON(SubSales subsales) {
+		return SDAO.regSubJSON(subsales);  
 	}
 }
