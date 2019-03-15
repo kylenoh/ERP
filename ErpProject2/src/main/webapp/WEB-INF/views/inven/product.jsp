@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +46,8 @@
 						<td>${i.pro_name }</td>
 						<td>${i.pro_unit }</td>
 						<td>${i.pro_weight }</td>
-						<td>${i.pro_buy }</td>
-						<td>${i.pro_sell }</td>
+						<td><fmt:formatNumber value="${i.pro_buy }" pattern="#,###" /></td>
+						<td><fmt:formatNumber value="${i.pro_sell }" pattern="#,###" /></td>
 						<td>${i.pro_note }</td>
 					</tr>
 				</tbody>
@@ -55,11 +56,19 @@
 		
 		<nav aria-label="Page navigation">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			   <li class="page-item">
+				   	<c:if test="${curPage != 1 && curPage != null}">
+						<a href="Productpage.change?p=${curPage-1 }" class="page-link">Previous</a>
+					</c:if>
+				</li>
 			    <c:forEach var="z" begin="1" end="${pageCount }">
 			    	<li class="page-item"><a class="page-link" href="Productpage.change?p=${z }">${z }</a></li>
 			    </c:forEach>  
-			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			    <li class="page-item">
+			    <c:if test="${curPage != pageCount }">
+					<a href="Productpage.change?p=${curPage+1 }" class="page-link">Next</a>
+				</c:if>
+			    </li>
 			  </ul>
 		</nav>
 		

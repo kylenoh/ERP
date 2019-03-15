@@ -9,7 +9,7 @@
 </head>
 <body>
 <section class="container mt-3" style="max-width:560px;">
-	<form method="post" action="reg.member" enctype="multipart/form-data" name="joinForm" onsubmit="return joinCheck();">
+	<form method="post" action="reg.member" enctype="multipart/form-data" name="joinForm" onsubmit="return calculateQty2();">
 		<div class="form-group">
 			<label>아이디</label>
 			<div class="input-group mb-3">

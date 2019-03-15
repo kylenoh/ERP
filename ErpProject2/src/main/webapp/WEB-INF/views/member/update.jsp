@@ -54,7 +54,7 @@
 		</div>
 		<div class="form-group">
 			<label>프로필</label>
-			<img src="resources/file/${sessionScope.loginMember.m_photo }" class="rounded" style="max-width: 40px;">
+			<img src="resources/file/${sessionScope.loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
 			<input type="file" name="m_photo" class="form-control" autocomplete="off">
 		</div>
 		<div class="form-group">

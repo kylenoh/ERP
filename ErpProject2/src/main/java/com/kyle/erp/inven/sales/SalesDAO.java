@@ -18,16 +18,6 @@ public class SalesDAO {
 	
 	@Autowired SqlSession ss;
 	
-	public void regSales(Sales sales,HttpServletRequest req,HttpServletResponse res){
-		try {
-			if (ss.getMapper(SalesMapper.class).regSales(sales)==1) {
-				SalesCount++;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void deleteSales(Sales sales,HttpServletRequest req,HttpServletResponse res){
 		ss.getMapper(SalesMapper.class).deleteSales(sales);
 		SalesCount--;
@@ -48,16 +38,20 @@ public class SalesDAO {
 			int pageCount = (int) Math.ceil(searchSales.size()/count);
 			req.setAttribute("pageCount", pageCount);
 			
-			int start = (searchSales.size() - ((pageNo - 1) * (int) count));
+			int start = (searchSales.size() - ((pageNo - 1) * (int) count));  
 			int end = (pageNo == pageCount) ? 1 : (start - ((int) count - 1));
-			
-			ArrayList<Sales>Saleses = new ArrayList<Sales>();
-			Sales p = null;
+			////////////////////////////////////////////////////
+			ArrayList<Sales>Saleses = new ArrayList<Sales>(); //배열만들기
+			Sales p = null;		// 안에 내용을 p
 
 			for (int i = start - 1; i >= end - 1; i--) {
 				p = searchSales.get(i);
 				Saleses.add(p);
 			}
+			for (Sales sales : Saleses) {
+				sales.setS_subSales(ss.getMapper(SalesMapper.class).getSubSales(sales));
+			}
+			
 			req.setAttribute("sales2", Saleses);
 
 		}else if (SalesCount >0) {
@@ -71,13 +65,17 @@ public class SalesDAO {
 			SalesNo salesno = new SalesNo(new BigDecimal(start),new BigDecimal(end));
 
 			List<Sales>Saleses = ss.getMapper(SalesMapper.class).getSales(salesno);
+			for (Sales sales : Saleses) {
+				sales.setS_subSales(ss.getMapper(SalesMapper.class).getSubSales(sales));
+			}
 			req.setAttribute("sales2", Saleses);
 		}
 	}
 	
-	public void searchCurrency(SearchSales s,HttpServletRequest req,HttpServletResponse res){
+	public void searchSales(SearchSales s,HttpServletRequest req,HttpServletResponse res){
 		List<Sales>searchSales = ss.getMapper(SalesMapper.class).searchSales(s);
 		req.getSession().setAttribute("searchSales", searchSales);
+		
 	}
 	
 	public void clearSearch(HttpServletRequest req, HttpServletResponse res){
@@ -103,6 +101,57 @@ public class SalesDAO {
 		List<Sales>c1 = ss.getMapper(SalesMapper.class).getSales(salesno);
 		Saleses c2 = new Saleses(c1);
 		return c2;
-}
+	}
+	public SubSaleses getDetailSales(SubSales subsales){
+		List<SubSales>s1 = ss.getMapper(SalesMapper.class).getSubDetail(subsales);
+		SubSaleses s2 = new SubSaleses(s1);
+		return s2;
+	}
 	
+	public String regJSON(Sales sales) {
+		try {
+			if (ss.getMapper(SalesMapper.class).regSales(sales)==1) {
+				SalesCount++;
+				return "{\"result\":1}";
+			}
+			return "{\"result\":0}";
+			
+		} catch (Exception e) {
+			return "{\"result\":0}";
+		}
+	}
+	public String regSubJSON(SubSales subsales) {
+		try {
+			if (ss.getMapper(SalesMapper.class).regSubSales(subsales)==1) {
+				return "{\"result\":1}";
+			}
+			return "{\"result\":0}";
+			
+		} catch (Exception e) {
+			return "{\"result\":0}";
+		}
+	}
+	
+	public String updateJSON(Sales sales) {
+		try {
+			if (ss.getMapper(SalesMapper.class).updateSales(sales)==1) {
+				return "{\"result\":1}";
+			}
+			return "{\"result\":0}";
+			
+		} catch (Exception e) {
+			return "{\"result\":0}";
+		}
+	}
+	public String updateSubJSON(SubSales subsales) {
+		try {
+			if (ss.getMapper(SalesMapper.class).updateSubSales(subsales)==1) {
+				return "{\"result\":1}";
+			}
+			return "{\"result\":0}";
+			
+		} catch (Exception e) {
+			return "{\"result\":0}";
+		}
+	}
 }

@@ -36,11 +36,11 @@
 			</thead>
 			<c:forEach var="i" items="${currencys }">
 				<tbody>
-					<tr onclick="getCurrencyDetail('${i.cur_no }','${i.cur_name }','${i.cur_note }')">
+					<tr onclick="getCurrencyDetail('${i.cur_no }','${i.cur_name }','${i.cur_money }','${i.cur_note }')">
 						<td><input type="checkbox" class="checked" value="${i.cur_no }" ></td>
 						<td>${i.cur_no }</td>
 						<td>${i.cur_name }</td>
-						<td>${i.cur_name }</td>
+						<td>${i.cur_money }</td>
 						<td>${i.cur_note }</td>
 					</tr>
 				</tbody>
@@ -49,11 +49,19 @@
 		
 		<nav aria-label="Page navigation">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			  	<li class="page-item">
+				   	<c:if test="${curPage != 1 && curPage != null}">
+						<a href="Currencypage.change?p=${curPage-1 }" class="page-link">Previous</a>
+					</c:if>
+				</li>
 			    <c:forEach var="z" begin="1" end="${pageCount }">
 			    	<li class="page-item"><a class="page-link" href="Currencypage.change?p=${z }">${z }</a></li>
 			    </c:forEach>  
-			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			    <li class="page-item">
+			    <c:if test="${curPage != pageCount }">
+					<a href="Currencypage.change?p=${curPage+1 }" class="page-link">Next</a>
+				</c:if>
+			    </li>
 			  </ul>
 		</nav>
 		
@@ -79,6 +87,10 @@
 						<div class="form-group">
 							<label>환율명</label>
 							<input type="text" name="cur_name" class="form-control" maxlength="30">
+						</div>
+						<div class="form-group">
+							<label>매매기준윺</label>
+							<input type="text" name="cur_money" class="form-control" maxlength="30">
 						</div>
 						<div class="form-group">
 							<label>비고</label>
@@ -114,6 +126,10 @@
 						<div class="form-group">
 							<label>환율명</label>
 							<input type="text" name="cur_name" class="form-control" maxlength="30" id="d_name">
+						</div>
+						<div class="form-group">
+							<label>매매기준윺</label>
+							<input type="text" name="cur_money" class="form-control" maxlength="30" id="d_money">
 						</div>
 						<div class="form-group">
 							<label>비고</label>

@@ -13,6 +13,8 @@ public class SubSales {
 	private BigDecimal sb_sum;
 	
 	private String sb_pro_count;
+	private String pro_name;
+	private String pro_unit;
 	
 	
 	public SubSales() {
@@ -21,7 +23,8 @@ public class SubSales {
 
 
 	public SubSales(BigDecimal sb_no, BigDecimal sb_s_no, String sb_pro_no, BigDecimal sb_qty, BigDecimal sb_pro_price,
-			BigDecimal sb_price, BigDecimal sb_tax, BigDecimal sb_sum, String sb_pro_count) {
+			BigDecimal sb_price, BigDecimal sb_tax, BigDecimal sb_sum, String sb_pro_count, String pro_name,
+			String pro_unit) {
 		super();
 		this.sb_no = sb_no;
 		this.sb_s_no = sb_s_no;
@@ -32,6 +35,8 @@ public class SubSales {
 		this.sb_tax = sb_tax;
 		this.sb_sum = sb_sum;
 		this.sb_pro_count = sb_pro_count;
+		this.pro_name = pro_name;
+		this.pro_unit = pro_unit;
 	}
 
 
@@ -125,5 +130,26 @@ public class SubSales {
 	}
 
 
+	public String getPro_name() {
+		return pro_name;
+	}
+
+
+	public void setPro_name(String pro_name) {
+		this.pro_name = pro_name;
+	}
+
+
+	public String getPro_unit() {
+		return pro_unit;
+	}
+
+
+	public void setPro_unit(String pro_unit) {
+		this.pro_unit = pro_unit;
+	}
+
+
+	
 	
 }

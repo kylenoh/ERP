@@ -39,7 +39,6 @@ public class CustomerController {
 	public String searchCustomer(SearchType s,HttpServletRequest req, HttpServletResponse res) {
 		CDAO.searchCustomer(s, req, res);
 		CDAO.paging(1, req, res);
-		CDAO.clearSearch(req, res);
 		req.setAttribute("contentPage", "inven/customer.jsp");
 		return "index";
 	}

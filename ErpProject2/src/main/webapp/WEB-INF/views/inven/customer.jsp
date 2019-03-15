@@ -56,11 +56,19 @@
 		
 		<nav aria-label="Page navigation">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			  	<li class="page-item">
+				   	<c:if test="${curPage != 1 && curPage != null}">
+						<a href="Customerpage.change?p=${curPage-1 }" class="page-link">Previous</a>
+					</c:if>
+				</li>
 			    <c:forEach var="z" begin="1" end="${pageCount }">
 			    	<li class="page-item"><a class="page-link" href="Customerpage.change?p=${z }">${z }</a></li>
 			    </c:forEach>  
-			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			    <li class="page-item">
+			    <c:if test="${curPage != pageCount }">
+					<a href="Customerpage.change?p=${curPage+1 }" class="page-link">Next</a>
+				</c:if>
+			    </li>
 			  </ul>
 		</nav>
 		

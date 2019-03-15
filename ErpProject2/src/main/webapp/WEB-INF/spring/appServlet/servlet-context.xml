@@ -43,6 +43,7 @@
 		<beans:property name="typeAliasesPackage" value="com.kyle.erp" />
 		<beans:property name="mapperLocations">
 			<beans:list>
+				<beans:value>classpath:bbsMapper.xml</beans:value>
 				<beans:value>classpath:memberMapper.xml</beans:value>
 				<beans:value>classpath:customerMapper.xml</beans:value>
 				<beans:value>classpath:currencyMapper.xml</beans:value>
