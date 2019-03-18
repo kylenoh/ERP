@@ -552,8 +552,16 @@ function salesUpdate(){
 			     
 			    }
 			});
-   
-		   
+}
+function goInvoice(){
+	location.href="go.invoice";
+}
+function printInvoice(){
+	Popup($('.invoice')[0].outerHTML);
+	function Popup(data){
+	  window.print();
+	  return true;
+	}
 }
 
 

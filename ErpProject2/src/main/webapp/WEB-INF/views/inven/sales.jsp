@@ -8,9 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 <section class="container mt-3">
@@ -24,7 +21,7 @@
 		<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal-xl">등록하기</a> 
 		<a class="btn btn-success mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
 	</form>
-	
+	<canvas id="myChart" width="300" height="200"></canvas>
 	<div class="container mt-4">
 		<h2>구매관리</h2>
 		<p>상세설명합니다.</p>
@@ -128,7 +125,7 @@
 					    	<label for="container" class="col-sm-1 col-form-label">출하창고</label>
 					    	<div class="col-sm-5">
 					      		<div class="input-group mb-3">
-									<input type="text" class="form-control" id="container" placeholder="Choose your Container" aria-describedby="button-addon2" name="s_con" tabindex=4>
+									<input type="text" class="form-control container" id="container" placeholder="Choose your Container" aria-describedby="button-addon2" name="s_con" tabindex=4>
 									  <div class="input-group-append">
 									 	   <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-toggle="modal" data-target=".SelectContainer-modal-lg" onclick="findContainer()"><i class="fas fa-search"></i></button>
 									  </div>
@@ -324,6 +321,7 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteSales()">삭제</button>
+				<button type="button" class="btn btn-success my-2 my-sm-0" onclick="goInvoice()">Invoice 출력</button>
 				<button type="button" class="btn btn-primary" onclick="salesUpdate();">수정</button>
 		      </div>
 			</form>
@@ -502,6 +500,8 @@
     </div>
   </div>
 </div>	
+	
+	
 	
 </body>
 </html>

@@ -16,79 +16,94 @@
 <script type="text/javascript" src="resources/js/validCheck.js"></script>
 <script type="text/javascript" src="resources/js/check.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
+<script type="text/javascript" src="resources/js/chart.js"></script>
 <script type="text/javascript">
 $(function(){
 		connectSummonAddrInputEvent();
 		connectIdCheckEvent();
 		sales();
 		sales2();
+		
+		var data = {
+				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
+				datasets: [
+					{
+						label: "My First dataset",
+						fillColor: "rgba(150,200,250,0.5)",
+						strokeColor: "rgba(150,200,250,0.8)",
+						highlightFill: "rgba(150,200,250,0.75)",
+						highlightStroke: "rgba(150,200,250,1)",
+						data: [65, 59, 80, 81, 56, 55]
+					}
+				]
+			};
+			var options = {	animation: false };
+			var ctx = $('#myChart').get(0).getContext('2d');
+			var myBarChart = new Chart(ctx).Bar(data, options);
 });
 </script>
 
 </head>
 <body>
-	<div class="container">
-		<header class="header py-3">
-			<div
-				class="row flex-nowrap justify-content-between align-items-center">
-				<div class="col-4 pt-1">
-					<a class="header-logo text-dark" href="go.index">Cooperation Project</a>
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="go.index">Cooperation Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="go.sales">구매관리<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="go.customer">고객관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="go.product">품목관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="go.bbs">게시판</a>
+        </li>
+        <li class="nav-item dropdown">
+			<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"	aria-expanded="false">기초등록 </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="go.company">자사관리</a>
+					<a class="dropdown-item" href="go.container">창고관리</a> 
+					<a class="dropdown-item" href="go.currency">환율관리</a>
 				</div>
-			    <c:set var="result" value="${loginMember}" scope="session"/>
-			    <c:choose>
-			        <c:when test="${loginMember!=null}">
-			            <div class="col-3 d-flex justify-content-end align-items-center">
-			            	<img src="resources/file/${loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
-        						<a class="btn btn-sm btn-outline-secondary mx-1" href="member.update.go">My Page</a>
-        					<a class="btn btn-sm btn-outline-secondary" href="member.logout">Log Out</a>
-						</div>
-			        </c:when>         
-			        <c:otherwise>
-			            <div class="col-3 d-flex justify-content-end align-items-center">
-        					<a class="btn btn-sm btn-outline-secondary" href="go.member">Login</a>
-						</div>
-			         </c:otherwise>
-			    </c:choose>
-			</div>
-		</header>
-	<nav class="navbar navbar-expand-lg justify-content-between d-flex">
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown">
-					<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">기초등록 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="go.container">창고관리</a> 
-						<a class="dropdown-item" href="go.currency">환율관리</a>
-					</div></li>
-				
-				<li class="nav-item">
-					<a class="nav-link" href="go.sales">구매관리<span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="go.customer">고객관리</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="go.product">품목관리</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="go.bbs">게시판</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-</div>
+		</li>
+      </ul>
+      		<c:set var="result" value="${loginMember}" scope="session"/>
+			<c:choose>
+				<c:when test="${loginMember!=null}">
+			       <div class="col-3 d-flex justify-content-end align-items-center">
+			    		<img src="resources/file/${loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
+        				<a class="btn btn-outline-success my-2 my-sm-0 mx-1" href="member.update.go">My Page</a>
+        				<a class="btn btn-outline-success my-2 my-sm-0" href="member.logout">Log Out</a>
+					</div>
+			    </c:when>         
+		    <c:otherwise>
+		        <div class="col-3 d-flex justify-content-end align-items-center">
+        			<a class="btn btn-outline-success my-2 my-sm-0" href="go.member">Login</a>
+				</div>
+			</c:otherwise>
+			</c:choose>
+    </div>
+  </nav>
+</header>
 
+<main role="main">
 	<jsp:include page="${contentPage }"></jsp:include>
 
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+	<footer class="bd-footer">
 	    <div class="container text-center">
-	      <small>Copyright &copy; 2019 Kyle All Rights Reserved.</small>
+	      <small class="text-muted">Copyright &copy; 2019 Kyle All Rights Reserved.</small>
 	      <br>
-	      <small><a href="#">Back to top</a></small>
+	      <small class="text-muted"><a href="#">Back to top</a></small>
 	    </div>
   	</footer>
-	
-	
+</main>
 </body>
 </html>

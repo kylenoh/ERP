@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.company.CompanyMapper">
+	<insert id="regCompany" parameterType="com.kyle.erp.company.Company">
+		insert into erp_member values(#{com_name},#{com_no},#{com_email},#{com_tel},#{com_addr},#{com_logo},#{com_ename},#{com_etel},#{com_eaddr})
+	</insert>
+</mapper>

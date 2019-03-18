@@ -25,6 +25,12 @@ public class SalesController {
 		DateManager.getToday(req, res);
 		return "index";
 	}
+	@RequestMapping(value = "/go.invoice", method = RequestMethod.GET)
+	public String goInvoice(HttpServletRequest req,HttpServletResponse res) {
+		req.setAttribute("contentPage", "inven/invoice.jsp");
+		DateManager.getToday(req, res);
+		return "index";
+	}
 	@RequestMapping(value = "/reg.sales", method = RequestMethod.GET)
 	public String regSales(HttpServletRequest req,HttpServletResponse res) {
 		SDAO.clearSearch(req, res);
