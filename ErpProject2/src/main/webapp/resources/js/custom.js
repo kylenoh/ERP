@@ -553,9 +553,12 @@ function salesUpdate(){
 			    }
 			});
 }
+
 function goInvoice(){
-	location.href="go.invoice";
+	var d_no = $('#d_no').val();
+	location.href="go.invoice?d_no="+d_no;
 }
+
 function printInvoice(){
 	Popup($('.invoice')[0].outerHTML);
 	function Popup(data){

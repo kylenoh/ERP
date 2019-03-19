@@ -161,7 +161,6 @@ public class MemberDAO {
 	public void update(Member m, HttpServletRequest req) {
 		MultipartRequest mr = null;
 		String path = req.getSession().getServletContext().getRealPath("resources/file");
-		System.out.println(path);
 		try {
 			mr = new MultipartRequest(req, path, 50 * 1024 * 1024, "utf-8", new DefaultFileRenamePolicy());
 		} catch (Exception e) {

@@ -23,6 +23,12 @@
 		select sb_no,sb_pro_no,mino as sb_no,pCount as sb_pro_count ,pSum as sb_sum from erp_sub_sales ,
 		(select sb_s_no,min(sb_no) as mino,count(sb_pro_no)-1 as pCount,sum(sb_sum) as pSum from erp_sub_sales where sb_s_no = #{s_no} group by sb_s_no ) where mino = sb_no
 	</select>
+	<select id="getSalesVal" parameterType="com.kyle.erp.inven.sales.Sales" resultType="com.kyle.erp.inven.sales.Sales">
+		select * from erp_sales where s_no = #{s_no}
+	</select>
+	<select id="getSubSalesVal" parameterType="com.kyle.erp.inven.sales.Sales" resultType="com.kyle.erp.inven.sales.SubSales">
+		select * from erp_sub_Sales inner join erp_product on erp_sub_Sales.sb_pro_no = erp_product.pro_no where sb_s_no = #{s_no}
+	</select>
 	
 	<select id="searchSales" parameterType="com.kyle.erp.inven.sales.SearchSales" resultType="com.kyle.erp.inven.sales.Sales">
 		select * from erp_sales where ${searchSales} like '%'||#{search}||'%'

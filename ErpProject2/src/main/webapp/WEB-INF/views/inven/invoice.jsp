@@ -48,12 +48,12 @@
                         <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
                     </div>
                     <div class="col invoice-details">
-                        <h1 class="invoice-id">INVOICE 3-2-1</h1>
-                        <div class="date">Date of Invoice: 01/10/2018</div>
-                        <div class="date">Due Date: 30/10/2018</div>
+                        <h1 class="invoice-id">INVOICE ${salesVal.s_no}</h1>
+                        <div class="date">Date of Invoice: ${d}/${m}/${y}</div>
+                        <div class="date">Due Date: ${d}/${m}/${y}</div>
                     </div>
                 </div>
-                <table border="0" cellspacing="0" cellpadding="0">
+                <table style="border=0; cellspacing=0; cellpadding=0;">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -65,40 +65,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="no">01</td>
-                            <td class="text-left">
-                                <h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity
-                            </td>
-                            <td class="hscode">xx</td>
-                            <td class="qty">100</td>
-                            <td class="unit">$0.00</td>
-                            <td class="total">$0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">02</td>
-                            <td class="text-left"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                            <td class="hscode">xx</td>
-                            <td class="qty">30</td>
-                            <td class="unit">$40.00</td>
-                            <td class="total">$1,200.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">03</td>
-                            <td class="text-left"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                            <td class="hscode">xx</td>
-                            <td class="qty">80</td>
-                            <td class="unit">$40.00</td>
-                            <td class="total">$3,200.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">04</td>
-                            <td class="text-left"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                            <td class="hscode">xx</td>
-                            <td class="qty">20</td>
-                            <td class="unit">$40.00</td>
-                            <td class="total">$800.00</td>
-                        </tr>
+                    	<c:forEach var="i" items="${salesVal.s_subSales}">
+		                        <tr>
+		                            <td class="no"></td>
+		                            <td class="text-left">
+		                                <h3>${i.sb_pro_no }</h3>${i.pro_name }&nbsp;&nbsp;${i.pro_unit } 
+		                            </td>
+		                            <td class="hscode">xx</td>
+		                            <td class="qty"><fmt:formatNumber value="${i.sb_qty }" pattern="#,###" /></td>
+		                            <td class="unit"><fmt:formatNumber value="${i.sb_pro_price }" pattern="#,###" /></td>
+		                            <td class="total"><fmt:formatNumber value="${i.sb_sum }" pattern="#,###" /></td>
+		                        </tr>
+		                  </c:forEach>
                     </tbody>
                     <tfoot>
                         <tr>

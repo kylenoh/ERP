@@ -143,4 +143,4 @@ create table erp_company(
 	com_eaddr varchar2(100 char)
 );
 
-
+select * from erp_sub_sales where sb_s_no = 145

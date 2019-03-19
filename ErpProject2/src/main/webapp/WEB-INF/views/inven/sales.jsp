@@ -21,7 +21,6 @@
 		<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal-xl">등록하기</a> 
 		<a class="btn btn-success mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
 	</form>
-	<canvas id="myChart" width="300" height="200"></canvas>
 	<div class="container mt-4">
 		<h2>구매관리</h2>
 		<p>상세설명합니다.</p>
@@ -303,10 +302,10 @@
 									<input class="form-control s_no" id ="d_sb_no${i }" name="s_no" autocomplete="off" hidden="">
 									<tr>
 										<td><input class="form-control DetailNo" value="${i }"></td>
-										<td><input class="form-control s_pro_no${i } ConnectJS2" id ="d_pro_no${i }" name="s_pro_no" autocomplete="off" tabindex=8></td>
-										<td><input class="form-control s_pro_name${i }" id ="d_pro_name${i }" readonly="readonly"></td>
-										<td><input class="form-control s_pro_unit${i }" id ="d_pro_unit${i }" readonly="readonly"></td>
-										<td><input class="form-control d_qty QtyJS2" id ="d_qty${i }" name="s_qty" autocomplete="off" tabindex=9></td>
+										<td><input class="form-control d_pro_no${i } ConnectJS2" id ="d_pro_no${i }" name="s_pro_no" autocomplete="off" tabindex=8></td>
+										<td><input class="form-control d_pro_name${i }" id ="d_pro_name${i }" readonly="readonly"></td>
+										<td><input class="form-control d_pro_unit${i }" id ="d_pro_unit${i }" readonly="readonly"></td>
+										<td><input class="form-control d_qty${i } QtyJS2" id ="d_qty${i }" name="s_qty" autocomplete="off" tabindex=9></td>
 										<td><input class="form-control s_pro_price${i }" id ="d_pro_price${i }" name="s_pro_price"></td>
 										<td><input class="form-control d_price${i }" id ="d_price${i }" name="s_price"></td>
 										<td><input class="form-control d_tax${i }" id ="d_tax${i }" name="s_tax"></td>
@@ -328,7 +327,6 @@
 			</div>
 		</div>
 	</div>
-
 
 
 
@@ -500,6 +498,10 @@
     </div>
   </div>
 </div>	
+
+
+
+
 	
 	
 	

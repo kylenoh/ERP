@@ -27,6 +27,7 @@ public class SalesController {
 	}
 	@RequestMapping(value = "/go.invoice", method = RequestMethod.GET)
 	public String goInvoice(HttpServletRequest req,HttpServletResponse res) {
+		SDAO.goInvoice(req, res);
 		req.setAttribute("contentPage", "inven/invoice.jsp");
 		DateManager.getToday(req, res);
 		return "index";
