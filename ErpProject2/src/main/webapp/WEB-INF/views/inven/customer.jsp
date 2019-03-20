@@ -24,7 +24,6 @@
 	
 	<div class="container mt-4">
 		<h2>고객관리</h2>
-		<p>상세설명합니다.</p>
 		<table class="table">
 			<thead>
 				<tr>
@@ -40,7 +39,7 @@
 			</thead>
 			<c:forEach var="i" items="${customers }">
 				<tbody>
-					<tr onclick="getDetail('${i.cus_no }','${i.cus_name }','${i.cus_regno }','${i.cus_owner }','${i.cus_addr }','${i.cus_division }','${i.cus_note }')">
+					<tr onclick="getDetailCustomer('${i.cus_no }','${i.cus_name }','${i.cus_regno }','${i.cus_owner }','${i.cus_addr }','${i.cus_division }','${i.cus_email }','${i.cus_note }')">
 						<td><input type="checkbox" class="checked" value="${i.cus_no }" ></td>
 						<td>${i.cus_no }</td>
 						<td>${i.cus_name }</td>
@@ -86,40 +85,57 @@
 					</button>
 				</div>		
 				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+                    	<li class="nav-item">
+                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#customer-necessary" role="tab" aria-controls="home" aria-selected="true">필수 항목</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#customer-detail" role="tab" aria-controls="profile" aria-selected="false">상세 등록</a>
+                        </li>
+                	</ul>
 					<form action="reg.customer" method="post">
-						<div class="form-group">
-							<label>거래처코드</label>
-							<input type="text" name="cus_no" class="form-control" maxlength="30">
+					<div class="tab-content profile-tab" id="myTabContent">
+							<div class="tab-pane fade show active" id="customer-necessary" role="tabpanel" aria-labelledby="profile-tab">
+								<div class="form-group">
+									<label>거래처코드</label>
+									<input type="text" name="cus_no" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>상호명</label>
+									<input type="text" name="cus_name" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>등록번호</label>
+									<input type="text" name="cus_regno" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>대표자</label>
+									<input type="text" name="cus_owner" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>주소</label>
+									<input type="text" name="cus_addr" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>구분</label>
+									<select class="form-control" name="cus_division">
+										<option value="구매처">구매처</option>
+										<option value="판매처">판매처</option>
+										<option value="구매처 판매처">구매처 판매처</option>
+									</select>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="customer-detail" role="tabpanel" aria-labelledby="profile-tab2">
+								<div class="form-group">
+									<label>이메일</label>
+									<input type="text" name="cus_email" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>비고</label>
+									<textarea name="cus_note" class="form-control" maxlength="2048" style="height:180px;"></textarea>
+								</div>
+							</div>
 						</div>
-						<div class="form-group">
-							<label>상호명</label>
-							<input type="text" name="cus_name" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>등록번호</label>
-							<input type="text" name="cus_regno" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>대표자</label>
-							<input type="text" name="cus_owner" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>주소</label>
-							<input type="text" name="cus_addr" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>구분</label>
-							<select class="form-control" name="cus_division">
-								<option value="1">구매처</option>
-								<option value="2">판매처</option>
-								<option value="3">구매처 판매처</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>비고</label>
-							<textarea name="cus_note" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="submit" class="btn btn-primary">등록하기</button>
@@ -141,40 +157,57 @@
 					</button>
 				</div>		
 				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+                    	<li class="nav-item">
+                           <a class="nav-link active" id="profile-tab3" data-toggle="tab" href="#customer2-necessary" role="tab" aria-controls="home" aria-selected="true">필수 항목</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#customer2-detail" role="tab" aria-controls="profile" aria-selected="false">상세 등록</a>
+                        </li>
+                	</ul>
 					<form action="update.customer" method="post">
-						<div class="form-group">
-							<label>거래처코드</label>
-							<input type="text" name="cus_no" class="form-control" maxlength="30" id="d_no" readonly="readonly">
+					<div class="tab-content profile-tab" id="myTabContent">
+							<div class="tab-pane fade show active" id="customer2-necessary" role="tabpanel" aria-labelledby="profile-tab3">
+								<div class="form-group">
+									<label>거래처코드</label>
+									<input type="text" name="cus_no" id="d_no" class="form-control" maxlength="30" readonly="readonly">
+								</div>
+								<div class="form-group">
+									<label>상호명</label>
+									<input type="text" name="cus_name" class="form-control" maxlength="30" id="d_name">
+								</div>
+								<div class="form-group">
+									<label>등록번호</label>
+									<input type="text" name="cus_regno" class="form-control" maxlength="30" id="d_regno">
+								</div>
+								<div class="form-group">
+									<label>대표자</label>
+									<input type="text" name="cus_owner" class="form-control" maxlength="30" id="d_owner">
+								</div>
+								<div class="form-group">
+									<label>주소</label>
+									<input type="text" name="cus_addr" class="form-control" maxlength="30" id="d_addr">
+								</div>
+								<div class="form-group">
+									<label>구분</label>
+									<select class="form-control" name="cus_division" id="d_division">
+										<option value="구매처">구매처</option>
+										<option value="판매처">판매처</option>
+										<option value="구매처 판매처">구매처 판매처</option>
+									</select>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="customer2-detail" role="tabpanel" aria-labelledby="profile-tab4">
+								<div class="form-group">
+									<label>이메일</label>
+									<input type="text" name="cus_email" class="form-control" maxlength="30" id="d_email">
+								</div>
+								<div class="form-group">
+									<label>비고</label>
+									<textarea name="cus_note" class="form-control" maxlength="2048" style="height:180px;" id="d_note"></textarea>
+								</div>
+							</div>
 						</div>
-						<div class="form-group">
-							<label>상호명</label>
-							<input type="text" name="cus_name" class="form-control" maxlength="30" id="d_name">
-						</div>
-						<div class="form-group">
-							<label>등록번호</label>
-							<input type="text" name="cus_regno" class="form-control" maxlength="30" id="d_regno">
-						</div>
-						<div class="form-group">
-							<label>대표자</label>
-							<input type="text" name="cus_owner" class="form-control" maxlength="30" id="d_owner">
-						</div>
-						<div class="form-group">
-							<label>주소</label>
-							<input type="text" name="cus_addr" class="form-control" maxlength="30" id="d_addr">
-						</div>
-						<div class="form-group">
-							<label>구분</label>
-							<select class="form-control" name="cus_division" id="d_division">
-								<option value="1">구매처</option>
-								<option value="2">판매처</option>
-								<option value="3">구매처 판매처</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>비고</label>
-							<textarea name="cus_note" class="form-control" maxlength="2048" style="height:180px;" id="d_note"></textarea>
-						</div>
-						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteCustomer(cus_no)">삭제</button>
@@ -187,35 +220,6 @@
 	</div>
 	
 	
-<!-- 신고하기 -->
-	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal">신고하기</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>		
-				<div class="modal-body">
-					<form action="./reportAction.jsp" method="post">
-						<div class="form-group">
-							<label>신고 제목</label>
-							<input type="text" name="reportTitle" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>신고 내용</label>
-							<textarea name="reportContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-danger">신고하기</button>
-						</div>
-					</form>
-				</div>		
-			</div>
-		</div>
-	</div>
 
 </body>
 </html>

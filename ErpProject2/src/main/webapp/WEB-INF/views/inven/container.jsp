@@ -23,7 +23,6 @@
 	
 	<div class="container mt-4">
 		<h2>창고관리</h2>
-		<p>상세설명합니다.</p>
 		<table class="table">
 			<thead>
 				<tr>

@@ -22,8 +22,7 @@
 		<a class="btn btn-success mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
 	</form>
 	<div class="container mt-4">
-		<h2>구매관리</h2>
-		<p>상세설명합니다.</p>
+		<h2>판매관리</h2>
 		<table class="table">
 			<thead>
 				<tr>

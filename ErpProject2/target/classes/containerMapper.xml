@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.inven.container.ContainerMapper">
-	<insert id="regContainer" parameterType="com.kyle.erp.inven.customer.Customer">
-		insert into erp_container values(#{con_no},#{con_name},#{con_note})
+	<insert id="regContainer" parameterType="com.kyle.erp.inven.container.Container">
+		insert into erp_container values(#{con_no}||to_char(erp_container_seq.nextval),#{con_name},#{con_note})
 	</insert>
 	<select id="getContainerCount" resultType="java.lang.Integer">
 		select count(*) from erp_container
@@ -12,6 +12,9 @@
 	</select>
 	<select id="searchContainer" parameterType="com.kyle.erp.inven.container.SearchContainer" resultType="com.kyle.erp.inven.container.Container">
 		select * from erp_container where ${searchContainer} like '%'||#{search}||'%'
+	</select>
+	<select id="getAllContainer" resultType="com.kyle.erp.inven.container.Container">
+		select * from erp_container order by con_name
 	</select>
 	<update id="updateContainer" parameterType="com.kyle.erp.inven.container.Container">
 		update erp_container set

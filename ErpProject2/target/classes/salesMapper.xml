@@ -24,7 +24,10 @@
 		(select sb_s_no,min(sb_no) as mino,count(sb_pro_no)-1 as pCount,sum(sb_sum) as pSum from erp_sub_sales where sb_s_no = #{s_no} group by sb_s_no ) where mino = sb_no
 	</select>
 	<select id="getSalesVal" parameterType="com.kyle.erp.inven.sales.Sales" resultType="com.kyle.erp.inven.sales.Sales">
-		select * from erp_sales where s_no = #{s_no}
+		select * from erp_sales inner join erp_customer on erp_sales.s_cus = erp_customer.cus_name 
+			inner join erp_member on erp_sales.s_m_id = erp_member.m_id 
+			inner join erp_company on erp_member.m_code = erp_company.com_key
+		where s_no = #{s_no}
 	</select>
 	<select id="getSubSalesVal" parameterType="com.kyle.erp.inven.sales.Sales" resultType="com.kyle.erp.inven.sales.SubSales">
 		select * from erp_sub_Sales inner join erp_product on erp_sub_Sales.sb_pro_no = erp_product.pro_no where sb_s_no = #{s_no}

@@ -1,6 +1,7 @@
 package com.kyle.erp.member;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class MemberDAO {
 					String m_id = c.getValue();
 					if (m_id != null && m_id != "") {
 						try {
-							Member m = new Member(m_id, null, null, null, null, null); 
+							Member m = new Member(m_id, null, null, null, null, null, null); 
 							Member dbM = ss.getMapper(MemberMapper.class).getMemberById(m);
 							if (dbM != null) {
 								req.getSession().setAttribute("loginMember", dbM);
@@ -91,6 +92,7 @@ public class MemberDAO {
 
 		try {
 			m.setM_id(mr.getParameter("m_id"));
+			m.setM_code(new BigDecimal(mr.getParameter("m_code")));
 			m.setM_pw(mr.getParameter("m_pw"));
 			m.setM_name(mr.getParameter("m_name"));
 			m.setM_email(mr.getParameter("m_email"));
@@ -117,18 +119,22 @@ public class MemberDAO {
 		try {
 			Member dbM = ss.getMapper(MemberMapper.class).getMemberById(m);
 			if (dbM != null) {
-				if (m.getM_pw().equals(dbM.getM_pw())) {
-					req.getSession().setAttribute("loginMember", dbM);
-					req.getSession().setMaxInactiveInterval(15 * 60);
+				if (m.getM_code().equals(dbM.getM_code())) {
+					if (m.getM_pw().equals(dbM.getM_pw())) {
+						req.getSession().setAttribute("loginMember", dbM);
+						req.getSession().setMaxInactiveInterval(15 * 60);
 
-					String m_auto = req.getParameter("m_auto");
-					if (m_auto != null) {
-						Cookie autoLoginID = new Cookie("autoLoginID", dbM.getM_id());
-						autoLoginID.setMaxAge(1 * 60 * 60 * 24);
-						res.addCookie(autoLoginID);
+						String m_auto = req.getParameter("m_auto");
+						if (m_auto != null) {
+							Cookie autoLoginID = new Cookie("autoLoginID", dbM.getM_id());
+							autoLoginID.setMaxAge(1 * 60 * 60 * 24);
+							res.addCookie(autoLoginID);
+						}
+					} else {
+						req.setAttribute("r", "비번오류");
 					}
-				} else {
-					req.setAttribute("r", "비번오류");
+				}else {
+					req.setAttribute("r", "코드번호 오류");
 				}
 			} else {
 				req.setAttribute("r", "미가입ID");
@@ -170,6 +176,7 @@ public class MemberDAO {
 
 		try {
 			m.setM_id(mr.getParameter("m_id"));
+			m.setM_code(new BigDecimal(mr.getParameter("m_code")));
 			m.setM_pw(mr.getParameter("m_pw"));
 			m.setM_name(mr.getParameter("m_name"));
 			m.setM_email(mr.getParameter("m_email"));

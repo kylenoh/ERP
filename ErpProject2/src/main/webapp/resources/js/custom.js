@@ -156,8 +156,8 @@ function deleteCurrency(cur_no) {
 	location.href = "delete.currency?cur_no=" + cur_no;
 }
 
-function getDetail(cus_no, cus_name, cus_regno, cus_owner, cus_addr,
-		cus_division, cus_note) {
+function getDetailCustomer(cus_no, cus_name, cus_regno, cus_owner, cus_addr,
+		cus_division,cus_email, cus_note) {
 	$("#detailModal").modal();
 	$("#d_no").val(cus_no);
 	$("#d_name").val(cus_name);
@@ -165,6 +165,7 @@ function getDetail(cus_no, cus_name, cus_regno, cus_owner, cus_addr,
 	$("#d_owner").val(cus_owner);
 	$("#d_addr").val(cus_addr);
 	$("#d_division").val(cus_division);
+	$("#d_email").val(cus_email);
 	$("#d_note").val(cus_note);
 }
 
@@ -174,12 +175,13 @@ function deleteCustomer(cus_no) {
 }
 
 function getDetailProduct(pro_no, pro_name, pro_unit, pro_weight, pro_buy,
-		pro_sell, pro_note) {
+		pro_sell,pro_hscode,pro_note) {
 	$("#detailModal").modal();
 	$("#d_no").val(pro_no);
 	$("#d_name").val(pro_name);
 	$("#d_unit").val(pro_unit);
 	$("#d_weight").val(pro_weight);
+	$("#d_hscode").val(pro_hscode);
 	$("#d_buy").val(pro_buy);
 	$("#d_sell").val(pro_sell);
 	$("#d_note").val(pro_note);
@@ -355,9 +357,47 @@ function getSubSales(s_no){
 	});
 }
 
+function getPurchaseDetail(s_no,s_date, s_cus, s_m_id, s_con, s_cur, s_type,s_note) {
+	$("#detailModal").modal();
+	$("#d_no").val(s_no);
+	$("#d_date").val(s_date);
+	$("#d_cus").val(s_cus);
+	$("#d_m_id").val(s_m_id);
+	$("#d_con").val(s_con);
+	$("#d_cur").val(s_cur);
+	$("#d_type").val(s_type);
+	$("#d_note").val(s_note);
+	getSubPurchases(s_no);
+}
+
+function getSubPurchases(s_no){
+	var detailNo = $('.DetailNo');
+	var url = "purchase.detailJSON?sb_s_no="+s_no;
+	$.getJSON(url, function(data) {
+		var ar = data.subpurchase;
+		for(var i=0; i < detailNo.length; i++ ){	//값나옴 4
+			cost = $(detailNo[i]).val();		// 1,2,3,4
+			$('#d_sb_no'+cost).val(ar[i].sb_no);
+			$('#d_pro_no'+cost).val(ar[i].sb_pro_no);
+			$('#d_pro_name'+cost).val(ar[i].pro_name);
+			$('#d_pro_unit'+cost).val(ar[i].pro_unit);
+			$('#d_qty'+cost).val(ar[i].sb_qty);
+			$('#d_pro_price'+cost).val(ar[i].sb_pro_price);
+			$('#d_price'+cost).val(ar[i].sb_price);
+			$('#d_tax'+cost).val(ar[i].sb_tax);
+			$('#d_sum'+cost).val(ar[i].sb_sum);
+		}
+	});
+}
+
 function deleteSales() {
 	var d_no = $("#d_no").val();
 	location.href = "delete.sales?s_no=" + d_no;
+}
+
+function deletePurchase() {
+	var d_no = $("#d_no").val();
+	location.href = "delete.purchase?s_no=" + d_no;
 }
 
 function deleteMember(){
@@ -372,31 +412,6 @@ function autoClosingAlert(selector,delay){
 	window.setTimeout(function(){
 		alert.hide();
 		},delay);
-}
-
-function submitFunction(){
-	var fromID = document.chatForm.userID;
-	var toID = document.chatForm.toID;
-	var chatContent = document.chatForm.chatContent;
-	$.ajax({
-		type:"POST",
-		url:"reg.chat",
-		data:{
-			fromID:encodeURIComponent(fromID),
-			toID:encodeURIComponent(toID),
-			chatContent:encodeURIComponent(chatContent)
-		},
-		success:function(result){
-			if(result==1){
-				autoClosingAlert("#successMessage",2000);
-			}else if (result ==0) {
-				autoClosingAlert("#dangerMessage",2000);
-			}else{
-				autoClosingAlert("#warningMessage",2000);
-			}
-		}
-	});
-	$('#chatContent').val('');
 }
 
 function bbsReplDelete(br_no) {
@@ -484,6 +499,77 @@ function salesSubmit(){
 		   
 }
 
+function purchaseSubmit(){
+	var sq_d_no = $('#s_d_no').val();
+	var sq_date = $('#purchaseDate').val();
+	var sq_cus = $('#customer').val();
+	var sq_m_id = $('#member').val();
+	var sq_con = $('#container').val();
+	var sq_cur = $('#currency').val();
+	var sq_type = $('#division').val();
+	var sq_note = $('#note').val();
+		   var data = {
+				s_d_no: sq_d_no,
+				s_date: sq_date,
+				s_cus: sq_cus,
+				s_m_id:sq_m_id,
+				s_con:sq_con,
+				s_cur:sq_cur,
+				s_type:sq_type,
+				s_note:sq_note
+		     };
+		   $.ajax({
+			    url : "purchase.regJSON",
+			    type : "GET",
+			    data : data,
+			    success : function(){
+			    	subPurchaseSubmit();
+			    	location.href="go.purchase";		
+			    },
+			    error : function(){
+			     
+			    }
+			});
+}
+
+function subPurchaseSubmit(){
+	var subNo = $('.ConnectNo');
+	var cost = 0;
+	var sq_pro_no = null;
+	var sq_qty = 0;
+	var sq_pro_price = 0;
+	var sq_price = 0;
+	var sq_tax = 0;
+	var sq_sum = 0;
+			for(var i=0; i < subNo.length; i++ ){	//값나옴 4
+				cost = $(subNo[i]).val();
+				sq_pro_no =$('#s_pro_no'+cost).val();
+				sq_qty =$('#s_qty'+cost).val();
+				sq_pro_price =$('#s_pro_price'+cost).val();
+				sq_price =$('#s_price'+cost).val();
+				sq_tax =$('#s_tax'+cost).val();
+				sq_sum =$('#s_sum'+cost).val();
+				var data = {
+						sb_pro_no: sq_pro_no,
+						sb_qty: sq_qty,
+						sb_pro_price:sq_pro_price,
+						sb_price:sq_price,
+						sb_tax:sq_tax,
+						sb_sum:sq_sum,
+				     };
+				   $.ajax({
+					    url : "purchase.regSubJSON",
+					    type : "GET",
+					    data : data,
+					    async:false,
+					    success : function(data){
+					    },
+					    error : function(){
+					    }
+					});
+			}
+}
+
 function subSalesUpdate(sq_no){
 	var detailNo = $('.DetailNo');
 			for(var i=0; i < detailNo.length; i++ ){	//값나옴 4
@@ -509,6 +595,76 @@ function subSalesUpdate(sq_no){
 				     };
 				   $.ajax({
 					    url : "sales.updateSubJSON?sb_no="+sq_no,
+					    type : "GET",
+					    data : data,
+					    async:false,
+					    success : function(data){
+					    	
+					    },
+					    error : function(){
+					    	
+					    }
+					});
+			}
+}
+
+function purchaseUpdate(){
+	var sq_no = $('#d_no').val();
+	var sq_date = $('#d_date').val();
+	var sq_cus = $('#d_cus').val();
+	var sq_m_id = $('#d_m_id').val();
+	var sq_con = $('#d_con').val();
+	var sq_cur = $('#d_cur').val();
+	var sq_type = $('#d_type').val();
+	var sq_note = $('#d_note').val();
+		   var data = {
+				s_date: sq_date,
+				s_cus: sq_cus,
+				s_m_id:sq_m_id,
+				s_con:sq_con,
+				s_cur:sq_cur,
+				s_type:sq_type,
+				s_note:sq_note
+		     };
+		   $.ajax({
+			    url : "purchase.updateJSON?s_no="+sq_no,
+			    type : "GET",
+			    data : data,
+			    success : function(){
+			    	subpurchaseUpdate(sq_no);
+			    	location.href="update.purchase";		
+			    },
+			    error : function(){
+			     
+			    }
+			});
+}
+
+function subpurchaseUpdate(sq_no){
+	var detailNo = $('.DetailNo');
+			for(var i=0; i < detailNo.length; i++ ){	//값나옴 4
+				var cost = $(detailNo[i]).val();
+				var sq_no =$('#d_sb_no'+cost).val();
+				var sq_pro_no =$('#d_pro_no'+cost).val();
+				var sq_pro_name =$('#d_pro_name'+cost).val();
+				var sq_pro_unit =$('#d_pro_unit'+cost).val();
+				var sq_qty =$('#d_qty'+cost).val();
+				var sq_pro_price =$('#d_pro_price'+cost).val();
+				var sq_price =$('#d_price'+cost).val();
+				var sq_tax =$('#d_tax'+cost).val();
+				var sq_sum =$('#d_sum'+cost).val();
+				var data = {
+						sb_pro_no: sq_pro_no,
+						pro_name: sq_pro_name,
+						pro_unit: sq_pro_unit,
+						sb_qty: sq_qty,
+						sb_pro_price:sq_pro_price,
+						sb_price:sq_price,
+						sb_tax:sq_tax,
+						sb_sum:sq_sum,
+				     };
+				   $.ajax({
+					    url : "purchase.updateSubJSON?sb_no="+sq_no,
 					    type : "GET",
 					    data : data,
 					    async:false,
@@ -559,12 +715,40 @@ function goInvoice(){
 	location.href="go.invoice?d_no="+d_no;
 }
 
+function InvoiceCalculate(){
+	var totalNo = $('.no');
+	var sum = 0;
+	for(var i=0; i < totalNo.length; i++ ){
+		var cost = $('.total').eq(i).text();
+		sum += Number(cost);
+	}
+	var tax = ((sum*25)/100);
+	$('#subtotal').append(sum);
+	$('#tax').append(tax);
+	$('#grandtotal').append(sum+tax);
+}
+
 function printInvoice(){
 	Popup($('.invoice')[0].outerHTML);
 	function Popup(data){
 	  window.print();
 	  return true;
 	}
+}
+
+//	콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+// 콤마풀기
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+// 값 입력시 콤마찍기
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
 }
 
 

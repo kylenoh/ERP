@@ -20,6 +20,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label>회사코드</label>
+			<div class="input-group mb-3">
+  				<input type="text" class="form-control" placeholder="회사코드" aria-describedby="basic-addon2" id="m_code"name="m_code">
+			</div>
+		</div>
+		<div class="form-group">
 			<label>비밀번호</label>
 			<input type="password" name="m_pw" class="form-control" placeholder="PW, 숫자/영어소문자 조합" required="required">
 		</div>

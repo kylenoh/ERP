@@ -15,6 +15,13 @@ public class Sales {
 	private String s_type;
 	private String s_note;
 	
+	private String cus_addr;
+	private String cus_email;
+	private String com_etel;
+	private String com_eaddr;
+	private String com_logo;
+	private String com_email;
+	
 	private List<SubSales> s_subSales;
 	
 	public Sales() {
@@ -22,7 +29,8 @@ public class Sales {
 	}
 
 	public Sales(BigDecimal s_no, BigDecimal s_d_no, Date s_date, String s_cus, String s_m_id, String s_con,
-			String s_cur, String s_type, String s_note, List<SubSales> s_subSales) {
+			String s_cur, String s_type, String s_note, String cus_addr, String cus_email, String com_etel,
+			String com_eaddr, String com_logo, String com_email, List<SubSales> s_subSales) {
 		super();
 		this.s_no = s_no;
 		this.s_d_no = s_d_no;
@@ -33,6 +41,12 @@ public class Sales {
 		this.s_cur = s_cur;
 		this.s_type = s_type;
 		this.s_note = s_note;
+		this.cus_addr = cus_addr;
+		this.cus_email = cus_email;
+		this.com_etel = com_etel;
+		this.com_eaddr = com_eaddr;
+		this.com_logo = com_logo;
+		this.com_email = com_email;
 		this.s_subSales = s_subSales;
 	}
 
@@ -108,6 +122,54 @@ public class Sales {
 		this.s_note = s_note;
 	}
 
+	public String getCus_addr() {
+		return cus_addr;
+	}
+
+	public void setCus_addr(String cus_addr) {
+		this.cus_addr = cus_addr;
+	}
+
+	public String getCus_email() {
+		return cus_email;
+	}
+
+	public void setCus_email(String cus_email) {
+		this.cus_email = cus_email;
+	}
+
+	public String getCom_etel() {
+		return com_etel;
+	}
+
+	public void setCom_etel(String com_etel) {
+		this.com_etel = com_etel;
+	}
+
+	public String getCom_eaddr() {
+		return com_eaddr;
+	}
+
+	public void setCom_eaddr(String com_eaddr) {
+		this.com_eaddr = com_eaddr;
+	}
+
+	public String getCom_logo() {
+		return com_logo;
+	}
+
+	public void setCom_logo(String com_logo) {
+		this.com_logo = com_logo;
+	}
+
+	public String getCom_email() {
+		return com_email;
+	}
+
+	public void setCom_email(String com_email) {
+		this.com_email = com_email;
+	}
+
 	public List<SubSales> getS_subSales() {
 		return s_subSales;
 	}
@@ -115,6 +177,7 @@ public class Sales {
 	public void setS_subSales(List<SubSales> s_subSales) {
 		this.s_subSales = s_subSales;
 	}
+
 	
 	
 }

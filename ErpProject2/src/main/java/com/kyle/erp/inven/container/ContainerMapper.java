@@ -7,6 +7,7 @@ public interface ContainerMapper {
 	public abstract int getContainerCount();
 	public abstract List<Container>getContainer(ContainerNo containerno);
 	public abstract List<Container>searchContainer(SearchContainer s);
+	public abstract List<Container>getAllContainer();
 	public abstract int updateContainer(Container container);
 	public abstract int deleteContainer(Container container);
 }

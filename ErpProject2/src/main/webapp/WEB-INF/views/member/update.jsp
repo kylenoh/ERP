@@ -20,6 +20,10 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label>회사코드</label>
+			<input type="text" name="m_code" class="form-control" value="${sessionScope.loginMember.m_code }" required="required" readonly="readonly">
+		</div>
+		<div class="form-group">
 			<label>비밀번호</label>
 			<input type="password" name="m_pw" class="form-control" value="${sessionScope.loginMember.m_pw }" required="required">
 		</div>

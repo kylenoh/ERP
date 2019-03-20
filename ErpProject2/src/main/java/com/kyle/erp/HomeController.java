@@ -13,6 +13,7 @@ import com.kyle.erp.inven.container.ContainerDAO;
 import com.kyle.erp.inven.currency.CurrencyDAO;
 import com.kyle.erp.inven.customer.CustomerDAO;
 import com.kyle.erp.inven.product.ProductDAO;
+import com.kyle.erp.inven.purchase.PurchaseDAO;
 import com.kyle.erp.inven.sales.SalesDAO;
 import com.kyle.erp.member.MemberDAO;
 
@@ -26,6 +27,7 @@ public class HomeController {
 	@Autowired SalesDAO SDAO;
 	@Autowired MemberDAO MDAO;
 	@Autowired BBSDAO BDAO;
+	@Autowired PurchaseDAO PURDAO;
 	
 	private boolean firstReq;
 	
@@ -42,6 +44,7 @@ public class HomeController {
 			CURDAO.getCurrencyCount(req, res);
 			SDAO.getSalesCount(req, res);
 			BDAO.getAllMsgsCount(req, res);
+			PURDAO.getPurchaseCount(req, res);
 			firstReq = false;
 		}
 		

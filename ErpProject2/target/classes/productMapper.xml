@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.inven.product.ProductMapper">
 	<insert id="regProduct" parameterType="com.kyle.erp.inven.product.Product">
-		insert into erp_product values(erp_product_seq.nextval,#{pro_no},#{pro_name},#{pro_unit},#{pro_weight},#{pro_buy},#{pro_sell},#{pro_note})
+		insert into erp_product values(#{pro_no}||to_char(erp_product_seq.nextval),#{pro_name},#{pro_unit},#{pro_buy},#{pro_sell},#{pro_weight},#{pro_hscode},#{pro_note})
 	</insert>
 	<select id="getProductCount" resultType="java.lang.Integer">
 		select count(*) from erp_product
 	</select>
 	<select id="getProduct" parameterType="com.kyle.erp.inven.product.ProductNo" resultType="com.kyle.erp.inven.product.Product">
-		select * from(select rownum as productno,pro_no,pro_name,pro_unit,pro_weight,pro_buy,pro_sell,pro_note from (select * from erp_product order by pro_no))where productno &lt;=#{start} and productno &gt;= #{end} order by productno desc
+		select * from(select rownum as productno,pro_no,pro_name,pro_unit,pro_weight,pro_hscode,pro_buy,pro_sell,pro_note from (select * from erp_product order by pro_no))where productno &lt;=#{start} and productno &gt;= #{end} order by productno desc
 	</select>
 	<select id="searchProduct" parameterType="com.kyle.erp.inven.product.SearchProduct" resultType="com.kyle.erp.inven.product.Product">
 		select * from erp_product where ${searchProduct} like '%'||#{search}||'%'
 	</select>
 	<update id="updateProduct" parameterType="com.kyle.erp.inven.product.Product">
 		update erp_product set
-		pro_name=#{pro_name},pro_unit=#{pro_unit},pro_weight=#{pro_weight},pro_buy=#{pro_buy},pro_sell=#{pro_sell},pro_note=#{pro_note}
+		pro_name=#{pro_name},pro_unit=#{pro_unit},pro_buy=#{pro_buy},pro_sell=#{pro_sell},pro_weight=#{pro_weight},pro_hscode=#{pro_hscode},pro_note=#{pro_note}
 		where pro_no=#{pro_no}
 	</update>
 	<delete id="deleteProduct" parameterType="com.kyle.erp.inven.product.Product">

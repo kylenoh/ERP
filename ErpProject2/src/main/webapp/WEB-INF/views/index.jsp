@@ -55,7 +55,13 @@ $(function(){
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="go.sales">구매관리<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="go.purchase">구매관리<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="go.sales">판매관리</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="go.stock">재고관리</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="go.customer">고객관리</a>
@@ -96,14 +102,14 @@ $(function(){
 
 <main role="main">
 	<jsp:include page="${contentPage }"></jsp:include>
-
-	<footer class="bd-footer">
-	    <div class="container text-center">
-	      <small class="text-muted">Copyright &copy; 2019 Kyle All Rights Reserved.</small>
-	      <br>
-	      <small class="text-muted"><a href="#">Back to top</a></small>
-	    </div>
-  	</footer>
 </main>
+
+<footer class="footer">
+		    <div class="container text-center">
+		      <small class="text-muted">Copyright &copy; 2019 Kyle All Rights Reserved.</small>
+		      <br>
+		      <small class="text-muted"><a href="#">Back to top</a></small>
+		    </div>
+  	</footer>
 </body>
 </html>

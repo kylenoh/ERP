@@ -15,6 +15,11 @@
       			</div>
 		
 			<div class="form-group">
+				<label>Code</label>
+				<input type="text" name="m_code" class="form-control" required autofocus placeholder="Input your CompanyCode" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
 				<label>아이디</label>
 				<input type="text" name="m_id" class="form-control" required autofocus placeholder="Input your ID" autocomplete="off">
 			</div>

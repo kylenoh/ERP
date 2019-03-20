@@ -24,7 +24,6 @@
 	
 	<div class="container mt-4">
 		<h2>제품관리</h2>
-		<p>상세설명합니다.</p>
 		<table class="table">
 			<thead>
 				<tr>
@@ -40,7 +39,7 @@
 			</thead>
 			<c:forEach var="i" items="${products }">
 				<tbody>
-					<tr onclick="getDetailProduct('${i.pro_no }','${i.pro_name }','${i.pro_unit }','${i.pro_weight }','${i.pro_buy }','${i.pro_sell }','${i.pro_note }')">
+					<tr onclick="getDetailProduct('${i.pro_no }','${i.pro_name }','${i.pro_unit }','${i.pro_weight }','${i.pro_buy }','${i.pro_sell }','${i.pro_hscode }','${i.pro_note }')">
 						<td><input type="checkbox" class="checked" value="${i.pro_no }" ></td>
 						<td>${i.pro_no }</td>
 						<td>${i.pro_name }</td>
@@ -86,36 +85,54 @@
 					</button>
 				</div>		
 				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+                    	<li class="nav-item">
+                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#product-necessary" role="tab" aria-controls="home" aria-selected="true">필수 항목</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#product-detail" role="tab" aria-controls="profile" aria-selected="false">상세 등록</a>
+                        </li>
+                	</ul>
 					<form action="reg.product" method="post">
-						<div class="form-group">
-							<label>제품코드</label>
-							<input type="text" name="pro_no" class="form-control" maxlength="30">
+					<div class="tab-content profile-tab" id="myTabContent">
+						<div class="tab-pane fade show active" id="product-necessary" role="tabpanel" aria-labelledby="profile-tab">
+								<div class="form-group">
+									<label>제품코드</label>
+									<input type="text" name="pro_no" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>제품명</label>
+									<input type="text" name="pro_name" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>규격</label>
+									<input type="text" name="pro_unit" class="form-control" maxlength="30">
+								</div>
+								
+								<div class="form-group">
+									<label>구매단가</label>
+									<input type="text" name="pro_buy" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>판매단가</label>
+									<input type="text" name="pro_sell" class="form-control" maxlength="30">
+								</div>
+								</div>
+							<div class="tab-pane fade" id="product-detail" role="tabpanel" aria-labelledby="profile-tab2">
+								<div class="form-group">
+									<label>무게</label>
+									<input type="text" name="pro_weight" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>HS CODE</label>
+									<input type="text" name="pro_hscode" class="form-control" maxlength="30">
+								</div>
+								<div class="form-group">
+									<label>비고</label>
+									<textarea name="pro_note" class="form-control" maxlength="2048" style="height:180px;"></textarea>
+								</div>
+							</div>
 						</div>
-						<div class="form-group">
-							<label>제품명</label>
-							<input type="text" name="pro_name" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>규격</label>
-							<input type="text" name="pro_unit" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>무게</label>
-							<input type="text" name="pro_weight" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>구매단가</label>
-							<input type="text" name="pro_buy" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>판매단가</label>
-							<input type="text" name="pro_sell" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>비고</label>
-							<textarea name="pro_note" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="submit" class="btn btn-primary">등록하기</button>
@@ -137,36 +154,54 @@
 					</button>
 				</div>		
 				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+                    	<li class="nav-item">
+                           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#product-necessary2" role="tab" aria-controls="home" aria-selected="true">필수 항목</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#product-detail2" role="tab" aria-controls="profile" aria-selected="false">상세 등록</a>
+                        </li>
+                	</ul>
+                	
 					<form action="update.product" method="post">
-						<div class="form-group">
-							<label>제품코드</label>
-							<input type="text" name="pro_no" class="form-control" maxlength="30" id="d_no" readonly="readonly">
+						<div class="tab-content profile-tab" id="myTabContent">
+							<div class="tab-pane fade show active" id="product-necessary2" role="tabpanel" aria-labelledby="profile-tab">
+								<div class="form-group">
+									<label>제품코드</label>
+									<input type="text" name="pro_no" class="form-control" maxlength="30" id="d_no" readonly="readonly">
+								</div>
+								<div class="form-group">
+									<label>제품명</label>
+									<input type="text" name="pro_name" class="form-control" maxlength="30" id="d_name">
+								</div>
+								<div class="form-group">
+									<label>규격</label>
+									<input type="text" name="pro_unit" class="form-control" maxlength="30" id="d_unit">
+								</div>
+									<div class="form-group">
+									<label>구매단가</label>
+									<input type="text" name="pro_buy" class="form-control" maxlength="30" id="d_buy">
+								</div>
+								<div class="form-group">
+									<label>판매단가</label>
+									<input type="text" name="pro_sell" class="form-control" maxlength="30" id="d_sell">
+								</div>
+							</div>
+							<div class="tab-pane fade" id="product-detail2" role="tabpanel" aria-labelledby="profile-tab2">
+								<div class="form-group">
+									<label>무게</label>
+									<input type="text" name="pro_weight" class="form-control" maxlength="30" id="d_weight">
+								</div>
+								<div class="form-group">
+									<label>HS CODE</label>
+									<input type="text" name="pro_hscode" class="form-control" maxlength="30" id="d_hscode">
+								</div>
+								<div class="form-group">
+									<label>비고</label>
+									<textarea name="pro_note" class="form-control" maxlength="2048" style="height:180px;" id="d_note"></textarea>
+								</div>
+							</div>
 						</div>
-						<div class="form-group">
-							<label>제품명</label>
-							<input type="text" name="pro_name" class="form-control" maxlength="30" id="d_name">
-						</div>
-						<div class="form-group">
-							<label>규격</label>
-							<input type="text" name="pro_unit" class="form-control" maxlength="30" id="d_unit">
-						</div>
-						<div class="form-group">
-							<label>무게</label>
-							<input type="text" name="pro_weight" class="form-control" maxlength="30" id="d_weight">
-						</div>
-						<div class="form-group">
-							<label>구매단가</label>
-							<input type="text" name="pro_buy" class="form-control" maxlength="30" id="d_buy">
-						</div>
-						<div class="form-group">
-							<label>판매단가</label>
-							<input type="text" name="pro_sell" class="form-control" maxlength="30" id="d_sell">
-						</div>
-						<div class="form-group">
-							<label>비고</label>
-							<textarea name="pro_note" class="form-control" maxlength="2048" style="height:180px;" id="d_note"></textarea>
-						</div>
-						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteProduct(pro_no)">삭제</button>

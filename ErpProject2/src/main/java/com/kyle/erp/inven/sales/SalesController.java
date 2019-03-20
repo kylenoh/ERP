@@ -30,6 +30,7 @@ public class SalesController {
 		SDAO.goInvoice(req, res);
 		req.setAttribute("contentPage", "inven/invoice.jsp");
 		DateManager.getToday(req, res);
+		DateManager.getDueDay(req, res);
 		return "index";
 	}
 	@RequestMapping(value = "/reg.sales", method = RequestMethod.GET)

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="InvoiceCalculate();">
 <div id="invoice">
     <div class="toolbar hidden-print">
         <div class="text-right">
@@ -24,18 +24,18 @@
                 <div class="row">
                     <div class="col">
                         <a target="_blank" href="#">
-                            <img src="http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png" data-holder-rendered="true" />
+                            <img src="resources/file/${salesVal.com_logo}" data-holder-rendered="true" />
                         </a>
                     </div>
                     <div class="col company-details">
                         <h2 class="name">
-                            <a target="_blank" href="https://lobianijs.com">
+                            <a target="_blank" href="#">
                            ${sessionScope.loginMember.m_id}
                             </a>
                         </h2>
-                        <div>455 Foggy Heights, AZ 85004, US</div>
-                        <div>(123) 456-789</div>
-                        <div>company@example.com</div>
+                        <div>${salesVal.com_eaddr}</div>
+                        <div>${salesVal.com_etel}</div>
+                        <div>${salesVal.com_email}</div>
                     </div>
                 </div>
             </header>
@@ -43,14 +43,14 @@
                 <div class="row contacts">
                     <div class="col invoice-to">
                         <div class="text-gray-light">INVOICE TO:</div>
-                        <h2 class="to">John Doe</h2>
-                        <div class="address">796 Silver Harbour, TX 79273, US</div>
-                        <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+                        <h2 class="to">${salesVal.s_cus}</h2>
+                        <div class="address">${salesVal.cus_addr }</div>
+                        <div class="email"><a href="mailto:${salesVal.cus_email}">${salesVal.cus_email}</a></div>
                     </div>
                     <div class="col invoice-details">
                         <h1 class="invoice-id">INVOICE ${salesVal.s_no}</h1>
                         <div class="date">Date of Invoice: ${d}/${m}/${y}</div>
-                        <div class="date">Due Date: ${d}/${m}/${y}</div>
+                        <div class="date">Due Date: ${d2}/${m2}/${y2}</div>
                     </div>
                 </div>
                 <table style="border=0; cellspacing=0; cellpadding=0;">
@@ -65,16 +65,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:forEach var="i" items="${salesVal.s_subSales}">
+                    	<c:forEach var="i" items="${salesVal.s_subSales}" varStatus="status">
 		                        <tr>
-		                            <td class="no"></td>
+		                            <td class="no">${status.count}</td>
 		                            <td class="text-left">
 		                                <h3>${i.sb_pro_no }</h3>${i.pro_name }&nbsp;&nbsp;${i.pro_unit } 
 		                            </td>
 		                            <td class="hscode">xx</td>
 		                            <td class="qty"><fmt:formatNumber value="${i.sb_qty }" pattern="#,###" /></td>
 		                            <td class="unit"><fmt:formatNumber value="${i.sb_pro_price }" pattern="#,###" /></td>
-		                            <td class="total"><fmt:formatNumber value="${i.sb_sum }" pattern="#,###" /></td>
+		                            <td class="total">${i.sb_sum }</td>
 		                        </tr>
 		                  </c:forEach>
                     </tbody>
@@ -82,17 +82,17 @@
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">SUBTOTAL</td>
-                            <td colspan="2">$5,200.00</td>
+                            <td colspan="2" id="subtotal"></td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">TAX 25%</td>
-                            <td colspan="2">$1,300.00</td>
+                            <td colspan="2" id="tax"></td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">GRAND TOTAL</td>
-                            <td colspan="2">$6,500.00</td>
+                            <td colspan="2" id="grandtotal"></td>
                         </tr>
                     </tfoot>
                 </table>

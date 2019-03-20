@@ -18,18 +18,12 @@
       <div class="carousel-item active" style="background-image: url('resources/file/startup.jpg'); width:100%; heieght:100%;">
         <div class="container">
           <div class="carousel-caption text-left">
-            <h1>Cooperation</h1>
-            <p>See how customers are succeeding with Cooperation</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View details</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item" style="background-image: url('resources/file/board.jpg'); width:100%; heieght:100%;">
         <div class="container">
           <div class="carousel-caption">
-            <h1>How do i control Program</h1>
-            <p>Solve your specific ERP small business needs</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View details</a></p>
           </div>
         </div>
       </div>
@@ -38,7 +32,7 @@
           <div class="carousel-caption text-right">
             <h1>Business Services</h1>
             <p>Transform your business faster with help from Coperation Business Services</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View details</a></p>
+            <p><a class="btn btn-lg btn-primary" href="https://github.com/kylenoh/PersonalProject.git" role="button">View details</a></p>
           </div>
         </div>
       </div>

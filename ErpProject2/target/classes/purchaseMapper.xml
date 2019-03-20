@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyle.erp.inven.purchase.PurchaseMapper">
+	<insert id="regPurchase" parameterType="com.kyle.erp.inven.purchase.Purchase">
+		insert into erp_purchase values(erp_purchase_seq.nextval,#{s_d_no},#{s_date},#{s_cus},#{s_m_id},#{s_con},#{s_cur},#{s_type},#{s_note})
+	</insert>
+	<insert id="regSubPurchase" parameterType="com.kyle.erp.inven.purchase.SubPurchase">
+		insert into erp_sub_purchase values(erp_sub_purchase_seq.nextval,erp_purchase_seq.currval,#{sb_pro_no},#{sb_qty},#{sb_pro_price},#{sb_price},#{sb_tax},#{sb_sum})
+	</insert>
+	<update id="updatePurchase" parameterType="com.kyle.erp.inven.purchase.Purchase">
+		update erp_purchase set s_date=#{s_date},s_cus=#{s_cus},s_m_id=#{s_m_id},s_con=#{s_con},s_cur=#{s_cur},s_type=#{s_type},s_note=#{s_note} where s_no=#{s_no}	
+	</update>
+	<update id="updateSubPurchase" parameterType="com.kyle.erp.inven.purchase.SubPurchase">
+		update erp_sub_purchase set sb_pro_no=#{sb_pro_no}, sb_qty=#{sb_qty}, sb_pro_price=#{sb_pro_price}, sb_price=#{sb_price}, sb_tax=#{sb_tax}, sb_sum=#{sb_sum} where sb_no = #{sb_no} 
+	</update>
+	<select id="getPurchaseCount" resultType="java.lang.Integer">
+		select count(*) from erp_purchase
+	</select>
+	<select id="getPurchase" parameterType="com.kyle.erp.inven.purchase.PurchaseNo" resultType="com.kyle.erp.inven.purchase.Purchase">
+		select * from(select rownum as purchaseno,s_no,s_date,s_cus,s_m_id,s_con,s_cur,s_type,s_note from (select * from erp_purchase order by s_no))where purchaseno &lt;=#{start} and purchaseno &gt;= #{end} order by purchaseno desc
+	</select>
+	<select id="getSubPurchase" parameterType="com.kyle.erp.inven.purchase.Purchase" resultType="com.kyle.erp.inven.purchase.SubPurchase">
+		select sb_no,sb_pro_no,mino as sb_no,pCount as sb_pro_count ,pSum as sb_sum from erp_sub_purchase ,
+		(select sb_s_no,min(sb_no) as mino,count(sb_pro_no)-1 as pCount,sum(sb_sum) as pSum from erp_sub_purchase where sb_s_no = #{s_no} group by sb_s_no ) where mino = sb_no
+	</select>
+	<select id="getPurchaseVal" parameterType="com.kyle.erp.inven.purchase.Purchase" resultType="com.kyle.erp.inven.purchase.Purchase">
+		select * from erp_purchase inner join erp_customer on erp_purchase.s_cus = erp_customer.cus_name 
+			inner join erp_member on erp_purchase.s_m_id = erp_member.m_id 
+			inner join erp_company on erp_member.m_code = erp_company.com_key
+		where s_no = #{s_no}
+	</select>
+	<select id="getSubPurchaseVal" parameterType="com.kyle.erp.inven.purchase.Purchase" resultType="com.kyle.erp.inven.purchase.SubPurchase">
+		select * from erp_sub_purchase inner join erp_product on erp_sub_purchase.sb_pro_no = erp_product.pro_no where sb_s_no = #{s_no}
+	</select>
+	
+	<select id="searchPurchase" parameterType="com.kyle.erp.inven.purchase.SearchPurchase" resultType="com.kyle.erp.inven.purchase.Purchase">
+		select * from erp_purchase where ${searchPurchase} like '%'||#{search}||'%'
+	</select>
+	<delete id="deletePurchase" parameterType="com.kyle.erp.inven.purchase.Purchase">
+		delete from erp_purchase where s_no =#{s_no}
+	</delete>
+	<select id="getSubDetailPurchase" parameterType="com.kyle.erp.inven.purchase.SubPurchase" resultType="com.kyle.erp.inven.purchase.SubPurchase">
+		select * from erp_sub_purchase inner join erp_product on erp_sub_purchase.sb_pro_no = erp_product.pro_no where sb_s_no =#{sb_s_no}
+	</select>
+</mapper>

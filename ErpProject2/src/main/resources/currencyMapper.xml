@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.inven.currency.CurrencyMapper">
 	<insert id="regCurrency" parameterType="com.kyle.erp.inven.currency.Currency">
-		insert into erp_currency values(#{cur_no},#{cur_name},#{cur_money},#{cur_note})
+		insert into erp_currency values(#{cur_no}||to_char(erp_currency_seq.nextval),#{cur_name},#{cur_money},#{cur_note})
 	</insert>
 	<select id="getCurrencyCount" resultType="java.lang.Integer">
 		select count(*) from erp_currency

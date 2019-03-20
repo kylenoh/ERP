@@ -50,7 +50,9 @@
 				<beans:value>classpath:currencyMapper.xml</beans:value>
 				<beans:value>classpath:containerMapper.xml</beans:value>
 				<beans:value>classpath:productMapper.xml</beans:value>
+				<beans:value>classpath:purchaseMapper.xml</beans:value>
 				<beans:value>classpath:salesMapper.xml</beans:value>
+				<beans:value>classpath:stockMapper.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

@@ -85,11 +85,13 @@ public class SalesDAO {
 	public void update(Sales sales,HttpServletRequest req, HttpServletResponse res){
 			ss.getMapper(SalesMapper.class).updateSales(sales);
 	}
+
 	public void goInvoice(HttpServletRequest req, HttpServletResponse res){
 		BigDecimal d_no = new BigDecimal(req.getParameter("d_no"));
-		Sales sales = new Sales(d_no, null, null, null, null, null, null, null, null, null);
+		Sales sales = new Sales(d_no, null,null,null,null,null,null, null, null, null, null, null, null, null, null, null);
 		Sales salesVal = ss.getMapper(SalesMapper.class).getSalesVal(sales);
 		salesVal.setS_subSales(ss.getMapper(SalesMapper.class).getSubSalesVal(salesVal));
+
 		req.setAttribute("salesVal", salesVal);
 		
 	}
