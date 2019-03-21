@@ -16,31 +16,28 @@
 <script type="text/javascript" src="resources/js/validCheck.js"></script>
 <script type="text/javascript" src="resources/js/check.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
-<script type="text/javascript" src="resources/js/chart.js"></script>
+<script type="text/javascript" src="resources/js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript">
 $(function(){
 		connectSummonAddrInputEvent();
 		connectIdCheckEvent();
 		sales();
 		sales2();
+
+$.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/DailyAverageAirQuality/1/42/20190101", callback);
 		
-		var data = {
-				labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-				datasets: [
-					{
-						label: "My First dataset",
-						fillColor: "rgba(150,200,250,0.5)",
-						strokeColor: "rgba(150,200,250,0.8)",
-						highlightFill: "rgba(150,200,250,0.75)",
-						highlightStroke: "rgba(150,200,250,1)",
-						data: [65, 59, 80, 81, 56, 55]
-					}
-				]
-			};
-			var options = {	animation: false };
-			var ctx = $('#myChart').get(0).getContext('2d');
-			var myBarChart = new Chart(ctx).Bar(data, options);
+		$("select").change(function(e){
+			var yy = $("#year").val();
+			var mm = $("#month").val();
+			if (mm < 10) {
+				mm = 0 + mm;
+			}
+			var dd = $("#day").val();
+			if (dd < 10) {
+				dd = 0 + dd;
+			}
+			$.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/DailyAverageAirQuality/1/42/"+yy+mm+dd, callback);
+		});
 });
 </script>
 

@@ -12,6 +12,26 @@
 <body>
 <div class="container mt-9">
 	<div class="container mt-3">
+		<div id="selectContainer">
+			<select id="year">
+				<c:forEach var="y" begin="0" end="7">
+					<option>${2019 - y }</option>
+				</c:forEach>
+			</select>
+			<select id="month">
+				<c:forEach var="m" begin="1" end="12">
+					<option>${m }</option>
+				</c:forEach>
+			</select>
+			<select id="day">
+				<c:forEach var="d" begin="1" end="31">
+					<option>${d }</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div id="chartContainer" style="height: 320px; width: 100%;"></div>
+	</div>
+	<div class="container mt-3">
 		<h2>재고관리</h2>
 	</div>
                 <table class="table table-bordered table-striped">
@@ -23,7 +43,8 @@
                             <th scope="col">TOTAL</th>
                             <th scope="col">회사창고</th>
                             <th scope="col">중국창고</th>
-                            <th scope="col">SALE</th>
+                            <th scope="col">입고수량</th>
+                            <th scope="col">출고수량</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +62,7 @@
 		                            <td class="CHINA CON text-right">
 		                            	<fmt:formatNumber value="${s.sum_china }" pattern="#,###" />
 		                            </td>
+		                            <td class="SALE text-right"><fmt:formatNumber value="0" pattern="#,###" /></td>
 		                            <td class="SALE text-right"><fmt:formatNumber value="0" pattern="#,###" /></td>
 		                        </tr>
 		                  </c:forEach>

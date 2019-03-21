@@ -751,4 +751,78 @@ function inputNumberFormat(obj) {
     obj.value = comma(uncomma(obj.value));
 }
 
+function WriteChart(con, pm10, pm25){
+	var chart = new CanvasJS.Chart(con, {
+		exportEnabled: true,
+		animationEnabled: true,
+		theme:"light1",
+		title: {
+			text: "서울 공기"
+		},
+		axisY: {
+			title: "미세먼지(㎍/㎥)",
+			includeZero: true,
+			titleFontColor: "#4F81BC",
+			labelFontColor: "#4F81BC",
+			maximum: 200
+		},
+		axisY2: {
+			title: "초미세먼지(㎍/㎥)",
+			includeZero: true,
+			titleFontColor: "#C0504E",
+			labelFontColor: "#C0504E",
+			maximum: 200
+		},
+		toolTip: {
+			shared: true
+		},
+		legend: {
+			cursor: "pointer",
+			verticalAlign: "bottom",
+			itemclick: toggleDataSeries
+		},
+		data: [{
+			type: "column",
+			name: "미세먼지",
+			showInLegend: true,
+			yValueFormatString: "###",
+			dataPoints: pm10
+		},
+		{
+			type: "column",
+			name: "초미세먼지",
+			showInLegend: true,
+			yValueFormatString: "###",
+			axisYType: "secondary",
+			dataPoints: pm25
+		}]
+	});
+	chart.render();
+}
 
+function toggleDataSeries(e) {
+	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else {
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}
+
+function callback(data) {	
+	var pm10 = [];
+	var pm25 = [];
+	var pm10s = [];
+	var pm25s = [];
+	$.each(data.DailyAverageAirQuality.row, function(i, air){
+		if (i < 21) {
+			pm10[i] = {label: air.MSRSTE_NM, y:air.PM10};
+			pm25[i] = {label: air.MSRSTE_NM, y:air.PM25};
+		} else {
+			pm10s[i-21] = {label: air.MSRSTE_NM, y:air.PM10};
+			pm25s[i-21] = {label: air.MSRSTE_NM, y:air.PM25};
+		}
+	});
+	WriteChart("chartContainer", pm10, pm25);
+	WriteChart("chartContainer2", pm10s, pm25s);
+}
