@@ -1,25 +1,25 @@
 package com.kyle.erp.inven.purchase;
 
 public class SearchPurchase {
-	private String searchSales;
+	private String searchPurchase;
 	private String search;
 	
 	public SearchPurchase() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SearchPurchase(String searchSales, String search) {
+	public SearchPurchase(String searchPurchase, String search) {
 		super();
-		this.searchSales = searchSales;
+		this.searchPurchase = searchPurchase;
 		this.search = search;
 	}
 
-	public String getSearchSales() {
-		return searchSales;
+	public String getSearchPurchase() {
+		return searchPurchase;
 	}
 
-	public void setSearchSales(String searchSales) {
-		this.searchSales = searchSales;
+	public void setSearchPurchase(String searchPurchase) {
+		this.searchPurchase = searchPurchase;
 	}
 
 	public String getSearch() {
@@ -30,6 +30,7 @@ public class SearchPurchase {
 		this.search = search;
 	}
 
+	
 	
 	
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.company.CompanyMapper">
 	<insert id="regCompany" parameterType="com.kyle.erp.company.Company">
-		insert into erp_company values(erp_company_seq.nextval,#{com_name},#{com_no},#{com_email},#{com_tel},#{com_addr},#{com_logo},#{com_ename},#{com_etel},#{com_eaddr})
+		insert into erp_company values(#{com_key},#{com_name},#{com_no},#{com_email},#{com_tel},#{com_addr},#{com_logo},#{com_ename},#{com_etel},#{com_eaddr})
 	</insert>
 	<select id="getCompany" resultType="com.kyle.erp.company.Company">
 		select * from erp_company

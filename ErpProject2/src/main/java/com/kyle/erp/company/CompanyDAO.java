@@ -1,7 +1,6 @@
 package com.kyle.erp.company;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,7 @@ public class CompanyDAO {
 			return;
 		}
 		try {
+			company.setCom_key(mr.getParameter("com_key"));
 			company.setCom_name(mr.getParameter("com_name"));
 			company.setCom_no(mr.getParameter("com_no"));
 			company.setCom_email(mr.getParameter("com_email"));
@@ -71,7 +71,7 @@ public class CompanyDAO {
 			return;
 		}
 		try {
-			company.setCom_key(new BigDecimal(mr.getParameter("com_key")));
+			company.setCom_key(mr.getParameter("com_key"));
 			company.setCom_name(mr.getParameter("com_name"));
 			company.setCom_no(mr.getParameter("com_no"));
 			company.setCom_email(mr.getParameter("com_email"));

@@ -12,18 +12,18 @@
 <body>
 <div class="container mt-9">
 	<div class="container mt-3">
-		<div id="selectContainer">
-			<select id="year">
+		<div id="selectContainer" class="form-inline">
+			<select id="year" class="form-control mr-2">
 				<c:forEach var="y" begin="0" end="7">
 					<option>${2019 - y }</option>
 				</c:forEach>
 			</select>
-			<select id="month">
+			<select id="month" class="form-control mr-2">
 				<c:forEach var="m" begin="1" end="12">
 					<option>${m }</option>
 				</c:forEach>
 			</select>
-			<select id="day">
+			<select id="day" class="form-control mr-2">
 				<c:forEach var="d" begin="1" end="31">
 					<option>${d }</option>
 				</c:forEach>
@@ -34,7 +34,8 @@
 	<div class="container mt-3">
 		<h2>재고관리</h2>
 	</div>
-                <table class="table table-bordered table-striped">
+                
+                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -48,26 +49,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:forEach var="s" items="${stock }" varStatus="status">
+                    	<c:forEach var="p" items="${Purchasestock }" varStatus="status">
 		                        <tr>
 		                            <th scope="row">${status.count}</th>
-		                            <td class="text-left">${s.sb_pro_no }</td>
-		                            <td class="name">${s.pro_name }</td>
+		                            <td class="text-left">${p.psb_pro_no }</td>
+		                            <td class="name">${p.pro_name }</td>
 		                            <td class="text-right">
-		                            	<fmt:formatNumber value="${s.sum_company + s.sum_china }" pattern="#,###" />
+		                            	<fmt:formatNumber value="${(p.sum_company + p.sum_china) - (p.out_company + p.out_china) }" pattern="#,###" />
 		                            </td>
 		                            <td class="COMPANY CON text-right">
-		                           		<fmt:formatNumber value="${s.sum_company }" pattern="#,###" />
+		                           		<fmt:formatNumber value="${p.sum_company }" pattern="#,###" />
 		                            </td>
 		                            <td class="CHINA CON text-right">
-		                            	<fmt:formatNumber value="${s.sum_china }" pattern="#,###" />
+		                            	<fmt:formatNumber value="${p.sum_china }" pattern="#,###" />
 		                            </td>
-		                            <td class="SALE text-right"><fmt:formatNumber value="0" pattern="#,###" /></td>
-		                            <td class="SALE text-right"><fmt:formatNumber value="0" pattern="#,###" /></td>
+		                            <td class="SALE text-right"><fmt:formatNumber value="${p.sum_company + p.sum_china }" pattern="#,###" /></td>
+		                            <td class="SALE text-right"><fmt:formatNumber value="${p.out_company + p.out_china }" pattern="#,###" /></td>
 		                        </tr>
-		                  </c:forEach>
+		                        </c:forEach>
                     </tbody>
                 </table>
+                
 </div>
 
 

@@ -12,7 +12,7 @@
 		select * from erp_member where m_id=#{m_id} 
 	</select>
 	<insert id="join" parameterType="com.kyle.erp.member.Member">
-		insert into erp_member values(#{m_id},#{m_pw},#{m_name},#{m_email},#{m_addr},#{m_photo})
+		insert into erp_member values(#{m_id},#{m_code},#{m_pw},#{m_name},#{m_email},#{m_addr},#{m_photo})
 	</insert>
 	<update id="update" parameterType="com.kyle.erp.member.Member">
 		update erp_member set m_pw=#{m_pw}, m_name=#{m_name}, m_email=#{m_email}, m_addr=#{m_addr}, m_photo=#{m_photo} where m_id=#{m_id}

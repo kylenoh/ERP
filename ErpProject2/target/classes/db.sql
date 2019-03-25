@@ -27,6 +27,7 @@ create table erp_container(
 	con_name varchar2(30 char)not null,
 	con_note varchar2(2048 char)not null
 );
+select * from ERP_CONTAINER
 create sequence erp_container_seq;
 -- --------------------------------------
 create table erp_currency(
@@ -64,30 +65,32 @@ alter table erp_sub_sales add constraint erp_sub_sales_const foreign key(sb_s_no
 create sequence erp_sub_sales_seq;
 -- --------------------------------------
 create table erp_purchase(
-	s_no number(5)primary key,
-	s_d_no number(5)not null,
-	s_date date not null,
-	s_cus varchar2(120 char),
-	s_m_id varchar2(200 char),
-	s_con varchar2(120 char),
-	s_cur varchar2(120 char),
-	s_type varchar2(100 char),
-	s_note varchar2(2048 char)
+	ps_no number(5)primary key,
+	ps_d_no number(5)not null,
+	ps_date date not null,
+	ps_cus varchar2(120 char),
+	ps_m_id varchar2(200 char),
+	ps_con varchar2(120 char),
+	ps_cur varchar2(120 char),
+	ps_type varchar2(100 char),
+	ps_note varchar2(2048 char)
 );
 create sequence erp_purchase_seq;
+drop table erp_purchase cascade constraint;
 -- --------------------------------------
 create table erp_sub_purchase(
-	sb_no number(5)primary key,
-	sb_s_no number(5)not null,
-	sb_pro_no varchar2(120 char),
-	sb_qty number(10),
-	sb_pro_price number(10,2),
-	sb_price number(10,2),
-	sb_tax number(10),
-	sb_sum number(10,2)
+	psb_no number(5)primary key,
+	psb_s_no number(5)not null,
+	psb_pro_no varchar2(120 char),
+	psb_qty number(10),
+	psb_pro_price number(10,2),
+	psb_price number(10,2),
+	psb_tax number(10),
+	psb_sum number(10,2)
 );
-alter table erp_sub_purchase add constraint erp_sub_purchase_const foreign key(sb_s_no) references erp_purchase(s_no) on delete cascade;
+alter table erp_sub_purchase add constraint erp_sub_purchase_const foreign key(psb_s_no) references erp_purchase(ps_no) on delete cascade;
 create sequence erp_sub_purchase_seq;
+drop table erp_sub_purchase cascade constraint;
 -- --------------------------------------
 create table erp_member(
 	m_id varchar2(20 char)primary key,
@@ -140,6 +143,5 @@ create table erp_division(
 	d_note varchar2(20 char)not null
 );
 -- --------------------------------------
-select * from erp_purchase;
-select * from erp_sub_purchase;
 
+		

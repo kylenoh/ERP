@@ -30,10 +30,10 @@
                     <div class="col-md-2">
                     <c:choose>
 						<c:when test="${company.com_name!=null}">
-							<a class="btn btn-outline-success my-2 my-sm-0"  data-toggle="modal" href="#detailModal">Edit Information</a>
+							<a class="btn btn-outline-success my-2 my-sm-0"  data-toggle="modal" href="#detailModal">Edit</a>
 						</c:when>
 						<c:otherwise>
-							<a class="btn btn-outline-success my-2 my-sm-0"  data-toggle="modal" href="#registerModal">Edit Information</a>
+							<a class="btn btn-outline-success my-2 my-sm-0"  data-toggle="modal" href="#registerModal">Add</a>
 						</c:otherwise>
 					</c:choose>
                     </div>
@@ -146,6 +146,7 @@
 								<div class="form-group">
 									<label>회사명</label>
 									<input type="text" name="com_name" class="form-control" maxlength="30">
+									<input type="hidden" name="com_key" class="form-control" maxlength="30" value="${loginMember.m_code }">
 								</div>
 								<div class="form-group">
 									<label>사업자 등록번호</label>

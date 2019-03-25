@@ -49,7 +49,7 @@ public class PurchaseDAO {
 				Purchases.add(p);
 			}
 			for (Purchase purchase : Purchases) {
-				purchase.setS_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchase(purchase));
+				purchase.setPs_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchase(purchase));
 			}
 			
 			req.setAttribute("purchase2", Purchases);
@@ -66,7 +66,7 @@ public class PurchaseDAO {
 
 			List<Purchase>Purchases = ss.getMapper(PurchaseMapper.class).getPurchase(purchaseno);
 			for (Purchase purchase : Purchases) {
-				purchase.setS_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchase(purchase));
+				purchase.setPs_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchase(purchase));
 			}
 			req.setAttribute("purchase2", Purchases);
 		}
@@ -90,7 +90,7 @@ public class PurchaseDAO {
 		BigDecimal d_no = new BigDecimal(req.getParameter("d_no"));
 		Purchase purchase = new Purchase(d_no, null,null,null,null,null,null, null, null, null, null, null, null, null, null, null);
 		Purchase purchaseVal = ss.getMapper(PurchaseMapper.class).getPurchaseVal(purchase);
-		purchaseVal.setS_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchaseVal(purchaseVal));
+		purchaseVal.setPs_subPurchase(ss.getMapper(PurchaseMapper.class).getSubPurchaseVal(purchaseVal));
 
 		req.setAttribute("purchaseVal", purchaseVal);
 		

@@ -14,7 +14,7 @@ public class StockController {
 	@Autowired StockDAO STODAO;
 	@RequestMapping(value = "/go.stock", method = RequestMethod.GET)
 	public String goStock(HttpServletRequest req, HttpServletResponse res) {
-		STODAO.getStock(res, req);
+		STODAO.getPurchaseStock(res, req);
 		req.setAttribute("contentPage", "inven/stock.jsp");
 		return "index";
 	}

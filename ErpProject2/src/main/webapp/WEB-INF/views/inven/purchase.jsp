@@ -13,8 +13,8 @@
 <section class="container mt-3">
 	<form method="get" action="search.purchase" class="form-inline mt-3">
 		<select name ="searchPurchase" class="form-control mx-1 mt-2">
-			<option value="s_no">전표코드</option>
-			<option value="s_cus">거래처명</option>
+			<option value="ps_no">전표코드</option>
+			<option value="ps_cus">거래처명</option>
 		</select>
 		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
 		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
@@ -36,16 +36,16 @@
 				</tr>
 			</thead>
 			<c:forEach var="i" items="${purchase2 }">
-				<c:forEach var="j" items="${i.s_subPurchase }">
+				<c:forEach var="j" items="${i.ps_subPurchase }">
 					<tbody>
-						<tr onclick="getPurchaseDetail('${i.s_no }','${i.s_date }','${i.s_cus }','${i.s_m_id }','${i.s_con }','${i.s_cur }','${i.s_type }','${i.s_note }')">
+						<tr onclick="getPurchaseDetail('${i.ps_no }','${i.ps_date }','${i.ps_cus }','${i.ps_m_id }','${i.ps_con }','${i.ps_cur }','${i.ps_type }','${i.ps_note }')">
 							<td><input type="checkbox" class="checked"></td>
-							<td>${i.s_no }</td>
-							<td>${i.s_date }</td>
-							<td>${i.s_cus }</td>
-							<td><c:if test="${j.sb_pro_count >= 0}"> ${j.sb_pro_no } 외 ${j.sb_pro_count } 건</c:if></td>
-							<td><fmt:formatNumber value="${j.sb_sum }" pattern="#,###" /></td>
-							<td>${i.s_note }</td>
+							<td>${i.ps_no }</td>
+							<td>${i.ps_date }</td>
+							<td>${i.ps_cus }</td>
+							<td><c:if test="${j.sb_pro_count >= 0}"> ${j.psb_pro_no } 외 ${j.sb_pro_count } 건</c:if></td>
+							<td><fmt:formatNumber value="${j.psb_sum }" pattern="#,###" /></td>
+							<td>${i.ps_note }</td>
 							
 						</tr>
 					</tbody>
@@ -91,18 +91,18 @@
 		      <div class="modal-body">
 		      		<div class="form-group row">
 		      			<div class="col-sm-12">
-		      				<input type="text" class="form-control" name="s_d_no" value="2" id="s_d_no" hidden="">
+		      				<input type="text" class="form-control" name="ps_d_no" value="1" id="s_d_no" hidden="">
 		      			</div>
 		      		</div>
 					<div class="form-group row">
 					    	<label for="purchaseDate" class="col-sm-1 col-form-label">전표일자</label>
 					    	<div class="col-sm-5">
-					      		<input type="date" class="form-control" id="purchaseDate" name="s_date" value="${y}-${m}-${d}" tabindex=1>
+					      		<input type="date" class="form-control" id="purchaseDate" name="ps_date" value="${y}-${m}-${d}" tabindex=1>
 					    	</div>
 					    	<label for="customer" class="col-sm-1 col-form-label">거래처</label>
 					    	<div class="col-sm-5">
 						    	<div class="input-group mb-3">
-									<input type="text" class="form-control customer" id="customer" placeholder="Choose your Customer" aria-describedby="button-addon2" name="s_cus" tabindex=2>
+									<input type="text" class="form-control customer" id="customer" placeholder="Choose your Customer" aria-describedby="button-addon2" name="ps_cus" tabindex=2>
 									  <div class="input-group-append">
 									 	   <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-toggle="modal" data-target=".SelectCustomer-modal-lg" onclick="findCustomer()"><i class="fas fa-search"></i></button>
 									  </div>
@@ -114,7 +114,7 @@
 					    <label for="member" class="col-sm-1 col-form-label">담당자</label>
 					    	<div class="col-sm-5">
 					      		<div class="input-group mb-3">
-									<input type="text" class="form-control" id="member" placeholder="Recipient's username" value="${sessionScope.loginMember.m_id }" aria-describedby="button-addon2" name="s_m_id" tabindex=3>
+									<input type="text" class="form-control" id="member" placeholder="Recipient's username" value="${sessionScope.loginMember.m_id }" aria-describedby="button-addon2" name="ps_m_id" tabindex=3>
 									  <div class="input-group-append">
 									 	   <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
 									  </div>
@@ -123,7 +123,7 @@
 					    	<label for="container" class="col-sm-1 col-form-label">출하창고</label>
 					    	<div class="col-sm-5">
 					      		<div class="input-group mb-3">
-									<input type="text" class="form-control container" id="container" placeholder="Choose your Container" aria-describedby="button-addon2" name="s_con" tabindex=4>
+									<input type="text" class="form-control container" id="container" placeholder="Choose your Container" aria-describedby="button-addon2" name="ps_con" tabindex=4>
 									  <div class="input-group-append">
 									 	   <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-toggle="modal" data-target=".SelectContainer-modal-lg" onclick="findContainer()"><i class="fas fa-search"></i></button>
 									  </div>
@@ -134,7 +134,7 @@
 					<div class="form-group row">
 					    <label for="division" class="col-sm-1 col-form-label">거래유형</label>
 					    	<div class="col-sm-5">
-					      		<select id="division" class="form-control" name="s_type" tabindex=5>
+					      		<select id="division" class="form-control" name="ps_type" tabindex=5>
 										<option value="1" selected>부가세율 적용</option>
 										<option value="2">부가세율 미 적용</option>
 										<option value="3">해외 매출</option>
@@ -142,7 +142,7 @@
 					    	</div>
 					    	<label for="currency" class="col-sm-1 col-form-label">통화</label>
 					    	<div class="col-sm-5">
-									<select id="currency" class="form-control" name="s_cur" tabindex=6>
+									<select id="currency" class="form-control" name="ps_cur" tabindex=6>
 										<option value="cur01" selected>원 화</option>
 										<option value="cur02">달러</option>
 										<option value="cur03">중국돈</option>
@@ -152,7 +152,7 @@
 					<div class="form-row">
 						<label for="note" class="col-sm-1 col-form-label">비고</label>
 						<div class="col-sm-11">
-							<textarea class="form-control" name="s_note" maxlength="1024" style="height:80px;" id="note" tabindex=7></textarea>
+							<textarea class="form-control" name="ps_note" maxlength="1024" style="height:80px;" id="note" tabindex=7></textarea>
 						</div>
 					</div>
 					
@@ -176,14 +176,14 @@
 								<c:forEach var="i" begin="1" end="4">
 									<tr>
 										<td><input class="form-control ConnectNo" value="${i }" id ="s_no${i }"></td>
-										<td><input class="form-control s_pro_no${i } ConnectJS" id ="s_pro_no${i }" name="sb_pro_no" tabindex=8 autocomplete="off"></td>
+										<td><input class="form-control s_pro_no${i } ConnectJS" id ="s_pro_no${i }" name="psb_pro_no" tabindex=8 autocomplete="off"></td>
 										<td><input class="form-control s_pro_name${i }" id ="s_pro_name${i }" readonly="readonly"></td>
 										<td><input class="form-control s_pro_unit${i }" id ="s_pro_unit${i }" readonly="readonly"></td>
-										<td><input class="form-control s_qty QtyJS" id ="s_qty${i }" name="sb_qty"tabindex=9 autocomplete="off"></td>
-										<td><input class="form-control s_pro_price${i }" id ="s_pro_price${i }" name="sb_pro_price" autocomplete="off"></td>
-										<td><input class="form-control s_price${i }" id ="s_price${i }" name="sb_price" autocomplete="off"></td>
-										<td><input class="form-control s_tax${i }" id ="s_tax${i }" name="sb_tax" autocomplete="off"></td>
-										<td><input class="form-control s_sum${i }" id ="s_sum${i }" name="sb_sum" autocomplete="off"></td>
+										<td><input class="form-control s_qty QtyJS" id ="s_qty${i }" name="psb_qty"tabindex=9 autocomplete="off"></td>
+										<td><input class="form-control s_pro_price${i }" id ="s_pro_price${i }" name="psb_pro_price" autocomplete="off"></td>
+										<td><input class="form-control s_price${i }" id ="s_price${i }" name="psb_price" autocomplete="off"></td>
+										<td><input class="form-control s_tax${i }" id ="s_tax${i }" name="psb_tax" autocomplete="off"></td>
+										<td><input class="form-control s_sum${i }" id ="s_sum${i }" name="psb_sum" autocomplete="off"></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -301,14 +301,14 @@
 									<input class="form-control s_no" id ="d_sb_no${i }" name="s_no" autocomplete="off" hidden="">
 									<tr>
 										<td><input class="form-control DetailNo" value="${i }"></td>
-										<td><input class="form-control d_pro_no${i } ConnectJS2" id ="d_pro_no${i }" name="s_pro_no" autocomplete="off" tabindex=8></td>
+										<td><input class="form-control d_pro_no${i } ConnectJS2" id ="d_pro_no${i }" name="ps_pro_no" autocomplete="off" tabindex=8></td>
 										<td><input class="form-control d_pro_name${i }" id ="d_pro_name${i }" readonly="readonly"></td>
 										<td><input class="form-control d_pro_unit${i }" id ="d_pro_unit${i }" readonly="readonly"></td>
-										<td><input class="form-control d_qty${i } QtyJS2" id ="d_qty${i }" name="s_qty" autocomplete="off" tabindex=9></td>
-										<td><input class="form-control s_pro_price${i }" id ="d_pro_price${i }" name="s_pro_price"></td>
-										<td><input class="form-control d_price${i }" id ="d_price${i }" name="s_price"></td>
-										<td><input class="form-control d_tax${i }" id ="d_tax${i }" name="s_tax"></td>
-										<td><input class="form-control d_sum${i }" id ="d_sum${i }" name="s_sum"></td>
+										<td><input class="form-control d_qty${i } QtyJS2" id ="d_qty${i }" name="ps_qty" autocomplete="off" tabindex=9></td>
+										<td><input class="form-control s_pro_price${i }" id ="d_pro_price${i }" name="ps_pro_price"></td>
+										<td><input class="form-control d_price${i }" id ="d_price${i }" name="ps_price"></td>
+										<td><input class="form-control d_tax${i }" id ="d_tax${i }" name="ps_tax"></td>
+										<td><input class="form-control d_sum${i }" id ="d_sum${i }" name="ps_sum"></td>
 									</tr>
 								</c:forEach>
 							</tbody>

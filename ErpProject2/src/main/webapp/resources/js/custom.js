@@ -372,20 +372,20 @@ function getPurchaseDetail(s_no,s_date, s_cus, s_m_id, s_con, s_cur, s_type,s_no
 
 function getSubPurchases(s_no){
 	var detailNo = $('.DetailNo');
-	var url = "purchase.detailJSON?sb_s_no="+s_no;
+	var url = "purchase.detailJSON?psb_s_no="+s_no;
 	$.getJSON(url, function(data) {
 		var ar = data.subpurchase;
 		for(var i=0; i < detailNo.length; i++ ){	//값나옴 4
 			cost = $(detailNo[i]).val();		// 1,2,3,4
-			$('#d_sb_no'+cost).val(ar[i].sb_no);
-			$('#d_pro_no'+cost).val(ar[i].sb_pro_no);
+			$('#d_sb_no'+cost).val(ar[i].psb_no);
+			$('#d_pro_no'+cost).val(ar[i].psb_pro_no);
 			$('#d_pro_name'+cost).val(ar[i].pro_name);
 			$('#d_pro_unit'+cost).val(ar[i].pro_unit);
-			$('#d_qty'+cost).val(ar[i].sb_qty);
-			$('#d_pro_price'+cost).val(ar[i].sb_pro_price);
-			$('#d_price'+cost).val(ar[i].sb_price);
-			$('#d_tax'+cost).val(ar[i].sb_tax);
-			$('#d_sum'+cost).val(ar[i].sb_sum);
+			$('#d_qty'+cost).val(ar[i].psb_qty);
+			$('#d_pro_price'+cost).val(ar[i].psb_pro_price);
+			$('#d_price'+cost).val(ar[i].psb_price);
+			$('#d_tax'+cost).val(ar[i].psb_tax);
+			$('#d_sum'+cost).val(ar[i].psb_sum);
 		}
 	});
 }
@@ -397,7 +397,7 @@ function deleteSales() {
 
 function deletePurchase() {
 	var d_no = $("#d_no").val();
-	location.href = "delete.purchase?s_no=" + d_no;
+	location.href = "delete.purchase?ps_no=" + d_no;
 }
 
 function deleteMember(){
@@ -509,14 +509,14 @@ function purchaseSubmit(){
 	var sq_type = $('#division').val();
 	var sq_note = $('#note').val();
 		   var data = {
-				s_d_no: sq_d_no,
-				s_date: sq_date,
-				s_cus: sq_cus,
-				s_m_id:sq_m_id,
-				s_con:sq_con,
-				s_cur:sq_cur,
-				s_type:sq_type,
-				s_note:sq_note
+				ps_d_no: sq_d_no,
+				ps_date: sq_date,
+				ps_cus: sq_cus,
+				ps_m_id:sq_m_id,
+				ps_con:sq_con,
+				ps_cur:sq_cur,
+				ps_type:sq_type,
+				ps_note:sq_note
 		     };
 		   $.ajax({
 			    url : "purchase.regJSON",
@@ -550,12 +550,12 @@ function subPurchaseSubmit(){
 				sq_tax =$('#s_tax'+cost).val();
 				sq_sum =$('#s_sum'+cost).val();
 				var data = {
-						sb_pro_no: sq_pro_no,
-						sb_qty: sq_qty,
-						sb_pro_price:sq_pro_price,
-						sb_price:sq_price,
-						sb_tax:sq_tax,
-						sb_sum:sq_sum,
+						psb_pro_no: sq_pro_no,
+						psb_qty: sq_qty,
+						psb_pro_price:sq_pro_price,
+						psb_price:sq_price,
+						psb_tax:sq_tax,
+						psb_sum:sq_sum,
 				     };
 				   $.ajax({
 					    url : "purchase.regSubJSON",
@@ -618,16 +618,16 @@ function purchaseUpdate(){
 	var sq_type = $('#d_type').val();
 	var sq_note = $('#d_note').val();
 		   var data = {
-				s_date: sq_date,
-				s_cus: sq_cus,
-				s_m_id:sq_m_id,
-				s_con:sq_con,
-				s_cur:sq_cur,
-				s_type:sq_type,
-				s_note:sq_note
+				ps_date: sq_date,
+				ps_cus: sq_cus,
+				ps_m_id:sq_m_id,
+				ps_con:sq_con,
+				ps_cur:sq_cur,
+				ps_type:sq_type,
+				ps_note:sq_note
 		     };
 		   $.ajax({
-			    url : "purchase.updateJSON?s_no="+sq_no,
+			    url : "purchase.updateJSON?ps_no="+sq_no,
 			    type : "GET",
 			    data : data,
 			    success : function(){
@@ -654,17 +654,17 @@ function subpurchaseUpdate(sq_no){
 				var sq_tax =$('#d_tax'+cost).val();
 				var sq_sum =$('#d_sum'+cost).val();
 				var data = {
-						sb_pro_no: sq_pro_no,
+						psb_pro_no: sq_pro_no,
 						pro_name: sq_pro_name,
 						pro_unit: sq_pro_unit,
-						sb_qty: sq_qty,
-						sb_pro_price:sq_pro_price,
-						sb_price:sq_price,
-						sb_tax:sq_tax,
-						sb_sum:sq_sum,
+						psb_qty: sq_qty,
+						psb_pro_price:sq_pro_price,
+						psb_price:sq_price,
+						psb_tax:sq_tax,
+						psb_sum:sq_sum,
 				     };
 				   $.ajax({
-					    url : "purchase.updateSubJSON?sb_no="+sq_no,
+					    url : "purchase.updateSubJSON?psb_no="+sq_no,
 					    type : "GET",
 					    data : data,
 					    async:false,

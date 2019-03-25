@@ -1,9 +1,7 @@
 package com.kyle.erp.company;
 
-import java.math.BigDecimal;
-
 public class Company {
-	private BigDecimal com_key;
+	private String com_key;
 	private String com_name;
 	private String com_no;
 	private String com_email;
@@ -18,8 +16,8 @@ public class Company {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Company(BigDecimal com_key, String com_name, String com_no, String com_email, String com_tel,
-			String com_addr, String com_logo, String com_ename, String com_etel, String com_eaddr) {
+	public Company(String com_key, String com_name, String com_no, String com_email, String com_tel, String com_addr,
+			String com_logo, String com_ename, String com_etel, String com_eaddr) {
 		super();
 		this.com_key = com_key;
 		this.com_name = com_name;
@@ -33,11 +31,11 @@ public class Company {
 		this.com_eaddr = com_eaddr;
 	}
 
-	public BigDecimal getCom_key() {
+	public String getCom_key() {
 		return com_key;
 	}
 
-	public void setCom_key(BigDecimal com_key) {
+	public void setCom_key(String com_key) {
 		this.com_key = com_key;
 	}
 
@@ -113,5 +111,4 @@ public class Company {
 		this.com_eaddr = com_eaddr;
 	}
 
-	
 }

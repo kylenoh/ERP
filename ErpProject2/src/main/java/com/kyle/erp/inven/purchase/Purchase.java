@@ -5,15 +5,15 @@ import java.sql.Date;
 import java.util.List;
 
 public class Purchase {
-	private BigDecimal s_no;
-	private BigDecimal s_d_no;
-	private Date s_date;
-	private String s_cus;
-	private String s_m_id;
-	private String s_con;
-	private String s_cur;
-	private String s_type;
-	private String s_note;
+	private BigDecimal ps_no;
+	private BigDecimal ps_d_no;
+	private Date ps_date;
+	private String ps_cus;
+	private String ps_m_id;
+	private String ps_con;
+	private String ps_cur;
+	private String ps_type;
+	private String ps_note;
 	
 	private String cus_addr;
 	private String cus_email;
@@ -22,104 +22,104 @@ public class Purchase {
 	private String com_logo;
 	private String com_email;
 	
-	private List<SubPurchase> s_subPurchase;
+	private List<SubPurchase> ps_subPurchase;
 	
 	public Purchase() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Purchase(BigDecimal s_no, BigDecimal s_d_no, Date s_date, String s_cus, String s_m_id, String s_con,
-			String s_cur, String s_type, String s_note, String cus_addr, String cus_email, String com_etel,
-			String com_eaddr, String com_logo, String com_email, List<SubPurchase> s_subPurchase) {
+	public Purchase(BigDecimal ps_no, BigDecimal ps_d_no, Date ps_date, String ps_cus, String ps_m_id, String ps_con,
+			String ps_cur, String ps_type, String ps_note, String cus_addr, String cus_email, String com_etel,
+			String com_eaddr, String com_logo, String com_email, List<SubPurchase> ps_subPurchase) {
 		super();
-		this.s_no = s_no;
-		this.s_d_no = s_d_no;
-		this.s_date = s_date;
-		this.s_cus = s_cus;
-		this.s_m_id = s_m_id;
-		this.s_con = s_con;
-		this.s_cur = s_cur;
-		this.s_type = s_type;
-		this.s_note = s_note;
+		this.ps_no = ps_no;
+		this.ps_d_no = ps_d_no;
+		this.ps_date = ps_date;
+		this.ps_cus = ps_cus;
+		this.ps_m_id = ps_m_id;
+		this.ps_con = ps_con;
+		this.ps_cur = ps_cur;
+		this.ps_type = ps_type;
+		this.ps_note = ps_note;
 		this.cus_addr = cus_addr;
 		this.cus_email = cus_email;
 		this.com_etel = com_etel;
 		this.com_eaddr = com_eaddr;
 		this.com_logo = com_logo;
 		this.com_email = com_email;
-		this.s_subPurchase = s_subPurchase;
+		this.ps_subPurchase = ps_subPurchase;
 	}
 
-	public BigDecimal getS_no() {
-		return s_no;
+	public BigDecimal getPs_no() {
+		return ps_no;
 	}
 
-	public void setS_no(BigDecimal s_no) {
-		this.s_no = s_no;
+	public void setPs_no(BigDecimal ps_no) {
+		this.ps_no = ps_no;
 	}
 
-	public BigDecimal getS_d_no() {
-		return s_d_no;
+	public BigDecimal getPs_d_no() {
+		return ps_d_no;
 	}
 
-	public void setS_d_no(BigDecimal s_d_no) {
-		this.s_d_no = s_d_no;
+	public void setPs_d_no(BigDecimal ps_d_no) {
+		this.ps_d_no = ps_d_no;
 	}
 
-	public Date getS_date() {
-		return s_date;
+	public Date getPs_date() {
+		return ps_date;
 	}
 
-	public void setS_date(Date s_date) {
-		this.s_date = s_date;
+	public void setPs_date(Date ps_date) {
+		this.ps_date = ps_date;
 	}
 
-	public String getS_cus() {
-		return s_cus;
+	public String getPs_cus() {
+		return ps_cus;
 	}
 
-	public void setS_cus(String s_cus) {
-		this.s_cus = s_cus;
+	public void setPs_cus(String ps_cus) {
+		this.ps_cus = ps_cus;
 	}
 
-	public String getS_m_id() {
-		return s_m_id;
+	public String getPs_m_id() {
+		return ps_m_id;
 	}
 
-	public void setS_m_id(String s_m_id) {
-		this.s_m_id = s_m_id;
+	public void setPs_m_id(String ps_m_id) {
+		this.ps_m_id = ps_m_id;
 	}
 
-	public String getS_con() {
-		return s_con;
+	public String getPs_con() {
+		return ps_con;
 	}
 
-	public void setS_con(String s_con) {
-		this.s_con = s_con;
+	public void setPs_con(String ps_con) {
+		this.ps_con = ps_con;
 	}
 
-	public String getS_cur() {
-		return s_cur;
+	public String getPs_cur() {
+		return ps_cur;
 	}
 
-	public void setS_cur(String s_cur) {
-		this.s_cur = s_cur;
+	public void setPs_cur(String ps_cur) {
+		this.ps_cur = ps_cur;
 	}
 
-	public String getS_type() {
-		return s_type;
+	public String getPs_type() {
+		return ps_type;
 	}
 
-	public void setS_type(String s_type) {
-		this.s_type = s_type;
+	public void setPs_type(String ps_type) {
+		this.ps_type = ps_type;
 	}
 
-	public String getS_note() {
-		return s_note;
+	public String getPs_note() {
+		return ps_note;
 	}
 
-	public void setS_note(String s_note) {
-		this.s_note = s_note;
+	public void setPs_note(String ps_note) {
+		this.ps_note = ps_note;
 	}
 
 	public String getCus_addr() {
@@ -170,12 +170,12 @@ public class Purchase {
 		this.com_email = com_email;
 	}
 
-	public List<SubPurchase> getS_subPurchase() {
-		return s_subPurchase;
+	public List<SubPurchase> getPs_subPurchase() {
+		return ps_subPurchase;
 	}
 
-	public void setS_subPurchase(List<SubPurchase> s_subPurchase) {
-		this.s_subPurchase = s_subPurchase;
+	public void setPs_subPurchase(List<SubPurchase> ps_subPurchase) {
+		this.ps_subPurchase = ps_subPurchase;
 	}
 
 	

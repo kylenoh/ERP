@@ -51,6 +51,7 @@ $.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/D
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+      <c:if test="${loginMember!=null}">
         <li class="nav-item active">
           <a class="nav-link" href="go.purchase">구매관리<span class="sr-only">(current)</span></a>
         </li>
@@ -77,6 +78,7 @@ $.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/D
 					<a class="dropdown-item" href="go.currency">환율관리</a>
 				</div>
 		</li>
+		</c:if>
       </ul>
       		<c:set var="result" value="${loginMember}" scope="session"/>
 			<c:choose>

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kyle.erp.inven.stock.StockMapper">
-	<select id="getSumQtybyContainer" parameterType="com.kyle.erp.inven.container.Container" resultType="com.kyle.erp.inven.stock.Stock">
-		select sb_pro_no, pro_name, sum(sb_qty) as sum
+	<select id="getSalesbyContainer" parameterType="com.kyle.erp.inven.container.Container" resultType="com.kyle.erp.inven.stock.Stock">
+		select sb_pro_no, pro_name, sum(sb_qty) as out
 		from erp_product, erp_sales, erp_sub_sales 
 		where s_no = sb_s_no and sb_pro_no = pro_no and s_con = #{con_name} 
 		group by sb_pro_no, pro_name 
 		order by sb_pro_no
+	</select>
+	
+	<select id="getPurchasebyContainer" parameterType="com.kyle.erp.inven.container.Container" resultType="com.kyle.erp.inven.stock.Stock">
+		select psb_pro_no, pro_name, sum(psb_qty) as sum
+		from erp_product, erp_purchase, erp_sub_purchase 
+		where ps_no = psb_s_no and psb_pro_no = pro_no and ps_con = #{con_name} 
+		group by psb_pro_no, pro_name 
+		order by psb_pro_no
 	</select>
 </mapper>
