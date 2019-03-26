@@ -18,4 +18,5 @@ public class StockController {
 		req.setAttribute("contentPage", "inven/stock.jsp");
 		return "index";
 	}
+	
 }

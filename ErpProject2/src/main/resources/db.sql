@@ -112,6 +112,8 @@ create table erp_bbs(
 	b_img varchar2(1000 char)
 );
 create sequence erp_bbs_seq;
+drop table erp_bbs cascade constraint;
+drop table erp_bbs_reply cascade constraint;
 -- --------------------------------------
 create table erp_bbs_reply(
 	br_no number(5)primary key,
@@ -143,5 +145,3 @@ create table erp_division(
 	d_note varchar2(20 char)not null
 );
 -- --------------------------------------
-
-		

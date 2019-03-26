@@ -11,17 +11,14 @@
 </head>
 <body>
 <section class="container mt-3">
-	<form method="get" action="#" class="form-inline mt-3">
-		<select name ="lectureDivide" class="form-control mx-1 mt-2">
-			<option value="먹자">고객관리</option>
-		</select>
-		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
+		<form method="get" action="sns.search" class="form-inline mt-3">
+		<input type="text" name="b_owner" class="form-control mx-1 mt-2" placeholder="작성자">
 		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
 		<c:if test="${sessionScope.loginMember.m_id != null }">
 			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a> 
-			<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal">신고하기</a>
 		</c:if>
 	</form>
+	
 	
 	<c:forEach var="bm" items="${msgs }">
 	<div class="card bg-light mt-3">
@@ -40,7 +37,6 @@
 			<p class="card-text">${bm.b_txt}</p>
 			<div class="row">
 				<div class="col-12 text-right">
-					<a href="./likeAction.jsp?evluationID=" onclick="return confirm('추천하시겠습니까?')">추천 </a>
 					<c:if test="${bm.b_owner == sessionScope.loginMember.m_id }">
 					<a href="./deleteAction.jsp?evluationID=" onclick="return confirm('수정하시겠습니까?')">수정</a>
 					<a href="#" onclick="bbsDelete(${bm.b_no })">삭제</a>
@@ -136,35 +132,6 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="submit" class="btn btn-primary">등록하기</button>
-						</div>
-					</form>
-				</div>		
-			</div>
-		</div>
-	</div>
-<!-- 신고하기 -->
-	<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal">신고하기</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>		
-				<div class="modal-body">
-					<form action="./reportAction.jsp" method="post">
-						<div class="form-group">
-							<label>신고 제목</label>
-							<input type="text" name="reportTitle" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>신고 내용</label>
-							<textarea name="reportContent" class="form-control" maxlength="2048" style="height:180px;"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-danger">신고하기</button>
 						</div>
 					</form>
 				</div>		

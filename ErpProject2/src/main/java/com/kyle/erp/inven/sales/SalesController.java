@@ -87,6 +87,10 @@ public class SalesController {
 		int pageNo = Integer.parseInt(req.getParameter("c"));
 		return SDAO.pagingSalesJSON(pageNo, sales);
 	}
+	@RequestMapping(value = "/sales.getGraphJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody SubSaleses getGraphJSON() {
+		return SDAO.getGraph();  
+	}
 	@RequestMapping(value = "/sales.regJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String salesRegJSON(Sales sales) {
 		return SDAO.regJSON(sales);  

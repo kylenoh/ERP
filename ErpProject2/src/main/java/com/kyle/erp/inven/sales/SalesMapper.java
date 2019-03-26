@@ -15,4 +15,5 @@ public interface SalesMapper {
 	public abstract int deleteSales(Sales sales);
 	public abstract int regSubSales(SubSales subsales);
 	public abstract List<SubSales>getSubDetail(SubSales subsales);
+	public abstract List<SubSales>getGraph();
 }

@@ -15,4 +15,5 @@ public interface PurchaseMapper {
 	public abstract int deletePurchase(Purchase purchase);
 	public abstract int regSubPurchase(SubPurchase subpurchase);
 	public abstract List<SubPurchase>getSubDetailPurchase(SubPurchase subpurchase);
+	public abstract List<SubPurchase>getGraph2();
 }

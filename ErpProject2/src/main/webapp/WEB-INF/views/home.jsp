@@ -52,21 +52,18 @@
 
     <div class="row">
       <div class="col-lg-4">
-        <img src="resources/file/profile.jpg" style="width:140px; height:140px;" class="rounded-circle">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+        <img src="resources/file/java.JPG" style="width:140px; height:140px;" class="rounded-square">
+        <p>JAVA 1.8.0_181 을 사용하여 Controller와 비즈니스 로직을 작성 하였습니다.</p>
         <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <img src="resources/file/profile.jpg" style="width:140px; height:140px;" class="rounded-circle">
-        <h2>Heading</h2>
-        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        <img src="resources/file/oracle.JPG" style="width:140px; height:140px;" class="rounded-square">
+        <p>다양한 사용자에게 입증된 Oracle 11g Express Edition으로 구성되었습니다.</p>
         <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <img src="resources/file/profile.jpg" style="width:140px; height:140px;" class="rounded-circle">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <img src="resources/file/Spring.JPG" style="width:140px; height:140px;" class="rounded-square">
+        <p>개발 속도 향상과 유지보수를 위하여 전자 정부 표준 프레임 워크 3.7 버전으로 구성하였습니다.</p>
         <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
@@ -78,11 +75,13 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">Manage your company with small business ERP that grows with you</h2>
-        <p class="lead">Capture all of your data in an integrated enterprise resource planning (ERP) system for small businesses and midsize companies. Our cloud and on-premise ERP software helps you manage everything from accounting and CRM to supply chain management and purchasing.</p>
+        <h2 class="featurette-heading">당신의 사업을 효율적으로 관리해드리겠습니다.</h2>
+        <p class="lead">PC에 깔아서 혼자만 쓰거나 여럿이 쓰더라도 제한적이라면 불편할 수밖에 없습니다.
+								구매팀은 엑셀로 관리하고 영업팀은 재고현황을 알지 못한 채, 업무에 투입된다면 
+								같은 일을 두 번 세 번 하게 되고, 서로 가진 데이터가 달라지는 큰 문제가 생길 수 있습니다.</p>
       </div>
       <div class="col-md-5">
-      	<img src="resources/file/marketing.jpg" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; height:500px;">
+      	<img src="resources/file/marketing.jpg" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; height:400px;">
       </div>
     </div>
 
@@ -90,11 +89,11 @@
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Solve your specific ERP small business needs</h2>
-        <p class="lead">Do more with less – and fuel rapid growth – with an enterprise resource planning system for small business and midsize companies. Integrate all your data and use automation and intelligent technologies to break new ground.</p>
+        <h2 class="featurette-heading">ERP 도입의 중요성</h2>
+        <p class="lead">ERP를 도입한 중소기업의 5년 뒤 모습을 보면, 대부분 다시 엑셀로 업무를 하고 있습니다. 업무 변화에 따른 커스터마이징의 한계, 개발사 폐업, 데이터 오류, 과다한 유지보수 비용 등이 주 원인입니다.</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <img src="resources/file/statistics.jpg" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; height:500px;">
+        <img src="resources/file/statistics.jpg" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; height:400px;">
       </div>
     </div>
 

@@ -79,6 +79,10 @@ public class PurchaseController {
 		int pageNo = Integer.parseInt(req.getParameter("c"));
 		return PURDAO.pagingPurchaseJSON(pageNo, purchase);
 	}
+	@RequestMapping(value = "/purchase.getGraphJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody SubPurchases getGraphJSON2() {
+		return PURDAO.getGraph2();  
+	}
 	@RequestMapping(value = "/purchase.regJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody String purchaseRegJSON(Purchase purchase) {
 		return PURDAO.regJSON(purchase);  

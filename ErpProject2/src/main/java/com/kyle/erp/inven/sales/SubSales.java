@@ -15,6 +15,7 @@ public class SubSales {
 	private String sb_pro_count;
 	private String pro_name;
 	private String pro_unit;
+	private String s_date;
 	
 	
 	public SubSales() {
@@ -24,7 +25,7 @@ public class SubSales {
 
 	public SubSales(BigDecimal sb_no, BigDecimal sb_s_no, String sb_pro_no, BigDecimal sb_qty, BigDecimal sb_pro_price,
 			BigDecimal sb_price, BigDecimal sb_tax, BigDecimal sb_sum, String sb_pro_count, String pro_name,
-			String pro_unit) {
+			String pro_unit, String s_date) {
 		super();
 		this.sb_no = sb_no;
 		this.sb_s_no = sb_s_no;
@@ -37,6 +38,7 @@ public class SubSales {
 		this.sb_pro_count = sb_pro_count;
 		this.pro_name = pro_name;
 		this.pro_unit = pro_unit;
+		this.s_date = s_date;
 	}
 
 
@@ -147,6 +149,16 @@ public class SubSales {
 
 	public void setPro_unit(String pro_unit) {
 		this.pro_unit = pro_unit;
+	}
+
+
+	public String getS_date() {
+		return s_date;
+	}
+
+
+	public void setS_date(String s_date) {
+		this.s_date = s_date;
 	}
 
 

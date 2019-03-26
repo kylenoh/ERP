@@ -21,10 +21,6 @@
 	<select id="getBBSReplys" parameterType="com.kyle.erp.group.bbs.BBS" resultType="com.kyle.erp.group.bbs.BBSReply">
 		select * from erp_bbs_reply where br_b_no = #{b_no} order by br_date
 	</select>
-	<select id="searchBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS" resultType="com.kyle.erp.group.bbs.BBS">
-		select * from erp_bbs, erp_member where b_owner=m_id and b_owner like '%'||#{b_owner}||'%'
-		order by b_date
-	</select>
 	<update id="updateBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS">
 		update erp_bbs set	b_txt=#{b_txt} where b_no=#{b_no}
 	</update>
@@ -34,4 +30,9 @@
 	<insert id="writeBBSReply" parameterType="com.kyle.erp.group.bbs.BBSReply">
 		insert into	erp_bbs_reply values(erp_bbs_reply_seq.nextval, #{br_b_no},	#{br_owner}, #{br_txt}, sysdate)
 	</insert>
+		<select id="searchBBSMsg" parameterType="com.kyle.erp.group.bbs.BBS"
+		resultType="com.kyle.erp.group.bbs.BBS">
+		select *	from	erp_bbs, erp_member where b_owner=m_id	and b_owner like '%'||#{b_owner}||'%'
+		order by b_date
+	</select>
 </mapper>

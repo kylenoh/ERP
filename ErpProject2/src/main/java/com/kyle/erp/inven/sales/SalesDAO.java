@@ -118,6 +118,12 @@ public class SalesDAO {
 		return s2;
 	}
 	
+	public SubSaleses getGraph(){
+		List<SubSales>subsales = ss.getMapper(SalesMapper.class).getGraph();
+		SubSaleses subsaleses = new SubSaleses(subsales);
+		return subsaleses;
+	}
+	
 	public String regJSON(Sales sales) {
 		try {
 			if (ss.getMapper(SalesMapper.class).regSales(sales)==1) {

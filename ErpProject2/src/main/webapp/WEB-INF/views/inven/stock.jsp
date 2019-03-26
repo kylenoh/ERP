@@ -12,23 +12,6 @@
 <body>
 <div class="container mt-9">
 	<div class="container mt-3">
-		<div id="selectContainer" class="form-inline">
-			<select id="year" class="form-control mr-2">
-				<c:forEach var="y" begin="0" end="7">
-					<option>${2019 - y }</option>
-				</c:forEach>
-			</select>
-			<select id="month" class="form-control mr-2">
-				<c:forEach var="m" begin="1" end="12">
-					<option>${m }</option>
-				</c:forEach>
-			</select>
-			<select id="day" class="form-control mr-2">
-				<c:forEach var="d" begin="1" end="31">
-					<option>${d }</option>
-				</c:forEach>
-			</select>
-		</div>
 		<div id="chartContainer" style="height: 320px; width: 100%;"></div>
 	</div>
 	<div class="container mt-3">

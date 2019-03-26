@@ -23,21 +23,7 @@ $(function(){
 		connectIdCheckEvent();
 		sales();
 		sales2();
-
-$.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/DailyAverageAirQuality/1/42/20190101", callback);
-		
-		$("select").change(function(e){
-			var yy = $("#year").val();
-			var mm = $("#month").val();
-			if (mm < 10) {
-				mm = 0 + mm;
-			}
-			var dd = $("#day").val();
-			if (dd < 10) {
-				dd = 0 + dd;
-			}
-			$.getJSON("http://openapi.seoul.go.kr:8088/4f6a6547456b6368333355736a714f/json/DailyAverageAirQuality/1/42/"+yy+mm+dd, callback);
-		});
+		stockChart();
 });
 </script>
 

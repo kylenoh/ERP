@@ -118,6 +118,12 @@ public class PurchaseDAO {
 		return s2;
 	}
 	
+	public SubPurchases getGraph2(){
+		List<SubPurchase>subpurchase = ss.getMapper(PurchaseMapper.class).getGraph2();
+		SubPurchases subpurchases = new SubPurchases(subpurchase);
+		return subpurchases;
+	}
+	
 	public String regJSON(Purchase purchase) {
 		try {
 			if (ss.getMapper(PurchaseMapper.class).regPurchase(purchase)==1) {

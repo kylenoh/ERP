@@ -736,70 +736,6 @@ function printInvoice(){
 	}
 }
 
-//	콤마찍기
-function comma(str) {
-    str = String(str);
-    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-}
-// 콤마풀기
-function uncomma(str) {
-    str = String(str);
-    return str.replace(/[^\d]+/g, '');
-}
-// 값 입력시 콤마찍기
-function inputNumberFormat(obj) {
-    obj.value = comma(uncomma(obj.value));
-}
-
-function WriteChart(con, pm10, pm25){
-	var chart = new CanvasJS.Chart(con, {
-		exportEnabled: true,
-		animationEnabled: true,
-		theme:"light1",
-		title: {
-			text: "서울 공기"
-		},
-		axisY: {
-			title: "미세먼지(㎍/㎥)",
-			includeZero: true,
-			titleFontColor: "#4F81BC",
-			labelFontColor: "#4F81BC",
-			maximum: 200
-		},
-		axisY2: {
-			title: "초미세먼지(㎍/㎥)",
-			includeZero: true,
-			titleFontColor: "#C0504E",
-			labelFontColor: "#C0504E",
-			maximum: 200
-		},
-		toolTip: {
-			shared: true
-		},
-		legend: {
-			cursor: "pointer",
-			verticalAlign: "bottom",
-			itemclick: toggleDataSeries
-		},
-		data: [{
-			type: "column",
-			name: "미세먼지",
-			showInLegend: true,
-			yValueFormatString: "###",
-			dataPoints: pm10
-		},
-		{
-			type: "column",
-			name: "초미세먼지",
-			showInLegend: true,
-			yValueFormatString: "###",
-			axisYType: "secondary",
-			dataPoints: pm25
-		}]
-	});
-	chart.render();
-}
-
 function toggleDataSeries(e) {
 	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 		e.dataSeries.visible = false;
@@ -809,20 +745,68 @@ function toggleDataSeries(e) {
 	e.chart.render();
 }
 
-function callback(data) {	
-	var pm10 = [];
-	var pm25 = [];
-	var pm10s = [];
-	var pm25s = [];
-	$.each(data.DailyAverageAirQuality.row, function(i, air){
-		if (i < 21) {
-			pm10[i] = {label: air.MSRSTE_NM, y:air.PM10};
-			pm25[i] = {label: air.MSRSTE_NM, y:air.PM25};
-		} else {
-			pm10s[i-21] = {label: air.MSRSTE_NM, y:air.PM10};
-			pm25s[i-21] = {label: air.MSRSTE_NM, y:air.PM25};
-		}
+function stockChart() {	
+	var graphSale = [];
+	var graphpurchase = [];
+	$.getJSON("purchase.getGraphJSON", function(data) {
+		$.each(data.subpurchase, function(i, p){
+			graphpurchase[i] = {y:p.psb_sum, label: p.psb_pro_no};
+		});
 	});
-	WriteChart("chartContainer", pm10, pm25);
-	WriteChart("chartContainer2", pm10s, pm25s);
+	var url = "sales.getGraphJSON";
+	$.getJSON(url, function(data) {
+		$.each(data.subsaleses, function(i, s){
+			graphSale[i] = {y:s.sb_sum, label: s.sb_pro_no};
+		});
+		WriteChart("chartContainer", graphSale, graphpurchase);
+	});
+}
+
+function WriteChart(con, graphSale,graphpurchase){
+		var chart = new CanvasJS.Chart(con, {
+			exportEnabled: true,
+			animationEnabled: true,
+			theme:"light1",
+			title: {
+				text: "입출고 구분"
+			},
+			axisY: {
+				title: "입고수량",
+				includeZero: true,
+				titleFontColor: "#4F81BC",
+				labelFontColor: "#4F81BC",
+				maximum: 300
+			},
+			axisY2: {
+				title: "출고수량",
+				includeZero: true,
+				titleFontColor: "#C0504E",
+				labelFontColor: "#C0504E",
+				maximum: 300
+			},
+			toolTip: {
+				shared: true
+			},
+			legend: {
+				cursor: "pointer",
+				verticalAlign: "bottom",
+				itemclick: toggleDataSeries
+			},
+			data: [{
+				type: "column",
+				name: "입고수량",
+				showInLegend: true,
+				yValueFormatString: "###",
+				dataPoints: graphpurchase
+			},
+			{
+				type: "column",
+				name: "출고수량",
+				showInLegend: true,
+				yValueFormatString: "###",
+				axisYType: "secondary",
+				dataPoints: graphSale
+			}]
+		});
+		chart.render();
 }

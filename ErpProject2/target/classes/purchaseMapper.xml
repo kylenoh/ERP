@@ -42,4 +42,7 @@
 	<select id="getSubDetailPurchase" parameterType="com.kyle.erp.inven.purchase.SubPurchase" resultType="com.kyle.erp.inven.purchase.SubPurchase">
 		select * from erp_sub_purchase inner join erp_product on erp_sub_purchase.psb_pro_no = erp_product.pro_no where psb_s_no =#{psb_s_no}
 	</select>
+	<select id="getGraph2" resultType="com.kyle.erp.inven.purchase.SubPurchase">
+		select ps_date,psb_pro_no, sum(psb_qty) as psb_sum from erp_purchase inner join erp_sub_purchase on erp_purchase.ps_no = erp_sub_purchase.psb_s_no group by ps_date,psb_pro_no
+	</select>
 </mapper>
