@@ -8,62 +8,77 @@
 <title>Insert title here</title>
 </head>
 <body>
-<section class="container mt-3" style="max-width:560px;">
-	<form method="post" action="reg.member" enctype="multipart/form-data" name="joinForm" onsubmit="return calculateQty2();">
-		<div class="form-group">
-			<label>아이디</label>
-			<div class="input-group mb-3">
-  				<input type="text" class="form-control" placeholder="아이디" aria-describedby="basic-addon2" id="m_id"name="m_id" required="required">
-  					<div class="input-group-append">
-					    <span class="input-group-text" id="joinIdOk">ID확인</span>
-  					</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>회사코드</label>
-			<div class="input-group mb-3">
-  				<input type="text" class="form-control" placeholder="회사코드" aria-describedby="basic-addon2" id="m_code"name="m_code">
-			</div>
-		</div>
-		<div class="form-group">
-			<label>비밀번호</label>
-			<input type="password" name="m_pw" class="form-control" placeholder="PW, 숫자/영어소문자 조합" required="required">
-		</div>
-		<div class="form-group">
-			<label>비밀번호확인</label>
-			<input type="password" name="m_pwChk" class="form-control" placeholder="PW, 숫자/영어소문자 조합" required="required">
-		</div>
-		<div class="form-group">
-			<label>이름</label>
-			<input type="text" name="m_name" class="form-control">
-		</div>
-		<div class="form-group">
-			<label>이메일</label>
-			<input type="email" name="m_email" class="form-control" maxlength="20" placeholder="이메일">
-		</div>
-		<div class="form-group">
-			<label>우편번호</label>
-			<div class="input-group mb-3">
-  				<input type="text" class="form-control" placeholder="우편번호" name="m_addr3" id="m_addr3" readonly="readonly">
-  					<div class="input-group-append">
-  						<button class="btn btn-outline-secondary" type="button" id="joinAddrSearchBtn"><i class="fas fa-search"></i></button>
-  					</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>주소</label>
-			<input type="text" name="m_addr1" id="m_addr1" class="form-control" maxlength="20" placeholder="주소" readonly="readonly">
-		</div>
-		<div class="form-group">
-			<label>상세주소</label>
-			<input type="text" name="m_addr2" class="form-control" maxlength="20" placeholder="상세주소">
-		</div>
-		<div class="form-group">
-			<label>프로필</label>
-			<input type="file" name="m_photo" class="form-control" autocomplete="off">
-		</div>
-		<button type="submit" class="btn btn-success btn-block">회원가입</button>		
-	</form>
+<section class="container mt-3">
+		<form method="post" action="reg.member" name="joinForm" onsubmit="return joinCheck();">
+			<table class="table table-bordered table-hover" style="text-align:center; border:1px solid #dddddd;">
+				<thead>
+					<tr>
+						<th colspan="3"><h4>회원 등록 양식</h4></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="width:110px;"><h5>아이디 *</h5></td>
+						<td><input class="form-control" type="text" id="m_id" name="m_id" maxlength="20" placeholder="아이디를 입력하세요" required="required"></td>
+						<td style="width:110px;"><button class="btn btn-dark" onclick="registerCheck()" type="button"><small>중복체크</small></button></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>비밀번호 *</h5></td>
+						<td colspan="2"><input class="form-control" onkeyup="passwordCheck();" type="password" id="userPassword1" name="m_pw" maxlength="20" placeholder="비밀번호를 입력하세요" required="required"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>비밀번호<br>확인 *</h5></td>
+						<td colspan="2"><input class="form-control" onkeyup="passwordCheck();" type="password" id="userPassword2" name="m_pwChk" maxlength="20" placeholder="비밀번호 확인을 입력하세요" required="required"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>이름</h5></td>
+						<td colspan="2"><input class="form-control" type="text" id="userName" name="m_name" maxlength="20" placeholder="이름을 입력하세요"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>이메일</h5></td>
+						<td colspan="2"><input class="form-control" type="email" id="userEmail" name="m_email" maxlength="20" placeholder="이메일을 입력하세요"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>우편번호</h5></td>
+						<td><input class="form-control m_addr3" type="text" id="m_addr3" name="m_addr3" maxlength="20" readonly="readonly" placeholder="주소찾기 버튼을 이용하세요"></td>
+						<td style="width:110px;"><button class="btn btn-dark" onclick="registerAddress()" type="button"><small>주소찾기</small></button></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>주소</h5></td>
+						<td colspan="2"><input class="form-control m_addr1" type="text" id="m_addr1" name="m_addr1" maxlength="20" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>상세주소</h5></td>
+						<td colspan="2"><input class="form-control" type="text" id="userEmail" name="m_addr2" maxlength="20" placeholder="상세주소를 입력하세요">
+											   <input class="form-control" type="hidden" id="m_code" name="m_code" maxlength="20" value="1">
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:left;" colspan="3"><h5 style="color:red;" id="passwordCheckMessage"></h5><button type="submit" class="btn btn-dark float-right"><small>회원가입</small></button></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 </section>
+
+
+		<div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			 	      <div class="modal-header" id="checkType">
+						<h5 class="modal-title" id="checkTitle"></h5>
+				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          		<span aria-hidden="true">&times;</span>
+				        	</button>
+			      	  </div>
+				      <div class="modal-body" id="checkMessage"></div>
+				      <div class="modal-footer">
+				        	<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				      </div>
+				</div>
+			</div>
+		</div>
+		
+		
 </body>
 </html>

@@ -2,9 +2,6 @@ package com.kyle.erp.member;
 
 import java.math.BigDecimal;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class Member {
 	private String m_id;
 	private BigDecimal m_code;
@@ -14,12 +11,14 @@ public class Member {
 	private String m_addr;
 	private String m_photo;
 
+	private String auth_name;
+	
 	public Member() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Member(String m_id, BigDecimal m_code, String m_pw, String m_name, String m_email, String m_addr,
-			String m_photo) {
+			String m_photo, String auth_name) {
 		super();
 		this.m_id = m_id;
 		this.m_code = m_code;
@@ -28,6 +27,7 @@ public class Member {
 		this.m_email = m_email;
 		this.m_addr = m_addr;
 		this.m_photo = m_photo;
+		this.auth_name = auth_name;
 	}
 
 	public String getM_id() {
@@ -85,5 +85,14 @@ public class Member {
 	public void setM_photo(String m_photo) {
 		this.m_photo = m_photo;
 	}
+
+	public String getAuth_name() {
+		return auth_name;
+	}
+
+	public void setAuth_name(String auth_name) {
+		this.auth_name = auth_name;
+	}
+
 	
 }

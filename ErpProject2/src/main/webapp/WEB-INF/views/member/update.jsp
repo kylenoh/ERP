@@ -8,64 +8,61 @@
 <title>Insert title here</title>
 </head>
 <body>
-<section class="container mt-3" style="max-width:560px;">
-	<form method="post" action="member.update" enctype="multipart/form-data" name="joinForm" onsubmit="return joinCheck();">
-		<div class="form-group">
-			<label>아이디</label>
-			<div class="input-group mb-3">
-  				<input type="text" class="form-control" value="${sessionScope.loginMember.m_id }" aria-describedby="basic-addon2" name="m_id" readonly="readonly">
-  					<div class="input-group-append">
-					    <span class="input-group-text" id="joinIdOk">ID확인</span>
-  					</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>회사코드</label>
-			<input type="text" name="m_code" class="form-control" value="${sessionScope.loginMember.m_code }" required="required" readonly="readonly">
-		</div>
-		<div class="form-group">
-			<label>비밀번호</label>
-			<input type="password" name="m_pw" class="form-control" value="${sessionScope.loginMember.m_pw }" required="required">
-		</div>
-		<div class="form-group">
-			<label>비밀번호확인</label>
-			<input type="password" name="m_pwChk" class="form-control" value="${sessionScope.loginMember.m_pw }" required="required">
-		</div>
-		<div class="form-group">
-			<label>이름</label>
-			<input type="text" name="m_name" value="${sessionScope.loginMember.m_name }" class="form-control">
-		</div>
-		<div class="form-group">
-			<label>이메일</label>
-			<input type="email" name="m_email" class="form-control"  value="${sessionScope.loginMember.m_email }" maxlength="20" placeholder="이메일">
-		</div>
-		<div class="form-group">
-			<label>우편번호</label>
-			<div class="input-group mb-3">
-  				<input type="text" class="form-control" value="${addr3 }" name="m_addr3" id="m_addr3" readonly="readonly">
-  					<div class="input-group-append">
-  						<button class="btn btn-outline-secondary" type="button" id="joinAddrSearchBtn"><i class="fas fa-search"></i></button>
-  					</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<label>주소</label>
-			<input type="text" name="m_addr1" id="m_addr1" class="form-control" maxlength="20" value="${addr1 }" readonly="readonly">
-		</div>
-		<div class="form-group">
-			<label>상세주소</label>
-			<input type="text" name="m_addr2" class="form-control" maxlength="20" value="${addr2 }">
-		</div>
-		<div class="form-group">
-			<label>프로필</label>
-			<img src="resources/file/${sessionScope.loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
-			<input type="file" name="m_photo" class="form-control" autocomplete="off">
-		</div>
-		<div class="form-group">
-					<button type="submit" class="btn btn-success">정보 수정</button>
-					<button type="button" class="btn btn-danger" onclick="deleteMember()">탈퇴</button>
-		</div>
-	</form>
+<section class="container mt-3">
+	<form method="POST" name="updateForm" action="member.update" onsubmit="return updateMemberCheck();">
+			<table class="table table-bordered table-hover" style="text-align:center; border:1px solid #dddddd;">
+				<thead>
+					<tr>
+						<th colspan="3"><h4>회원 등록 양식</h4></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="width:110px;"><h5>아이디</h5></td>
+						<td colspan="2"><h5>${sessionScope.loginMember.m_id }</h5>
+						<input type="hidden" name="m_id" value="${sessionScope.loginMember.m_id }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>비밀번호 *</h5></td>
+						<td colspan="2"><input class="form-control" onkeyup="passwordCheck();" type="password" id="userPassword1" name="m_pw" maxlength="20" placeholder="비밀번호를 입력하세요" required="required" value="${sessionScope.loginMember.m_pw }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>비밀번호<br>확인 *</h5></td>
+						<td colspan="2"><input class="form-control" onkeyup="passwordCheck();" type="password" id="userPassword2" name="m_pwChk" maxlength="20" placeholder="비밀번호 확인을 입력하세요" required="required" value="${sessionScope.loginMember.m_pw }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>이름</h5></td>
+						<td colspan="2"><input class="form-control" type="text" id="m_name" name="m_name" maxlength="20" placeholder="이름을 입력하세요" value="${sessionScope.loginMember.m_name }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>이메일</h5></td>
+						<td colspan="2"><input class="form-control" type="email" id="m_email" name="m_email" maxlength="20" placeholder="이메일을 입력하세요" value="${sessionScope.loginMember.m_email }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>우편번호</h5></td>
+						<td><input class="form-control m_addr3" type="text" id="m_addr3" name="m_addr3" maxlength="20" readonly="readonly" placeholder="주소찾기 버튼을 이용하세요" value="${addr3 }"></td>
+						<td style="width:110px;"><button class="btn btn-dark" onclick="registerAddress()" type="button"><small>주소찾기</small></button></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>주소</h5></td>
+						<td colspan="2"><input class="form-control m_addr1" type="text" id="m_addr1" name="m_addr1" maxlength="20" readonly="readonly" value="${addr1 }"></td>
+					</tr>
+					<tr>
+						<td style="width:110px;"><h5>상세주소</h5></td>
+						<td colspan="2"><input class="form-control" type="text" id="m_addr2" name="m_addr2" maxlength="20" placeholder="상세주소를 입력하세요" value="${addr2 }">
+											   <input class="form-control" type="hidden" id="m_code" name="m_code" maxlength="20" value="${sessionScope.loginMember.m_code }">
+						</td>
+					</tr>
+					<tr>
+						
+						<td style="text-align:left;" colspan="3"><h5 style="color:red;" id="passwordCheckMessage"></h5>
+							<button type="button" class="btn btn-danger float-right" onclick="deleteMember()">탈퇴</button>
+							<button type="submit" class="btn btn-dark float-right mr-2"><small>정보 수정</small></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
 </section>
 </body>
 </html>

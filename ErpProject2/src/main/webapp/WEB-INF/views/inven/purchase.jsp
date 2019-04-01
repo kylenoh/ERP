@@ -17,9 +17,9 @@
 			<option value="ps_cus">거래처명</option>
 		</select>
 		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-		<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal-xl">등록하기</a> 
-		<a class="btn btn-success mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
+		<button type="submit" class="btn btn-success mx-1 mt-2">검색</button>
+		<a class="btn btn-dark mx-1 mt-2" data-toggle="modal" href="#registerModal-xl">등록하기</a> 
+		<a class="btn btn-dark mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
 	</form>
 	<div class="container mt-4">
 		<h2>구매관리</h2>
@@ -158,36 +158,36 @@
 					
 					<div class="container mt-2">
 					<div class="form-group row">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>순서</th>
-									<th>품목코드</th>
-									<th>품목명</th>
-									<th>규격</th>
-									<th>수량</th>
-									<th>단가</th>
-									<th>공급가액</th>
-									<th>부가세</th>
-									<th>합계금액</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="i" begin="1" end="4">
+							<table class="table">
+								<thead>
 									<tr>
-										<td><input class="form-control ConnectNo" value="${i }" id ="s_no${i }"></td>
-										<td><input class="form-control s_pro_no${i } ConnectJS" id ="s_pro_no${i }" name="psb_pro_no" tabindex=8 autocomplete="off"></td>
-										<td><input class="form-control s_pro_name${i }" id ="s_pro_name${i }" readonly="readonly"></td>
-										<td><input class="form-control s_pro_unit${i }" id ="s_pro_unit${i }" readonly="readonly"></td>
-										<td><input class="form-control s_qty QtyJS" id ="s_qty${i }" name="psb_qty"tabindex=9 autocomplete="off"></td>
-										<td><input class="form-control s_pro_price${i }" id ="s_pro_price${i }" name="psb_pro_price" autocomplete="off"></td>
-										<td><input class="form-control s_price${i }" id ="s_price${i }" name="psb_price" autocomplete="off"></td>
-										<td><input class="form-control s_tax${i }" id ="s_tax${i }" name="psb_tax" autocomplete="off"></td>
-										<td><input class="form-control s_sum${i }" id ="s_sum${i }" name="psb_sum" autocomplete="off"></td>
+										<th>순서</th>
+										<th>품목코드</th>
+										<th>품목명</th>
+										<th>규격</th>
+										<th>수량</th>
+										<th>단가</th>
+										<th>공급가액</th>
+										<th>부가세</th>
+										<th>합계금액</th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach var="i" begin="1" end="4">
+										<tr>
+											<td><input class="form-control ConnectNo" value="${i }" id ="s_no${i }"></td>
+											<td><input class="form-control s_pro_no${i } ConnectJS" id ="s_pro_no${i }" name="psb_pro_no" tabindex=8 autocomplete="off"></td>
+											<td><input class="form-control s_pro_name${i }" id ="s_pro_name${i }" readonly="readonly"></td>
+											<td><input class="form-control s_pro_unit${i }" id ="s_pro_unit${i }" readonly="readonly"></td>
+											<td><input class="form-control s_qty QtyJS" id ="s_qty${i }" name="psb_qty"tabindex=9 autocomplete="off"></td>
+											<td><input class="form-control s_pro_price${i }" id ="s_pro_price${i }" name="psb_pro_price" autocomplete="off"></td>
+											<td><input class="form-control s_price${i }" id ="s_price${i }" name="psb_price" autocomplete="off"></td>
+											<td><input class="form-control s_tax${i }" id ="s_tax${i }" name="psb_tax" autocomplete="off"></td>
+											<td><input class="form-control s_sum${i }" id ="s_sum${i }" name="psb_sum" autocomplete="off"></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 					</div>
 		       </div>
 			</div>

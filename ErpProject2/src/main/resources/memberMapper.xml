@@ -7,14 +7,19 @@
 	<select id="getAllMember" resultType="com.kyle.erp.member.Member">
 		select * from erp_member order by m_name
 	</select>
-	<select id="getMemberById" 
-		parameterType="com.kyle.erp.member.Member" resultType="com.kyle.erp.member.Member">
+	<select id="getMemberById" parameterType="com.kyle.erp.member.Member" resultType="com.kyle.erp.member.Member">
 		select * from erp_member where m_id=#{m_id} 
 	</select>
 	<insert id="join" parameterType="com.kyle.erp.member.Member">
-		insert into erp_member values(#{m_id},#{m_code},#{m_pw},#{m_name},#{m_email},#{m_addr},#{m_photo})
+		insert into erp_member values(#{m_id},#{m_code},#{m_pw},#{m_name},#{m_email},#{m_addr},null)
 	</insert>
 	<update id="update" parameterType="com.kyle.erp.member.Member">
-		update erp_member set m_pw=#{m_pw}, m_name=#{m_name}, m_email=#{m_email}, m_addr=#{m_addr}, m_photo=#{m_photo} where m_id=#{m_id}
+		update erp_member set m_pw=#{m_pw}, m_name=#{m_name}, m_email=#{m_email}, m_addr=#{m_addr} where m_id=#{m_id}
 	</update>
+	<update id="updateProfile" parameterType="com.kyle.erp.member.Member">
+		update erp_member set m_photo = #{m_photo} where m_id = #{m_id}
+	</update>
+	<select id="getMemberList" parameterType="com.kyle.erp.member.Member" resultType="com.kyle.erp.member.Member">
+		select erp_member.m_id,m_name,m_email,auth_name from erp_member,erp_member_auth,erp_authority where erp_member.m_id = erp_member_auth.m_id and erp_member_auth.auth_key = erp_authority.auth_key and m_code =#{m_code}
+	</select>
 </mapper>

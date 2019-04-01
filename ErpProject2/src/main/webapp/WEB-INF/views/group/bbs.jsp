@@ -13,9 +13,9 @@
 <section class="container mt-3">
 		<form method="get" action="sns.search" class="form-inline mt-3">
 		<input type="text" name="b_owner" class="form-control mx-1 mt-2" placeholder="작성자">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
+		<button type="submit" class="btn btn-success mx-1 mt-2">검색</button>
 		<c:if test="${sessionScope.loginMember.m_id != null }">
-			<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a> 
+			<a class="btn btn-dark mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a> 
 		</c:if>
 	</form>
 	

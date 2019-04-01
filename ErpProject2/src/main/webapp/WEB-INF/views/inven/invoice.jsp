@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </header>
-            <main>
+            <div>
                 <div class="row contacts">
                     <div class="col invoice-to">
                         <div class="text-gray-light">INVOICE TO:</div>
@@ -101,7 +101,7 @@
                     <div>NOTICE:</div>
                     <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                 </div>
-            </main>
+            </div>
             <footer>
                 Invoice was created on a computer and is valid without the signature and seal.
             </footer>

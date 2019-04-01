@@ -92,16 +92,6 @@ alter table erp_sub_purchase add constraint erp_sub_purchase_const foreign key(p
 create sequence erp_sub_purchase_seq;
 drop table erp_sub_purchase cascade constraint;
 -- --------------------------------------
-create table erp_member(
-	m_id varchar2(20 char)primary key,
-	m_code number(5),
-	m_pw varchar2(20 char)not null,
-	m_name varchar2(20 char),
-	m_email varchar2(40 char),
-	m_addr varchar2(100 char),
-	m_photo varchar2(150 char)
-);
--- --------------------------------------
 create table erp_bbs(
 	b_no number(5)primary key,
 	b_owner varchar2(20 char),
@@ -145,3 +135,34 @@ create table erp_division(
 	d_note varchar2(20 char)not null
 );
 -- --------------------------------------
+create table erp_member(
+	m_id varchar2(20 char)primary key,
+	m_code number(5),
+	m_pw varchar2(20 char)not null,
+	m_name varchar2(20 char),
+	m_email varchar2(40 char),
+	m_addr varchar2(100 char),
+	m_photo varchar2(150 char)
+);
+-- --------------------------------------
+create table erp_authority(
+	auth_key number(5)primary key,
+	auth_name varchar2(20 char)
+);
+select * from erp_authority;
+insert into erp_authority values (1,'기본 권한')
+insert into erp_authority values (2,'구매 승인')
+insert into erp_authority values (3,'MASTER')
+-- --------------------------------------
+create table erp_member_auth(
+	m_id varchar2(20 char)primary key,
+	auth_key number(5)
+);
+alter table erp_member_auth add constraint erp_member_auth_const foreign key(auth_key) references erp_authority(auth_key) on delete cascade;
+alter table erp_member_auth add constraint erp_member_auth_m_id foreign key(m_id) references erp_member;
+
+select erp_member.m_id,m_name,m_email,auth_key from (erp_member inner join erp_member_auth on erp_member_auth.m_id = erp_member.m_id) where m_code = 1
+select erp_member.m_id,m_name,m_email,auth_name from erp_member,erp_member_auth,erp_authority where erp_member.m_id = erp_member_auth.m_id and erp_member_auth.auth_key = erp_authority.auth_key and m_code =1; 
+insert into erp_member_auth values('test',3);
+insert into erp_member_auth values('member1',1);
+

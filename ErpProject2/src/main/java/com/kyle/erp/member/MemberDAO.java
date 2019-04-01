@@ -1,10 +1,10 @@
 package com.kyle.erp.member;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class MemberDAO {
 					String m_id = c.getValue();
 					if (m_id != null && m_id != "") {
 						try {
-							Member m = new Member(m_id, null, null, null, null, null, null); 
+							Member m = new Member(m_id, null, null, null, null, null, null, null); 
 							Member dbM = ss.getMapper(MemberMapper.class).getMemberById(m);
 							if (dbM != null) {
 								req.getSession().setAttribute("loginMember", dbM);
@@ -80,50 +80,45 @@ public class MemberDAO {
 		return ms;
 	}
 
-	public void join(Member m, HttpServletRequest req) {
-		MultipartRequest mr = null;
-		String path = req.getSession().getServletContext().getRealPath("resources/file");
+	public void join(Member member, HttpServletRequest req, HttpServletResponse res) {
 		try {
-			mr = new MultipartRequest(req, path, 50 * 1024 * 1024, "utf-8", new DefaultFileRenamePolicy());
-		} catch (Exception e) {
-			req.setAttribute("r", "가입 실패");
-			return;
-		}
-
-		try {
-			m.setM_id(mr.getParameter("m_id"));
-			m.setM_code(new BigDecimal(mr.getParameter("m_code")));
-			m.setM_pw(mr.getParameter("m_pw"));
-			m.setM_name(mr.getParameter("m_name"));
-			m.setM_email(mr.getParameter("m_email"));
-			String m_addr = String.format("%s=%s=%s", mr.getParameter("m_addr1"), mr.getParameter("m_addr2"),
-					mr.getParameter("m_addr3"));
-			m.setM_addr(m_addr);
-			String m_photo = mr.getFilesystemName("m_photo");
-			m_photo = URLEncoder.encode(m_photo, "utf-8");
-			m_photo = m_photo.replace("+", " ");
-			m.setM_photo(m_photo);
-
-			if (ss.getMapper(MemberMapper.class).join(m) == 1) {
-				req.setAttribute("r", "가입 성공");
+			String m_addr = String.format("%s=%s=%s", req.getParameter("m_addr1"), req.getParameter("m_addr2"),
+					req.getParameter("m_addr3"));
+			member.setM_addr(m_addr);
+			int result =  ss.getMapper(MemberMapper.class).join(member);	
+			if (result==1) {
+				req.setAttribute("messageType", "성공 메시지");
+				req.setAttribute("messageContent", "회원가입에 성공했습니다.");
+				req.setAttribute("contentPage", "member/login.jsp");
+				return;
+			}else{
+				req.setAttribute("messageType", "오류메시지");
+				req.setAttribute("messageContent", "이미 존재하는 회원입니다.");
+				req.setAttribute("contentPage", "member/join.jsp");
+				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			req.setAttribute("r", "가입 실패");
-			File f = new File(path + "/" + mr.getFilesystemName("m_photo"));
-			f.delete();
+			req.setAttribute("messageType", "오류메시지");
+			req.setAttribute("messageContent", "데이터 베이스 오류");
+			req.setAttribute("contentPage", "member/join.jsp");
+			return;
 		}
+		
 	}
 
-	public void login(Member m, HttpServletRequest req, HttpServletResponse res) {
+	public void login(Member member, HttpServletRequest req, HttpServletResponse res) {
 		try {
-			Member dbM = ss.getMapper(MemberMapper.class).getMemberById(m);
+			Member dbM = ss.getMapper(MemberMapper.class).getMemberById(member);
 			if (dbM != null) {
-				if (m.getM_code().equals(dbM.getM_code())) {
-					if (m.getM_pw().equals(dbM.getM_pw())) {
+				if (member.getM_code().equals(dbM.getM_code())) {
+					if (member.getM_pw().equals(dbM.getM_pw())) {
 						req.getSession().setAttribute("loginMember", dbM);
 						req.getSession().setMaxInactiveInterval(15 * 60);
 
+						req.setAttribute("messageType", "성공 메시지");
+						req.setAttribute("messageContent", "로그인 되었습니다.");
+						
 						String m_auto = req.getParameter("m_auto");
 						if (m_auto != null) {
 							Cookie autoLoginID = new Cookie("autoLoginID", dbM.getM_id());
@@ -131,17 +126,22 @@ public class MemberDAO {
 							res.addCookie(autoLoginID);
 						}
 					} else {
-						req.setAttribute("r", "비번오류");
+						req.setAttribute("messageType", "오류 메시지");
+						req.setAttribute("messageContent", "비밀번호 오류입니다.");
 					}
 				}else {
-					req.setAttribute("r", "코드번호 오류");
+					req.setAttribute("messageType", "오류 메시지");
+					req.setAttribute("messageContent", "회사코드를 확인해주세요");
+
 				}
 			} else {
-				req.setAttribute("r", "미가입ID");
+				req.setAttribute("messageType", "오류 메시지");
+				req.setAttribute("messageContent", "가입되지 않은 아이디입니다.");
 			}
 
 		} catch (Exception e) {
-			req.setAttribute("r", "DB서버오류");
+			req.setAttribute("messageType", "오류 메시지");
+			req.setAttribute("messageContent", "DB관리자에게 문의 부탁드립니다.");
 		}
 	}
 
@@ -164,50 +164,80 @@ public class MemberDAO {
 		}
 	}
 
-	public void update(Member m, HttpServletRequest req) {
+	public void update(Member member, HttpServletRequest req,HttpServletResponse res) {
+		try {
+			String m_addr = String.format("%s=%s=%s", req.getParameter("m_addr1"), req.getParameter("m_addr2"),
+					req.getParameter("m_addr3"));
+			member.setM_addr(m_addr);
+			int result = ss.getMapper(MemberMapper.class).update(member);
+			if (result == 1) {
+				login(member, req, res);
+				req.setAttribute("messageType", "성공 메시지");
+				req.setAttribute("messageContent", "성공적으로 프로필이 변경되었습니다.");
+				return;
+			}else {
+				req.setAttribute("messageType", "오류 메시지");
+				req.setAttribute("messageContent", "프로필이 변경되지않았습니다.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateProfile(Member member, HttpServletRequest req, HttpServletResponse res) {
 		MultipartRequest mr = null;
 		String path = req.getSession().getServletContext().getRealPath("resources/file");
 		try {
 			mr = new MultipartRequest(req, path, 50 * 1024 * 1024, "utf-8", new DefaultFileRenamePolicy());
 		} catch (Exception e) {
-			req.setAttribute("r", "수정 실패");
+			req.setAttribute("messageType", "오류메시지");
+			req.setAttribute("messageContent", "파일 크기는 50MB를 초과할 수 없습니다.");
 			return;
 		}
 
 		try {
-			m.setM_id(mr.getParameter("m_id"));
-			m.setM_code(new BigDecimal(mr.getParameter("m_code")));
-			m.setM_pw(mr.getParameter("m_pw"));
-			m.setM_name(mr.getParameter("m_name"));
-			m.setM_email(mr.getParameter("m_email"));
-			String m_addr = String.format("%s=%s=%s", mr.getParameter("m_addr1"), mr.getParameter("m_addr2"),
-					mr.getParameter("m_addr3"));
-			m.setM_addr(m_addr);
-			String m_photo = mr.getFilesystemName("m_photo");
-
+			String m_id = mr.getParameter("m_id");
+			member.setM_id(m_id);
 			Member loginMember = (Member) req.getSession().getAttribute("loginMember");
+			
+			if (!m_id.equals(loginMember.getM_id())) {
+				req.setAttribute("messageType", "오류메시지");
+				req.setAttribute("messageContent", "접근할 수 없습니다.");
+				return;
+			}
+			String m_photo = mr.getFilesystemName("m_photo");
 			if (m_photo != null) {
 				m_photo = URLEncoder.encode(m_photo, "utf-8");
 				m_photo = m_photo.replace("+", " ");
-
-				String m_photo_before = loginMember.getM_photo();
-				m_photo_before = URLDecoder.decode(m_photo_before, "utf-8");
-
-				File f = new File(path + "/" + m_photo_before);
-				f.delete();
 			} else {
 				m_photo = loginMember.getM_photo();
 			}
-			m.setM_photo(m_photo);
-			if (ss.getMapper(MemberMapper.class).update(m) == 1) {
-				req.setAttribute("r", "수정 성공");
-				req.getSession().setAttribute("loginMember", m);
+			member.setM_photo(m_photo);
+			int result = ss.getMapper(MemberMapper.class).updateProfile(member);
+			String m_photo_before = loginMember.getM_photo();
+			if (m_photo_before != null) {
+				m_photo_before = URLDecoder.decode(m_photo_before, "utf-8");
+				File file = new File(path + "/" + m_photo_before);
+				file.delete();
+			}
+			if (result == 1) {
+				login(loginMember, req, res);
+				req.setAttribute("messageType", "성공 메시지");
+				req.setAttribute("messageContent", "성공적으로 프로필이 변경되었습니다.");
+				return;
+			}else{
+				req.setAttribute("messageType", "오류 메시지");
+				req.setAttribute("messageContent", "프로필이 변경되지않았습니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			req.setAttribute("r", "수정 실패");
-			File f = new File(path + "/" + mr.getFilesystemName("m_photo"));
-			f.delete();
 		}
+	}
+	
+	public void getMemberList(Member member, HttpServletRequest req, HttpServletResponse res){
+		Member loginMember = (Member) req.getSession().getAttribute("loginMember");
+		member.setM_code(loginMember.getM_code());
+		List<Member>members = ss.getMapper(MemberMapper.class).getMemberList(member);
+		req.setAttribute("membersList", members);
 	}
 }

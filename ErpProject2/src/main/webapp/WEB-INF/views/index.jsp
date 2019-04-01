@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/custom.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <script type="text/javascript" src="resources/js//jQuery.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/popper.js"></script>
@@ -19,13 +19,26 @@
 <script type="text/javascript" src="resources/js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript">
 $(function(){
-		connectSummonAddrInputEvent();
-		connectIdCheckEvent();
 		sales();
 		sales2();
 		stockChart();
+		callCurrency();
 });
 </script>
+<c:if test="${messageType != null }">
+	<script type="text/javascript">
+	$(function(){
+		var title = $('.modal-title').val();
+		if (title = '성공 메시지') {
+			$('#messageType').css('background-color','#dff0d8');
+			$('#messageModal').modal("show");
+		}else {
+			$('#messageType').css('background-color','#faebcc');
+			$('#messageModal').modal("show");
+		}
+	});
+	</script>
+</c:if>
 
 </head>
 <body>
@@ -62,6 +75,7 @@ $(function(){
 					<a class="dropdown-item" href="go.company">자사관리</a>
 					<a class="dropdown-item" href="go.container">창고관리</a> 
 					<a class="dropdown-item" href="go.currency">환율관리</a>
+					<a class="dropdown-item" href="go.memberList">직원관리</a>
 				</div>
 		</li>
 		</c:if>
@@ -70,9 +84,24 @@ $(function(){
 			<c:choose>
 				<c:when test="${loginMember!=null}">
 			       <div class="col-3 d-flex justify-content-end align-items-center">
-			    		<img src="resources/file/${loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
-        				<a class="btn btn-outline-success my-2 my-sm-0 mx-1" href="member.update.go">My Page</a>
-        				<a class="btn btn-outline-success my-2 my-sm-0" href="member.logout">Log Out</a>
+			       	<c:choose>
+						<c:when test="${sessionScope.loginMember.m_photo ==null }">
+							<img src="resources/file/profile.jpg" class="rounded-circle" style="max-width: 40px;">
+						</c:when>
+						<c:otherwise>
+			    			<img src="resources/file/${loginMember.m_photo }" class="rounded-circle" style="max-width: 40px;">
+						</c:otherwise>			       		
+			       	</c:choose>
+			    		<div class="dropdown">
+							  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    회원 관리
+							  </button>
+							  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							    <a class="dropdown-item" href="member.update.go">회원정보수정</a>
+							    <a class="dropdown-item" href="member.profile">프로필수정</a>
+							    <a class="dropdown-item" href="member.logout">로그아웃</a>
+							  </div>
+						</div>
 					</div>
 			    </c:when>         
 		    <c:otherwise>
@@ -85,16 +114,34 @@ $(function(){
   </nav>
 </header>
 
-<main role="main">
+<div class="main">
 	<jsp:include page="${contentPage }"></jsp:include>
-</main>
+</div>
 
-<footer class="footer">
+	<footer class="footer">
 		    <div class="container text-center">
 		      <small class="text-muted">Copyright &copy; 2019 Kyle All Rights Reserved.</small>
 		      <br>
 		      <small class="text-muted"><a href="#">Back to top</a></small>
 		    </div>
   	</footer>
+  	
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			 	      <div class="modal-header" id="messageType">
+						<h5 class="modal-title">${messageType}</h5>
+				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          		<span aria-hidden="true">&times;</span>
+				        	</button>
+			      	  </div>
+				      <div class="modal-body">${messageContent}</div>
+				      <div class="modal-footer">
+				        	<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				      </div>
+				</div>
+			</div>
+		</div>
+  	
 </body>
 </html>

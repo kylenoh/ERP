@@ -1,28 +1,42 @@
-
-function connectIdCheckEvent() {
-	$("#m_id").keyup(function() {
-		var id = $(this).val();
-
+//회원가입
+function registerCheck(){
+		var userID = $('#m_id').val();
 		$.ajax({
-			url : "member.id.check",
-			data : {
-				m_id : id
-			}, 
-			success : function(data) {
-				if (id.length == 0) {
-					$("#joinIdOk").text("ID입력");
-					
-				} else if ($(data).find("member").length == 1) {
-					$("#joinIdOk").text("ID중복");
-					
-				} else {
-					$("#joinIdOk").text("OK");
-					
+			type:'POST',
+			url:"member.id.check",
+			data:{m_id:userID},
+			success:function(data){
+				if (data.member[0] == null) {
+					$('#checkTitle').html('성공 메시지');
+					$('#checkMessage').html('사용 가능한  아이디입니다.');
+					$('#checkType').css('background-color','#dff0d8');
+				}else if (data.member[0].m_id == userID) {
+					$('#checkTitle').html('실패 메시지');
+					$('#checkMessage').html('사용할 수 없는 아이디입니다.');
+					$('#checkType').css('background-color','#faebcc');
 				}
+				$('#checkModal').modal("show");
 			}
 		});
+}
 
-	});
+function passwordCheck(){
+		var userPassword1 = $('#userPassword1').val();
+		var userPassword2 = $('#userPassword2').val();
+		if (userPassword1 != userPassword2) {
+			$('#passwordCheckMessage').html('비밀번호가 서로 일치하지 않습니다.');
+		}else{
+			$('#passwordCheckMessage').html('');
+		}
+}
+
+function registerAddress(){
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	$(".m_addr3").val(data.zonecode);
+	        	$(".m_addr1").val(data.address);
+	        }	
+	    }).open();
 }
 
 function joinCheck() {
@@ -33,42 +47,33 @@ function joinCheck() {
 	var m_addr1 = document.joinForm.m_addr1;
 	var m_addr2 = document.joinForm.m_addr2;
 	var m_addr3 = document.joinForm.m_addr3;
-	var m_photo = document.joinForm.m_photo;
 
-	if (isEmpty(m_id) || containsHS(m_id) || $("#joinIdOk").text() == "ID중복") {
-		alert("!");
+	if (isEmpty(m_id) || containsHS(m_id)) {
 		m_id.value = "";
 		m_id.focus();
 		return false;
 	} else if (isEmpty(m_pw) || notEquals(m_pw, m_pwChk)
 			|| notContains(m_pw, "1234567890")
 			|| notContains(m_pw, "qwertyuiopasdfghjklzxcvbnm")) {
-		alert("!");
 		m_pw.value = "";
 		m_pwChk.value = "";
 		m_pw.focus();
+		$('#checkTitle').html('실패 메시지');
+		$('#checkMessage').html('비밀번호는 영문과 숫자를 포함해야합니다. ');
+		$('#checkType').css('background-color','#faebcc');
+		$('#checkModal').modal("show");
 		return false;
 	} else if (isEmpty(m_name)) {
-		alert("!");
 		m_name.value = "";
 		m_name.focus();
 		return false;
 	} else if (isEmpty(m_addr1) || isEmpty(m_addr2) || isEmpty(m_addr3)) {
-		alert("!");
 		m_addr1.value = "";
 		m_addr2.value = "";
 		m_addr3.value = "";
 		m_addr1.focus();
 		return false;
-	} else if (isEmpty(m_photo)
-			|| (isNotType(m_photo, "png") && isNotType(m_photo, "jpg")
-					&& isNotType(m_photo, "gif") && isNotType(m_photo, "bmp") && isNotType(
-					m_photo, "jpeg"))) {
-		alert("!");
-		m_photo.value = "";
-		return false;
 	}
-
 	return true;
 }
 
@@ -82,66 +87,28 @@ function updateMemberCheck() {
 	var m_addr3 = document.updateForm.m_addr3;
 	var m_photo = document.updateForm.m_photo;
 	if (isEmpty(m_id) || containsHS(m_id)) {
-		alert("!");
 		m_id.value = "";
 		m_id.focus();
 		return false;
 	} else if (isEmpty(m_pw) || notEquals(m_pw, m_pwChk)
 			|| notContains(m_pw, "1234567890")
 			|| notContains(m_pw, "qwertyuiopasdfghjklzxcvbnm")) {
-		alert("!");
 		m_pw.value = "";
 		m_pwChk.value = "";
 		m_pw.focus();
 		return false;
 	} else if (isEmpty(m_name)) {
-		alert("!");
 		m_name.value = "";
 		m_name.focus();
 		return false;
 	} else if (isEmpty(m_addr1) || isEmpty(m_addr2) || isEmpty(m_addr3)) {
-		alert("!");
 		m_addr1.value = "";
 		m_addr2.value = "";
 		m_addr3.value = "";
 		m_addr1.focus();
 		return false;
-	} else if (isEmpty(m_photo)) {
-		return true;
-	} else if (isNotType(m_photo, "png") && isNotType(m_photo, "jpg")
-			&& isNotType(m_photo, "gif") && isNotType(m_photo, "bmp")
-			&& isNotType(m_photo, "jpeg")) {
-		alert("!");
-		m_photo.value = "";
-		return false;
-	}
-
-	return true;
-}
-
-function loginCheck() {
-	var m_id = document.loginForm.m_id;
-	var m_pw = document.loginForm.m_pw;
-
-	if (isEmpty(m_id) || isEmpty(m_pw)) {
-		alert("!");
-		m_id.value = "";
-		m_pw.value = "";
-		m_id.focus();
-		return false;
 	}
 	return true;
-}
-
-function connectSummonAddrInputEvent(){
-	$("#joinAddrSearchBtn").click(function(){
-		new daum.Postcode({
-	        oncomplete: function(data) {
-	        	$("#m_addr3").val(data.zonecode);
-	        	$("#m_addr1").val(data.address);
-	        }
-	    }).open();
-	});
 }
 
 

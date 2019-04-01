@@ -20,13 +20,26 @@ public class MemberController {
 		req.setAttribute("contentPage", "member/login.jsp");
 		return "index";
 	}
+	
+	@RequestMapping(value = "/go.memberList", method = RequestMethod.GET)
+	public String goMemberList(Member member,HttpServletRequest req, HttpServletResponse res) {
+		MDAO.getMemberList(member, req, res);
+		req.setAttribute("contentPage", "member/list.jsp");
+		return "index";
+	}
 
 	@RequestMapping(value = "/go.join", method = RequestMethod.GET)
 	public String goJoin(HttpServletRequest req, HttpServletResponse res) {
 		req.setAttribute("contentPage", "member/join.jsp");
 		return "index";
 	}
-
+	
+	@RequestMapping(value = "/member.profile", method = RequestMethod.GET)
+	public String goProfile(HttpServletRequest req, HttpServletResponse res) {
+		req.setAttribute("contentPage", "member/profileUpdate.jsp");
+		return "index";
+	}
+	
 	@RequestMapping(value = "/member.bye", method = RequestMethod.GET)
 	public String bye(HttpServletRequest req, HttpServletResponse res) {
 		MDAO.bye(req, res);
@@ -35,16 +48,15 @@ public class MemberController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/member.id.check", method = RequestMethod.GET, produces = "application/xml; charset=utf-8")
+	@RequestMapping(value = "/member.id.check", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public @ResponseBody Members idCheck(Member m) {
 		return MDAO.idCheck(m);
 	}
 
 	@RequestMapping(value = "/reg.member", method = RequestMethod.POST)
-	public String join(Member m, HttpServletRequest req) {
-		MDAO.join(m, req);
+	public String join(Member member, HttpServletRequest req, HttpServletResponse res) {
 		MDAO.loginCheck(req);
-		req.setAttribute("contentPage", "member/login.jsp");
+		MDAO.join(member, req, res);
 		return "index";
 	}
 
@@ -65,11 +77,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member.update", method = RequestMethod.POST)
-	public String update(Member m, HttpServletRequest req) {
+	public String update(Member member, HttpServletRequest req,HttpServletResponse res) {
 		MDAO.loginCheck(req);
-		MDAO.update(m, req);
+		MDAO.update(member, req, res);
 		MDAO.divideAddr(req);
 		req.setAttribute("contentPage", "member/update.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value = "/update.profile", method = RequestMethod.POST)
+	public String updateProfile(Member member,HttpServletRequest req,HttpServletResponse res) {
+		MDAO.updateProfile(member, req, res);
+		MDAO.loginCheck(req);
+		req.setAttribute("contentPage", "member/profileUpdate.jsp");
 		return "index";
 	}
 

@@ -16,9 +16,9 @@
 			<option value="cus_name">거래처명</option>
 		</select>
 		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-		<a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a> 
-		<a class="btn btn-success mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
+		<button type="submit" class="btn btn-success mx-1 mt-2">검색</button>
+		<a class="btn btn-dark mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a> 
+		<a class="btn btn-dark mx-1 mt-2" data-toggle="modal" href="#detailModal" hidden="">상세보기</a> 
 		<a class="btn btn-danger mx-1 mt-2" data-toggle="modal" href="#reportModal" hidden="">삭제하기</a> 
 	</form>
 	
