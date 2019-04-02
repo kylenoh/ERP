@@ -39,14 +39,13 @@
 				<c:forEach var="j" items="${i.s_subSales }">
 					<tbody>
 						<tr onclick="getSalesDetail('${i.s_no }','${i.s_date }','${i.s_cus }','${i.s_m_id }','${i.s_con }','${i.s_cur }','${i.s_type }','${i.s_note }')">
-							<td><input type="checkbox" class="checked"></td>
-							<td>${i.s_no }</td>
-							<td>${i.s_date }</td>
-							<td>${i.s_cus }</td>
-							<td><c:if test="${j.sb_pro_count >= 0}"> ${j.sb_pro_no } 외 ${j.sb_pro_count } 건</c:if></td>
-							<td><fmt:formatNumber value="${j.sb_sum }" pattern="#,###" /></td>
-							<td>${i.s_note }</td>
-							
+							<td align="center"><input type="checkbox" class="checked"></td>
+							<td align="center">${i.s_no }</td>
+							<td align="center">${i.s_date }</td>
+							<td align="center">${i.s_cus }</td>
+							<td align="center"><c:if test="${j.sb_pro_count >= 0}"> ${j.sb_pro_no } 외 ${j.sb_pro_count } 건</c:if></td>
+							<td align="center"><fmt:formatNumber value="${j.sb_sum }" pattern="#,###" /></td>
+							<td align="center">${i.s_note }</td>
 						</tr>
 					</tbody>
 				</c:forEach>
@@ -172,8 +171,9 @@
 									<th>합계금액</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="i" begin="1" end="4">
+						</table>
+						<table class="table" style="overflow-y:auto; height: 200px; display: block; ">
+								<c:forEach var="i" begin="1" end="20">
 									<tr>
 										<td><input class="form-control ConnectNo" value="${i }" id ="s_no${i }"></td>
 										<td><input class="form-control s_pro_no${i } ConnectJS" id ="s_pro_no${i }" name="sb_pro_no" tabindex=8 autocomplete="off"></td>
@@ -186,7 +186,6 @@
 										<td><input class="form-control s_sum${i }" id ="s_sum${i }" name="sb_sum" autocomplete="off"></td>
 									</tr>
 								</c:forEach>
-							</tbody>
 						</table>
 					</div>
 		       </div>
@@ -296,8 +295,9 @@
 									<th>합계금액</th>
 								</tr>
 							</thead>
-							<tbody>
-								<c:forEach var="i" begin="1" end="4">
+						</table>
+						<table class="table" style="overflow-y:auto; height: 200px; display: block; ">
+								<c:forEach var="i" begin="1" end="20">
 									<input class="form-control s_no" id ="d_sb_no${i }" name="s_no" autocomplete="off" hidden="">
 									<tr>
 										<td><input class="form-control DetailNo" value="${i }"></td>
@@ -311,7 +311,6 @@
 										<td><input class="form-control d_sum${i }" id ="d_sum${i }" name="s_sum"></td>
 									</tr>
 								</c:forEach>
-							</tbody>
 						</table>
 					</div>
 		       </div>
@@ -343,24 +342,12 @@
       </div>
       <div class="modal-body">
       
-      	<form method="get" action="search.customer" class="form-inline mt-3">
-		<select name ="searchType" class="form-control mx-1 mt-2">
-			<option value="cus_no">거래처코드</option>
-			<option value="cus_name">거래처명</option>
-		</select>
-		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-	</form>
-      
       <div class="container mt-3">
         <table class="table">
 			<thead>
 				<tr>
 					<th>거래처코드</th>
 					<th>상호명</th>
-					<th>등록번호</th>
-					<th>대표자</th>
-					<th>주소</th>
 					<th>거래처구분</th>
 					<th>비고</th>
 				</tr>
@@ -370,11 +357,7 @@
         </table>
         
         <nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <c:forEach var="z" begin="1" end="${pageCount }">
-			    	<li class="page-item"><a class="page-link" href="#" onclick="getCustomerPaging(${z})">${z }</a></li>
-			    </c:forEach>  
-			  </ul>
+			  <ul class="pagination customerModal"></ul>
 		</nav>
        </div>
         
@@ -401,15 +384,6 @@
       </div>
       <div class="modal-body">
       
-      	<form method="get" action="search.customer" class="form-inline mt-3">
-		<select name ="searchType" class="form-control mx-1 mt-2">
-			<option value="cus_no">창고코드</option>
-			<option value="cus_name">창고명</option>
-		</select>
-		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-	</form>
-      
       <div class="container mt-3">
         <table class="table">
 			<thead>
@@ -424,11 +398,7 @@
         </table>
         
          <nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <c:forEach var="z" begin="1" end="${pageCount }">
-			    	<li class="page-item"><a class="page-link" href="#" onclick="getContainerPaging(${z})">${z }</a></li>
-			    </c:forEach>  
-			  </ul>
+			 <ul class="pagination containerModal"></ul>
 		</nav>
        </div>
         
@@ -454,15 +424,6 @@
       </div>
       <div class="modal-body">
       
-      	<form method="get" action="search.customer" class="form-inline mt-3">
-		<select name ="searchType" class="form-control mx-1 mt-2">
-			<option value="pro_no">제품코드</option>
-			<option value="pro_name">제품명</option>
-		</select>
-		<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요">
-		<button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
-	</form>
-      
       <div class="container mt-3">
         <table class="table">
 			<thead>
@@ -481,11 +442,7 @@
         </table>
         
          <nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <c:forEach var="z" begin="1" end="${pageCount }">
-			    	<li class="page-item"><a class="page-link" href="#" onclick="getProductPaging(${z})">${z }</a></li>
-			    </c:forEach>  
-			  </ul>
+			  <ul class="pagination productModal"></ul>
 		</nav>
        </div>
         

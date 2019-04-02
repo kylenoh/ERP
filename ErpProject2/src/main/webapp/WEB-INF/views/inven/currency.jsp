@@ -55,11 +55,11 @@ function callCurrency(){
 			<c:forEach var="i" items="${currencys }">
 				<tbody>
 					<tr onclick="getCurrencyDetail('${i.cur_no }','${i.cur_name }','${i.cur_money }','${i.cur_note }')">
-						<td><input type="checkbox" class="checked" value="${i.cur_no }" ></td>
-						<td>${i.cur_no }</td>
-						<td>${i.cur_name }</td>
-						<td>${i.cur_money }</td>
-						<td>${i.cur_note }</td>
+						<td align="center"><input type="checkbox" class="checked" value="${i.cur_no }" ></td>
+						<td align="center">${i.cur_no }</td>
+						<td align="center">${i.cur_name }</td>
+						<td align="center">${i.cur_money }</td>
+						<td align="center">${i.cur_note }</td>
 					</tr>
 				</tbody>
 			</c:forEach>

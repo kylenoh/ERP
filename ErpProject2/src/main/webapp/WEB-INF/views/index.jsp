@@ -15,12 +15,13 @@
 <script type="text/javascript" src="resources/js/custom.js"></script>
 <script type="text/javascript" src="resources/js/validCheck.js"></script>
 <script type="text/javascript" src="resources/js/check.js"></script>
+<script type="text/javascript" src="resources/js/direct.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/jquery.canvasjs.min.js"></script>
 <script type="text/javascript">
 $(function(){
-		sales();
-		sales2();
+		setSalesReg();
+		setSalesDetail();
 		stockChart();
 		callCurrency();
 });

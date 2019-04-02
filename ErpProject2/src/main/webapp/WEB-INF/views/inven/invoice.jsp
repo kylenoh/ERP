@@ -59,7 +59,7 @@
                             <th>#</th>
                             <th class="text-left">DESCRIPTION</th>
                             <th class="text-left">HS CODE</th>
-                            <th class="text-left">QUANTITY</th>
+                            <th class="text-right">QUANTITY</th>
                             <th class="text-right">PRICE</th>
                             <th class="text-right">AMOUNT</th>
                         </tr>

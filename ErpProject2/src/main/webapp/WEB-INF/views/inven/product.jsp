@@ -40,14 +40,14 @@
 			<c:forEach var="i" items="${products }">
 				<tbody>
 					<tr onclick="getDetailProduct('${i.pro_no }','${i.pro_name }','${i.pro_unit }','${i.pro_weight }','${i.pro_buy }','${i.pro_sell }','${i.pro_hscode }','${i.pro_note }')">
-						<td><input type="checkbox" class="checked" value="${i.pro_no }" ></td>
-						<td>${i.pro_no }</td>
-						<td>${i.pro_name }</td>
-						<td>${i.pro_unit }</td>
-						<td>${i.pro_weight }</td>
-						<td><fmt:formatNumber value="${i.pro_buy }" pattern="#,###" /></td>
-						<td><fmt:formatNumber value="${i.pro_sell }" pattern="#,###" /></td>
-						<td>${i.pro_note }</td>
+						<td align="center"><input type="checkbox" class="checked" value="${i.pro_no }" ></td>
+						<td align="center">${i.pro_no }</td>
+						<td align="center">${i.pro_name }</td>
+						<td align="center">${i.pro_unit }</td>
+						<td align="center">${i.pro_weight }</td>
+						<td align="center"><fmt:formatNumber value="${i.pro_buy }" pattern="#,###" /></td>
+						<td align="center"><fmt:formatNumber value="${i.pro_sell }" pattern="#,###" /></td>
+						<td align="center">${i.pro_note }</td>
 					</tr>
 				</tbody>
 			</c:forEach>

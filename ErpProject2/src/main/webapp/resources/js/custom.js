@@ -1,28 +1,34 @@
+//고객관리////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function findCustomer() {
 	var url = "customer.pagingJSON";
 	$.getJSON(url, function(data) {
 		$(".CustomerList").empty();
+		$(".customerModal").empty();
 		var ar = data.customers;
+		var customerCount = data.customerCount;
 		$.each(ar, function(i, pack) {
 			var cus_no = pack.cus_no;
 			var cus_name = pack.cus_name;
-			var cus_regno = pack.cus_regno;
-			var cus_owner = pack.cus_owner;
-			var cus_addr = pack.cus_addr;
 			var cus_division = pack.cus_division;
 			var cus_note = pack.cus_note;
-			var td1 = $("<td></td>").text(cus_no);
-			var td2 = $("<td></td>").text(cus_name).attr("class", "cus_name");
-			var td3 = $("<td></td>").text(cus_regno);
-			var td4 = $("<td></td>").text(cus_owner);
-			var td5 = $("<td></td>").text(cus_addr);
-			var td6 = $("<td></td>").text(cus_division);
-			var td7 = $("<td></td>").text(cus_note);
-			var tr1 = $("<tr></tr>").append(td1, td2, td3, td4, td5, td6, td7)
+			var td1 = $("<td></td>").text(cus_no).css("text-align","center");
+			var td2 = $("<td></td>").text(cus_name).attr("class", "cus_name").css("text-align","center");
+			var td3 = $("<td></td>").text(cus_division).css("text-align","center");
+			var td4 = $("<td></td>").text(cus_note).css("text-align","center");
+			var tr1 = $("<tr></tr>").append(td1, td2, td3, td4)
 					.attr("class", i).attr("onclick", "goCustomer(" + i + ")");
 			$(".CustomerList").append(tr1);
-		});// 반복문종료
-	});// JSON종료
+		});
+		getCustomerCount(customerCount);
+	});
+}
+
+function getCustomerCount(customerCount){
+	for (var i = 1; i <= customerCount; i++) {
+		var a1 = $("<a></a>").attr("class","page-link").attr("onclick","getCustomerPaging("+i+")").text(i);
+		var li1 = $("<li></li>").attr("class","page-item").append(a1);
+		$(".customerModal").append(li1);
+	}
 }
 
 function goCustomer(i) {
@@ -40,31 +46,27 @@ function getCustomerPaging(c) {
 		$.each(ar, function(i, pack) {
 			var cus_no = pack.cus_no;
 			var cus_name = pack.cus_name;
-			var cus_regno = pack.cus_regno;
-			var cus_owner = pack.cus_owner;
-			var cus_addr = pack.cus_addr;
 			var cus_division = pack.cus_division;
 			var cus_note = pack.cus_note;
-			var td1 = $("<td></td>").text(cus_no);
-			var td2 = $("<td></td>").text(cus_name).attr("class", "cus_name");
-			var td3 = $("<td></td>").text(cus_regno);
-			var td4 = $("<td></td>").text(cus_owner);
-			var td5 = $("<td></td>").text(cus_addr);
-			var td6 = $("<td></td>").text(cus_division);
-			var td7 = $("<td></td>").text(cus_note);
-			var tr1 = $("<tr></tr>").append(td1, td2, td3, td4, td5, td6, td7)
+			var td1 = $("<td></td>").text(cus_no).css("text-align","center");
+			var td2 = $("<td></td>").text(cus_name).attr("class", "cus_name").css("text-align","center");
+			var td3 = $("<td></td>").text(cus_division).css("text-align","center");
+			var td4 = $("<td></td>").text(cus_note).css("text-align","center");
+			var tr1 = $("<tr></tr>").append(td1, td2, td3, td4)
 					.attr("class", i).attr("onclick", "goCustomer(" + i + ")");
 			$(".CustomerList").append(tr1);
 		});
 
 	});
 }
-
+//창고관리///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function findContainer() {
 	var url = "container.pagingJSON";
 	$.getJSON(url, function(data) {
 		$(".ContainerList").empty();
+		$(".containerModal").empty();
 		var ar = data.containers;
+		var containerCount = data.containerCount;
 		$.each(ar, function(i, pack) {
 			var con_no = pack.con_no;
 			var con_name = pack.con_name;
@@ -75,8 +77,17 @@ function findContainer() {
 			var tr1 = $("<tr></tr>").append(td1, td2, td3).attr("class", i)
 					.attr("onclick", "goContainer(" + i + ")");
 			$(".ContainerList").append(tr1);
-		});// 반복문종료
-	});// JSON종료
+		});
+		getContainerCount(containerCount);
+	});
+}
+
+function getContainerCount(containerCount){
+	for (var i = 1; i <= containerCount; i++) {
+		var a1 = $("<a></a>").attr("class","page-link").attr("onclick","getContainerPaging("+i+")").text(i);
+		var li1 = $("<li></li>").attr("class","page-item").append(a1);
+		$(".containerModal").append(li1);
+	}
 }
 
 function goContainer(i) {
@@ -104,43 +115,12 @@ function getContainerPaging(c) {
 
 	});
 }
-// 검색
-function goProduct(j,i) {
-	var no = ($(".ProductList ." + j + " .pro_no").text());
-	var name = ($(".ProductList ." + j + " .pro_name").text());
-	var unit = ($(".ProductList ." + j + " .pro_unit").text());
-	var price = ($(".ProductList ." + j + " .pro_sell").text());
-	$('#s_pro_no'+i).val(no);
-	$('#s_pro_name'+i).val(name);
-	$('#s_pro_unit'+i).val(unit);
-	$('#s_pro_price'+i).val(price);
-	$('.SelectProduct-modal-lg').modal('hide')
-	calculateQty();
-}
-
-function goProduct2(j,i) {
-	var no = ($(".ProductList ." + j + " .pro_no").text());
-	var name = ($(".ProductList ." + j + " .pro_name").text());
-	var unit = ($(".ProductList ." + j + " .pro_unit").text());
-	var price = ($(".ProductList ." + j + " .pro_sell").text());
-	$('#d_pro_no'+i).val(no);
-	$('#d_pro_name'+i).val(name);
-	$('#d_pro_unit'+i).val(unit);
-	$('#d_pro_price'+i).val(price);
-	$('.SelectProduct-modal-lg').modal('hide')
-	
-}
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getContainerDetail(con_no, con_name, con_note) {
 	$("#detailModal").modal();
 	$("#d_no").val(con_no);
 	$("#d_name").val(con_name);
 	$("#d_note").val(con_note);
-}
-
-function deleteContainer(con_no) {
-	var con_no = $("#d_no").val();
-	location.href = "delete.container?con_no=" + con_no;
 }
 
 function getCurrencyDetail(cur_no, cur_name, cur_money,cur_note) {
@@ -149,11 +129,6 @@ function getCurrencyDetail(cur_no, cur_name, cur_money,cur_note) {
 	$("#d_name").val(cur_name);
 	$("#d_money").val(cur_money);
 	$("#d_note").val(cur_note);
-}
-
-function deleteCurrency(cur_no) {
-	var cur_no = $("#d_no").val();
-	location.href = "delete.currency?cur_no=" + cur_no;
 }
 
 function getDetailCustomer(cus_no, cus_name, cus_regno, cus_owner, cus_addr,
@@ -169,11 +144,6 @@ function getDetailCustomer(cus_no, cus_name, cus_regno, cus_owner, cus_addr,
 	$("#d_note").val(cus_note);
 }
 
-function deleteCustomer(cus_no) {
-	var cus_no = $("#d_no").val();
-	location.href = "delete.customer?cus_no=" + cus_no;
-}
-
 function getDetailProduct(pro_no, pro_name, pro_unit, pro_weight, pro_buy,
 		pro_sell,pro_hscode,pro_note) {
 	$("#detailModal").modal();
@@ -186,18 +156,8 @@ function getDetailProduct(pro_no, pro_name, pro_unit, pro_weight, pro_buy,
 	$("#d_sell").val(pro_sell);
 	$("#d_note").val(pro_note);
 }
-
-function deleteCustomer(cus_no) {
-	var cus_no = $("#d_no").val();
-	location.href = "delete.customer?cus_no=" + cus_no;
-}
-
-function deleteProduct(pro_no) {
-	var pro_no = $("#d_no").val();
-	location.href = "delete.product?pro_no=" + pro_no;
-}
-// 프로덕트 불러오기
-function sales() {
+///전표 품목 불러오기////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function setSalesReg() {
 	var noCount = $('.ConnectJS');		//배열이 생성[0,1,2,3]	tr에 생김 
 		$('.ConnectJS').keyup(
 				function(e) {
@@ -215,7 +175,9 @@ function sales() {
 								$.getJSON(url, function(data) {
 									$('.SelectProduct-modal-lg').modal('show');
 									$(".ProductList").empty();
+									$(".productModal").empty();
 									var ar = data.products;
+									var productCount = data.productCount;
 									$.each(ar, function(j, pack) {
 										var pro_no = pack.pro_no;
 										var pro_name = pack.pro_name;
@@ -231,56 +193,65 @@ function sales() {
 										var td5 = $("<td></td>").text(pro_buy);
 										var td6 = $("<td></td>").text(pro_sell).attr("class", "pro_sell");
 										var td7 = $("<td></td>").text(pro_note);
-										tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "goProduct(" + j +","+targetConnect+")");
+										tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "setReg(" + j +","+targetConnect+")");
 										$(".ProductList").append(tr1);
 									});
+									getSalesRegCount(productCount,targetConnect);
 								});
 							}
 				});
 	calculateQty();
 }
 
-function sales2() {
-	var noCount = $('.ConnectJS2');		//배열이 생성[0,1,2,3]	tr에 생김 
-		$('.ConnectJS2').keyup(
-				function(e) {
-					var targetConnect = 0;
-					for(var i=0; i<noCount.length; i++ ){	//배열의 숫자 세기
-						var variable = $(noCount[i]).attr('id');
-						
-						var this1 = $(this).attr('id');
-						if (this1==variable) {	// 서로의 아이디가 일치하고
-							targetConnect = i+1;
-						}
-					}
-							if (e.keyCode == 13) {
-								var url = "product.pagingJSON";
-								$.getJSON(url, function(data) {
-									$('.SelectProduct-modal-lg').modal('show');
-									$(".ProductList").empty();
-									var ar = data.products;
-									$.each(ar, function(j, pack) {
-										var pro_no = pack.pro_no;
-										var pro_name = pack.pro_name;
-										var pro_unit = pack.pro_unit;
-										var pro_weight = pack.pro_weight;
-										var pro_buy = pack.pro_buy;
-										var pro_sell = pack.pro_sell;
-										var pro_note = pack.pro_note;
-										var td1 = $("<td></td>").text(pro_no).attr("class","pro_no");
-										var td2 = $("<td></td>").text(pro_name).attr("class", "pro_name");
-										var td3 = $("<td></td>").text(pro_unit).attr("class", "pro_unit");
-										var td4 = $("<td></td>").text(pro_weight);
-										var td5 = $("<td></td>").text(pro_buy);
-										var td6 = $("<td></td>").text(pro_sell).attr("class", "pro_sell");
-										var td7 = $("<td></td>").text(pro_note);
-										tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "goProduct2(" + j +","+targetConnect+")");
-										$(".ProductList").append(tr1);
-									});
-								});
-							}
-				});
-		calculateQty2();
+function getSalesRegCount(productCount,targetConnect){
+	for (var i = 1; i <= productCount; i++) {
+		var a1 = $("<a></a>").attr("class","page-link").attr("onclick","getSalesRegPaging("+i+","+targetConnect+")").text(i);
+		var li1 = $("<li></li>").attr("class","page-item").append(a1);
+		$(".productModal").append(li1);
+	}
+}
+
+function getSalesRegPaging(c,targetConnect) {
+	
+	var url = "product.pageChangeJSON?c="+c;
+	$.getJSON(url, function(data) {
+		var ar = data.products;
+		var productCount = data.productCount;
+		$(".ProductList").empty();
+		$(".productModal").empty();
+		$.each(ar, function(j, pack) {
+			var pro_no = pack.pro_no;
+			var pro_name = pack.pro_name;
+			var pro_unit = pack.pro_unit;
+			var pro_weight = pack.pro_weight;
+			var pro_buy = pack.pro_buy;
+			var pro_sell = pack.pro_sell;
+			var pro_note = pack.pro_note;
+			var td1 = $("<td></td>").text(pro_no).attr("class","pro_no");
+			var td2 = $("<td></td>").text(pro_name).attr("class", "pro_name");
+			var td3 = $("<td></td>").text(pro_unit).attr("class", "pro_unit");
+			var td4 = $("<td></td>").text(pro_weight);
+			var td5 = $("<td></td>").text(pro_buy);
+			var td6 = $("<td></td>").text(pro_sell).attr("class", "pro_sell");
+			var td7 = $("<td></td>").text(pro_note);
+			tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "setReg(" + j +","+targetConnect+")");
+			$(".ProductList").append(tr1);
+		});
+		getSalesRegCount(productCount,targetConnect);
+	});
+}
+
+function setReg(j,i) {
+	var no = ($(".ProductList ." + j + " .pro_no").text());
+	var name = ($(".ProductList ." + j + " .pro_name").text());
+	var unit = ($(".ProductList ." + j + " .pro_unit").text());
+	var price = ($(".ProductList ." + j + " .pro_sell").text());
+	$('#s_pro_no'+i).val(no);
+	$('#s_pro_name'+i).val(name);
+	$('#s_pro_unit'+i).val(unit);
+	$('#s_pro_price'+i).val(price);
+	$('.SelectProduct-modal-lg').modal('hide')
+	calculateQty();
 }
 
 function calculateQty(){
@@ -302,6 +273,102 @@ function calculateQty(){
 			$('.s_sum'+count).attr('value', s_price + (s_price * 0.1));
 	});
 }
+//전표 디테일 불러오기///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function setSalesDetail() {
+	var noCount = $('.ConnectJS2');		//배열이 생성[0,1,2,3]	tr에 생김 
+		$('.ConnectJS2').keyup(
+				function(e) {
+					var targetConnect = 0;
+					for(var i=0; i<noCount.length; i++ ){	//배열의 숫자 세기
+						var variable = $(noCount[i]).attr('id');
+						
+						var this1 = $(this).attr('id');
+						if (this1==variable) {	// 서로의 아이디가 일치하고
+							targetConnect = i+1;
+						}
+					}
+					if (e.keyCode == 13) {
+								var url = "product.pagingJSON";
+								$.getJSON(url, function(data) {
+									$('.SelectProduct-modal-lg').modal('show');
+									$(".ProductList").empty();
+									$(".productModal").empty();
+									var ar = data.products;
+									var productCount = data.productCount;
+									$.each(ar, function(j, pack) {
+										var pro_no = pack.pro_no;
+										var pro_name = pack.pro_name;
+										var pro_unit = pack.pro_unit;
+										var pro_weight = pack.pro_weight;
+										var pro_buy = pack.pro_buy;
+										var pro_sell = pack.pro_sell;
+										var pro_note = pack.pro_note;
+										var td1 = $("<td></td>").text(pro_no).attr("class","pro_no");
+										var td2 = $("<td></td>").text(pro_name).attr("class", "pro_name");
+										var td3 = $("<td></td>").text(pro_unit).attr("class", "pro_unit");
+										var td4 = $("<td></td>").text(pro_weight);
+										var td5 = $("<td></td>").text(pro_buy);
+										var td6 = $("<td></td>").text(pro_sell).attr("class", "pro_sell");
+										var td7 = $("<td></td>").text(pro_note);
+										tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "setDetail(" + j +","+targetConnect+")");
+										$(".ProductList").append(tr1);
+									});
+									getProductCount(productCount,targetConnect);
+								});
+					}
+				});
+		calculateQty2();
+}
+
+function getProductCount(productCount,targetConnect){
+	for (var i = 1; i <= productCount; i++) {
+		var a1 = $("<a></a>").attr("class","page-link").attr("onclick","getProductPaging("+i+","+targetConnect+")").text(i);
+		var li1 = $("<li></li>").attr("class","page-item").append(a1);
+		$(".productModal").append(li1);
+	}
+}
+
+function getProductPaging(c,targetConnect) {
+				
+	var url = "product.pageChangeJSON?c="+c;
+	$.getJSON(url, function(data) {
+		var ar = data.products;
+		var productCount = data.productCount;
+		$(".ProductList").empty();
+		$(".productModal").empty();
+		$.each(ar, function(j, pack) {
+			var pro_no = pack.pro_no;
+			var pro_name = pack.pro_name;
+			var pro_unit = pack.pro_unit;
+			var pro_weight = pack.pro_weight;
+			var pro_buy = pack.pro_buy;
+			var pro_sell = pack.pro_sell;
+			var pro_note = pack.pro_note;
+			var td1 = $("<td></td>").text(pro_no).attr("class","pro_no");
+			var td2 = $("<td></td>").text(pro_name).attr("class", "pro_name");
+			var td3 = $("<td></td>").text(pro_unit).attr("class", "pro_unit");
+			var td4 = $("<td></td>").text(pro_weight);
+			var td5 = $("<td></td>").text(pro_buy);
+			var td6 = $("<td></td>").text(pro_sell).attr("class", "pro_sell");
+			var td7 = $("<td></td>").text(pro_note);
+			tr1 = $("<tr></tr>").append(td1, td2, td3, td4,	td5, td6, td7).attr("class", j).attr("onclick", "setDetail(" + j +","+targetConnect+")");
+			$(".ProductList").append(tr1);
+		});
+		getProductCount(productCount,targetConnect);
+	});
+}
+
+function setDetail(j,i) {
+	var no = ($(".ProductList ." + j + " .pro_no").text());
+	var name = ($(".ProductList ." + j + " .pro_name").text());
+	var unit = ($(".ProductList ." + j + " .pro_unit").text());
+	var price = ($(".ProductList ." + j + " .pro_sell").text());
+	$('#d_pro_no'+i).val(no);
+	$('#d_pro_name'+i).val(name);
+	$('#d_pro_unit'+i).val(unit);
+	$('#d_pro_price'+i).val(price);
+	$('.SelectProduct-modal-lg').modal('hide')
+}
 
 function calculateQty2(){
 	var qtyCount =$('.QtyJS2');
@@ -322,7 +389,7 @@ function calculateQty2(){
 			$('#d_sum'+count).val(d_price+(d_price * 0.1));
 	});
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getSalesDetail(s_no,s_date, s_cus, s_m_id, s_con, s_cur, s_type,s_note) {
 	$("#detailModal").modal();
 	$("#d_no").val(s_no);
@@ -352,7 +419,6 @@ function getSubSales(s_no){
 			$('#d_price'+cost).val(ar[i].sb_price);
 			$('#d_tax'+cost).val(ar[i].sb_tax);
 			$('#d_sum'+cost).val(ar[i].sb_sum);
-			
 		}
 	});
 }
@@ -390,40 +456,12 @@ function getSubPurchases(s_no){
 	});
 }
 
-function deleteSales() {
-	var d_no = $("#d_no").val();
-	location.href = "delete.sales?s_no=" + d_no;
-}
-
-function deletePurchase() {
-	var d_no = $("#d_no").val();
-	location.href = "delete.purchase?ps_no=" + d_no;
-}
-
-function deleteMember(){
-	if (confirm("정말 탈퇴하시겠습니까?")) {
-		location.href = "member.bye";
-	}
-}
-
 function autoClosingAlert(selector,delay){
 	var alert = $(selector).alert();
 	alert.show();
 	window.setTimeout(function(){
 		alert.hide();
 		},delay);
-}
-
-function bbsReplDelete(br_no) {
-	if (confirm("삭제하시겠습니까?")) {
-		location.href = "bbs.reply.delete?br_no=" + br_no;
-	}
-}
-
-function bbsDelete(b_no) {
-	if (confirm("삭제하시겠습니까?")) {
-		location.href = "bbs.delete?b_no=" + b_no;
-	}
 }
 
 function subSalesSubmit(){
@@ -710,11 +748,6 @@ function salesUpdate(){
 			});
 }
 
-function goInvoice(){
-	var d_no = $('#d_no').val();
-	location.href="go.invoice?d_no="+d_no;
-}
-
 function InvoiceCalculate(){
 	var totalNo = $('.no');
 	var sum = 0;
@@ -809,4 +842,9 @@ function WriteChart(con, graphSale,graphpurchase){
 			}]
 		});
 		chart.render();
+}
+
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 }

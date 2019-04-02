@@ -73,6 +73,7 @@ tr th:LAST-CHILD {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
 /* 메인 */
 .carousel {
 	margin-bottom: 4rem;

@@ -91,19 +91,14 @@ public class ProductDAO {
 	}
 
 //	JSON
-	public Products searchProductsJSON(SearchProduct s) {
-		List<Product> c1 = ss.getMapper(ProductMapper.class).searchProduct(s);
-		Products c2 = new Products(c1);
-		return c2;
-	}
 	public Products pagingProductsJSON(int pageNo, Product c){
 		double count = 5.0;
-		int pageCount = (int) Math.ceil(ProductCount / count);
+		int productCount = (int) Math.ceil(ProductCount / count);
 		int start = (ProductCount - ((pageNo - 1) * (int) count));
-		int end = (pageNo == pageCount) ? 1 : (start - ((int) count - 1));
+		int end = (pageNo == productCount) ? 1 : (start - ((int) count - 1));
 		ProductNo productno = new ProductNo(new BigDecimal(start),new BigDecimal(end));
 		List<Product>c1 = ss.getMapper(ProductMapper.class).getProduct(productno);
-		Products c2 = new Products(c1);
+		Products c2 = new Products(c1,productCount);
 		return c2;
 	}
 	

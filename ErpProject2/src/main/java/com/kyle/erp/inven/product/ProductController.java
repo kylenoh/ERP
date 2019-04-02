@@ -59,14 +59,11 @@ public class ProductController {
 		return "index";
 	}
 //	JSON
-	@RequestMapping(value = "/product.searchJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody Products searchProduct(SearchProduct s) {
-		return PDAO.searchProductsJSON(s);
-	}
 	@RequestMapping(value = "/product.pagingJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody Products pagingProduct(Product c,HttpServletRequest req) {
 		return PDAO.pagingProductsJSON(1, c);
 	}
+	
 	@RequestMapping(value = "/product.pageChangeJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody Products pageChangeProduct(Product c,HttpServletRequest req) {
 		int pageNo = Integer.parseInt(req.getParameter("c"));

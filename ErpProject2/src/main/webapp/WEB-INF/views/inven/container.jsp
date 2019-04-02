@@ -35,10 +35,10 @@
 			<c:forEach var="i" items="${containers }">
 				<tbody>
 					<tr onclick="getContainerDetail('${i.con_no }','${i.con_name }','${i.con_note }')">
-						<td><input type="checkbox" class="checked" value="${i.con_no }" ></td>
-						<td>${i.con_no }</td>
-						<td>${i.con_name }</td>
-						<td>${i.con_note }</td>
+						<td align="center"><input type="checkbox" class="checked" value="${i.con_no }" ></td>
+						<td align="center">${i.con_no }</td>
+						<td align="center">${i.con_name }</td>
+						<td align="center">${i.con_note }</td>
 					</tr>
 				</tbody>
 			</c:forEach>

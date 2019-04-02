@@ -27,7 +27,6 @@ create table erp_container(
 	con_name varchar2(30 char)not null,
 	con_note varchar2(2048 char)not null
 );
-select * from ERP_CONTAINER
 create sequence erp_container_seq;
 -- --------------------------------------
 create table erp_currency(
@@ -76,7 +75,6 @@ create table erp_purchase(
 	ps_note varchar2(2048 char)
 );
 create sequence erp_purchase_seq;
-drop table erp_purchase cascade constraint;
 -- --------------------------------------
 create table erp_sub_purchase(
 	psb_no number(5)primary key,
@@ -90,7 +88,6 @@ create table erp_sub_purchase(
 );
 alter table erp_sub_purchase add constraint erp_sub_purchase_const foreign key(psb_s_no) references erp_purchase(ps_no) on delete cascade;
 create sequence erp_sub_purchase_seq;
-drop table erp_sub_purchase cascade constraint;
 -- --------------------------------------
 create table erp_bbs(
 	b_no number(5)primary key,
@@ -102,8 +99,6 @@ create table erp_bbs(
 	b_img varchar2(1000 char)
 );
 create sequence erp_bbs_seq;
-drop table erp_bbs cascade constraint;
-drop table erp_bbs_reply cascade constraint;
 -- --------------------------------------
 create table erp_bbs_reply(
 	br_no number(5)primary key,
@@ -160,9 +155,4 @@ create table erp_member_auth(
 );
 alter table erp_member_auth add constraint erp_member_auth_const foreign key(auth_key) references erp_authority(auth_key) on delete cascade;
 alter table erp_member_auth add constraint erp_member_auth_m_id foreign key(m_id) references erp_member;
-
-select erp_member.m_id,m_name,m_email,auth_key from (erp_member inner join erp_member_auth on erp_member_auth.m_id = erp_member.m_id) where m_code = 1
-select erp_member.m_id,m_name,m_email,auth_name from erp_member,erp_member_auth,erp_authority where erp_member.m_id = erp_member_auth.m_id and erp_member_auth.auth_key = erp_authority.auth_key and m_code =1; 
-insert into erp_member_auth values('test',3);
-insert into erp_member_auth values('member1',1);
 

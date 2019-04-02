@@ -166,7 +166,10 @@
 								</div>
 								<div class="form-group">
 									<label>회사 로고</label>
-									<input type="file" name="com_logo" class="form-control" autocomplete="off">
+									<div class="filebox">
+		  								<label for="com_logo">이미지를 업로드하세요.</label>
+										<input type="file" class="form-control" id="com_logo" placeholder="이미지를 업로드하세요." name="com_logo">
+									</div>
 								</div>
 						</div>
 						<div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
@@ -244,7 +247,10 @@
 								</div>
 								<div class="form-group">
 									<label>회사 로고</label>
-									<input type="file" name="com_logo" class="form-control" autocomplete="off" value="${company.com_logo}">
+									<div class="filebox">
+		  								<label for="com_logo">이미지를 업로드하세요.</label>
+										<input type="file" class="form-control" id="com_logo" value="${company.com_logo}" placeholder="이미지를 업로드하세요." name="com_logo">
+									</div>
 								</div>
 						</div>
 						<div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">

@@ -91,20 +91,14 @@ public class CustomerDAO {
 	}
 
 //	JSON
-	public Customers searchCustomersJSON(SearchType s) {
-		List<Customer> c1 = ss.getMapper(CustomerMapper.class).searchCustomer(s);
-		Customers c2 = new Customers(c1);
-		return c2;
-	}
 	public Customers pagingCustomersJSON(int pageNo, Customer c){
 		double count = 5.0;
-		int pageCount = (int) Math.ceil(CustomerCount / count);
+		int customerCount = (int) Math.ceil(CustomerCount / count);
 		int start = (CustomerCount - ((pageNo - 1) * (int) count));
-		int end = (pageNo == pageCount) ? 1 : (start - ((int) count - 1));
+		int end = (pageNo == customerCount) ? 1 : (start - ((int) count - 1));
 		CustomerNo customerno = new CustomerNo(new BigDecimal(start),new BigDecimal(end));
 		List<Customer>c1 = ss.getMapper(CustomerMapper.class).getCustomer(customerno);
-		Customers c2 = new Customers(c1);
+		Customers c2 = new Customers(c1, customerCount);
 		return c2;
 	}
-	
 }

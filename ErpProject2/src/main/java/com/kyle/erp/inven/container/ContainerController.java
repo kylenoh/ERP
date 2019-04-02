@@ -59,10 +59,6 @@ public class ContainerController {
 		return "index";
 	}
 //	JSON
-	@RequestMapping(value = "/container.searchJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody Containers searchContainer(SearchContainer s) {
-		return CONDAO.searchContainersJSON(s);
-	}
 	@RequestMapping(value = "/container.pagingJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody Containers pagingContainer(Container container,HttpServletRequest req) {
 		return CONDAO.pagingContainersJSON(1, container);

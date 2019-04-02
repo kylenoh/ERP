@@ -72,6 +72,10 @@ function joinCheck() {
 		m_addr2.value = "";
 		m_addr3.value = "";
 		m_addr1.focus();
+		$('#checkTitle').html('실패 메시지');
+		$('#checkMessage').html('주소를 입력해주세요');
+		$('#checkType').css('background-color','#faebcc');
+		$('#checkModal').modal("show");
 		return false;
 	}
 	return true;
@@ -96,6 +100,10 @@ function updateMemberCheck() {
 		m_pw.value = "";
 		m_pwChk.value = "";
 		m_pw.focus();
+		$('#checkTitle').html('실패 메시지');
+		$('#checkMessage').html('비밀번호는 영문과 숫자를 포함해야합니다. ');
+		$('#checkType').css('background-color','#faebcc');
+		$('#checkModal').modal("show");
 		return false;
 	} else if (isEmpty(m_name)) {
 		m_name.value = "";
@@ -106,6 +114,10 @@ function updateMemberCheck() {
 		m_addr2.value = "";
 		m_addr3.value = "";
 		m_addr1.focus();
+		$('#checkTitle').html('실패 메시지');
+		$('#checkMessage').html('주소를 입력해주세요');
+		$('#checkType').css('background-color','#faebcc');
+		$('#checkModal').modal("show");
 		return false;
 	}
 	return true;

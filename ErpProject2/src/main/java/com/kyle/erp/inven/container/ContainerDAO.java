@@ -89,19 +89,14 @@ public class ContainerDAO {
 	}
 
 //	JSON
-	public Containers searchContainersJSON(SearchContainer s) {
-		List<Container> c1 = ss.getMapper(ContainerMapper.class).searchContainer(s);
-		Containers c2 = new Containers(c1);
-		return c2;
-	}
 	public Containers pagingContainersJSON(int pageNo, Container c){
 		double count = 5.0;
-		int pageCount = (int) Math.ceil(ContainerCount / count);
+		int containerCount = (int) Math.ceil(ContainerCount / count);
 		int start = (ContainerCount - ((pageNo - 1) * (int) count));
-		int end = (pageNo == pageCount) ? 1 : (start - ((int) count - 1));
+		int end = (pageNo == containerCount) ? 1 : (start - ((int) count - 1));
 		ContainerNo containerno = new ContainerNo(new BigDecimal(start),new BigDecimal(end));
 		List<Container>c1 = ss.getMapper(ContainerMapper.class).getContainer(containerno);
-		Containers c2 = new Containers(c1);
+		Containers c2 = new Containers(c1,containerCount);
 		return c2;
 	}
 	

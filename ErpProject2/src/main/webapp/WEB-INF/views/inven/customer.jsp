@@ -40,14 +40,14 @@
 			<c:forEach var="i" items="${customers }">
 				<tbody>
 					<tr onclick="getDetailCustomer('${i.cus_no }','${i.cus_name }','${i.cus_regno }','${i.cus_owner }','${i.cus_addr }','${i.cus_division }','${i.cus_email }','${i.cus_note }')">
-						<td><input type="checkbox" class="checked" value="${i.cus_no }" ></td>
-						<td>${i.cus_no }</td>
-						<td>${i.cus_name }</td>
-						<td>${i.cus_regno }</td>
-						<td>${i.cus_owner }</td>
-						<td>${i.cus_addr }</td>
-						<td>${i.cus_division }</td>
-						<td>${i.cus_note }</td>
+						<td align="center"><input type="checkbox" class="checked" value="${i.cus_no }" ></td>
+						<td align="center">${i.cus_no }</td>
+						<td align="center">${i.cus_name }</td>
+						<td align="center">${i.cus_regno }</td>
+						<td align="center">${i.cus_owner }</td>
+						<td align="center">${i.cus_addr }</td>
+						<td align="center">${i.cus_division }</td>
+						<td align="center">${i.cus_note }</td>
 					</tr>
 				</tbody>
 			</c:forEach>

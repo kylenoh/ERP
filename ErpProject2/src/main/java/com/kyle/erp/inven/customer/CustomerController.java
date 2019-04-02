@@ -58,16 +58,12 @@ public class CustomerController {
 		return "index";
 	}
 //	JSON
-	@RequestMapping(value = "/customer.searchJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody Customers searchCustomer(SearchType s) {
-		return CDAO.searchCustomersJSON(s);
-	}
 	@RequestMapping(value = "/customer.pagingJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody Customers pagingCustomer(Customer c,HttpServletRequest req) {
+	public @ResponseBody Customers pagingCustomer(Customer c,HttpServletRequest req,HttpServletResponse res) {
 		return CDAO.pagingCustomersJSON(1, c);
 	}
 	@RequestMapping(value = "/customer.pageChangeJSON", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public @ResponseBody Customers pageChangeCustomer(Customer c,HttpServletRequest req) {
+	public @ResponseBody Customers pageChangeCustomer(Customer c,HttpServletRequest req,HttpServletResponse res) {
 		int pageNo = Integer.parseInt(req.getParameter("c"));
 		return CDAO.pagingCustomersJSON(pageNo, c);
 	}
